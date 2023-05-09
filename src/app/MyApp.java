@@ -69,6 +69,7 @@ public class MyApp {
 				System.out.println("hello chu tich");
 				System.out.println("Hello Anh Hai");
 				System.out.println("Hello Anh Phát 2 chai, Chủ tịch đã xem");
+				System.out.println("Hello PHi chai, Chủ tịch đã xem");
 				System.out.println("   Đăng Nhập");
 				System.out.print("      user    : ");
 				user = sc.nextLine();
