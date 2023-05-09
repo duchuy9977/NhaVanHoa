@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import connection.ConnectionUtil;
+import entities.Account;
+import entities.GiaoVien;
+import function.Function;
 
 public class MyApp {
 	public static String user = null;
@@ -51,45 +54,21 @@ public class MyApp {
 		return result;
 	}
 	
-	public static boolean generate(String year) {
-		Connection conn = ConnectionUtil.getConnection();
-		PreparedStatement prstmt = null;
-		int count = 0;
-		//Kết quả trả về
-		boolean result = false;
-		
-		String sql =  "EXEC AUTO_CREATE_BUOIHOC @year = ?";
-		
-		try {
-			prstmt = conn.prepareStatement(sql);
-			prstmt.setString(1, year);
-			count = prstmt.executeUpdate();
-			
-			System.out.println("Có " + count + " bản lưu được tao mới");
-		}  catch (SQLException e) {
-			System.out.println("Lỗi trong lúc tương tác với dữ liệu");
-			System.out.println(e.getMessage());
-		} finally {
-			ConnectionUtil.closeConnection(null, prstmt, conn);
-		}		
-		return result;
-	}
-	
-	
 	public static void main(String[] args) {
+		Connection conn = ConnectionUtil.getConnection();
 		//Chức năng Login
 		Scanner sc = new Scanner(System.in);
+		Function function = new Function();
 		
 		while(true) {
 			do {
 				System.out.println("===============================================");
-				System.out.println("Xin Chào HuyTV28");
-				System.out.println("CMM");
 				System.out.println("   Đăng Nhập");
 				System.out.print("      user    : ");
 				user = sc.nextLine();
 				System.out.print("      password: ");
 				password = sc.nextLine();
+				System.out.println("===============================================");
 				
 			} while (!login(user, password));
 			
@@ -98,14 +77,16 @@ public class MyApp {
 			if(role.equals("admin")) {
 				String choice = "a";
 				while(!choice.equals("0")) {
-					System.out.println("===============================================");
 					System.out.println("Chào mừng trở lại "+ roleName + " " + name + "!!!");
 					System.out.println("Mời nhập chức năng bạn muốn sử dụng");
 					System.out.println("   1. Cập nhật thông tin cá nhân");
 					System.out.println("   2. Quản lý Môn học");
 					System.out.println("   3. Quản lý lớp học");
 					System.out.println("   4. Đăng Thông tin tuyển sinh");
-					System.out.println("   5. Tạo các ca học cho năm");
+					System.out.println("   5. Xem tình trạng đơn đăng kí Lớp học");
+					System.out.println("   6. Xem tình trạng đơn đăng kí Ca dạy");
+					System.out.println("   7. Thêm mới giáo viên");
+					System.out.println("   8. Tạo mới Account");
 					System.out.println("   0. Đăng Xuất");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
@@ -126,13 +107,22 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Đăng Thông tin tuyển sinh!");
 						break;
 					case "5": 
-						System.out.println("Bạn đã chọn chức năng Tạo các ca học cho năm!");
-						System.out.println("Mời nhập năm");
-						String year = sc.nextLine();
-						generate(year);
+						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Lớp học!");
 						break;
 					case "6": 
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Ca dạy!");
+						break;
+					case "7": 
+						System.out.println("Bạn đã chọn chức năng Xem thêm mới giáo viên!");
+						GiaoVien x = new GiaoVien();
+						x.inputInfo();
+						function.insertGiaoVien(x);
+						break;
+					case "8": 
+						System.out.println("Bạn đã chọn chức năng tạo mới Account!");
+						Account y = new Account();
+						y.inputInfo();
+						function.addAccount(y);
 						break;
 					case "0": 
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
@@ -195,6 +185,8 @@ public class MyApp {
 					System.out.println("   3. Xem ca dạy");
 					System.out.println("   4. Đăng kí Ca dạy");
 					System.out.println("   5. Xem tình trạng đơn đăng kí");
+					System.out.println("   6. Xoá thông tin giáo viên");
+					System.out.println("   0. Đăng Xuất");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
 					
@@ -216,6 +208,10 @@ public class MyApp {
 					case "5": 
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
 						break;
+					case "6": 
+						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
+						function.deleteGiaoVien();
+						break;
 					case "0": 
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
 						break;
@@ -225,7 +221,6 @@ public class MyApp {
 				}
 				
 			}
-			
 			System.out.println("Chương trình kết thúc");
 			
 		}
@@ -233,5 +228,3 @@ public class MyApp {
 		
 	}
 }
-
-
