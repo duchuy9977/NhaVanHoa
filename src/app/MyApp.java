@@ -11,6 +11,7 @@ import connection.ConnectionUtil;
 import entities.Account;
 import entities.GiaoVien;
 import function.Function;
+import treEm.TreEmManager;
 
 public class MyApp {
 	public static String user = null;
@@ -162,7 +163,8 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin phụ huynh!");
 						break;
 					case "2": 
-						System.out.println("Bạn đã chọn chức năng Quản lý trẻ!");
+//						System.out.println("Bạn đã chọn chức năng Quản lý trẻ!");
+						TreEmManager.TreEmManager(user);
 						break;
 					case "3": 
 						System.out.println("Bạn đã chọn chức năng Xem thông tin Tuyển Sinh!");
