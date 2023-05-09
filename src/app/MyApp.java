@@ -11,6 +11,7 @@ import connection.ConnectionUtil;
 import entities.Account;
 import entities.GiaoVien;
 import function.FunctionGiaoVien;
+import function.Manage;
 
 public class MyApp {
 	public static String user = null;
@@ -103,6 +104,8 @@ public class MyApp {
 						break;
 					case "3": 
 						System.out.println("Bạn đã chọn chức năng Quản lý lớp học!");
+						Manage ma = new Manage();
+						ma.lopnangkhieu();
 						break;
 					case "4": 
 						System.out.println("Bạn đã chọn chức năng Đăng Thông tin tuyển sinh!");

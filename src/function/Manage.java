@@ -1,15 +1,16 @@
-package app;
+package function;
 
 
 import java.util.List;
 import java.util.Scanner;
 
+import entities.LopNangKhieu;
 import simple.Simple;
 import validate.validate;
 
 public class Manage {
-	private static Scanner sc = new Scanner(System.in);
-	public static void main(String[] args) {
+	public String lopnangkhieu() {
+		Scanner sc = new Scanner(System.in);
 		validate validate=new validate();
 		Simple sim = new Simple();
 		do {
@@ -20,6 +21,7 @@ public class Manage {
 				System.out.println("2. hien thi tat ca thong tin");
 				System.out.println("3. cap nhap thong tin");
 				System.out.println("4. xoa thong tin");
+				System.out.println("5. hien thi thong tin co so buoi hoc > ? va nho hon ?");
 				System.out.println();
 				System.out.println("6. thoat khoi chuong trinh");
 				System.out.println();
@@ -43,6 +45,11 @@ public class Manage {
 					break;
 				case 4:
 					sim.delete();
+				case 5 :
+					List<LopNangKhieu> list1 = sim.selectsobuoi();
+					for (LopNangKhieu lopNangKhieu : list1) {
+						System.out.println(lopNangKhieu.toString());
+					}
 				default:
 					break;
 				}
