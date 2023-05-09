@@ -64,6 +64,7 @@ public class MyApp {
 			do {
 				System.out.println("===============================================");
 				System.out.println("hello Lươngv Lọ");
+				System.out.println("Chủ tịch chào lương lọ");
 				System.out.println("hello Anh Phi");
 				System.out.println("hello chu tich");
 				System.out.println("Hello Anh Hai");
