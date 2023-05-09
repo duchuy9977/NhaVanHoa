@@ -61,7 +61,12 @@ public class MyApp {
 		//Chức năng Login
 		Scanner sc = new Scanner(System.in);
 		FunctionGiaoVien function = new FunctionGiaoVien();
+<<<<<<< HEAD
 		FunctionAccount function1 = new FunctionAccount();
+=======
+		FunctionAccount functionAcc = new FunctionAccount();
+		
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 		while(true) {
 			do {
 				System.out.println("===============================================");
@@ -127,7 +132,11 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng tạo mới Account!");
 						Account y = new Account();
 						y.inputInfo();
+<<<<<<< HEAD
 						function1.addAccount(y);
+=======
+						functionAcc.addAccount(y);
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 						break;
 					case "9": 
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
