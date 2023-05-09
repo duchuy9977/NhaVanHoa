@@ -10,6 +10,7 @@ import java.util.Scanner;
 import connection.ConnectionUtil;
 import entities.Account;
 import entities.GiaoVien;
+import function.FunctionAccount;
 import function.FunctionGiaoVien;
 import function.Manage;
 
@@ -60,7 +61,7 @@ public class MyApp {
 		//Chức năng Login
 		Scanner sc = new Scanner(System.in);
 		FunctionGiaoVien function = new FunctionGiaoVien();
-		
+		FunctionAccount function1 = new FunctionAccount();
 		while(true) {
 			do {
 				System.out.println("===============================================");
@@ -126,7 +127,7 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng tạo mới Account!");
 						Account y = new Account();
 						y.inputInfo();
-						function.addAccount(y);
+						function1.addAccount(y);
 						break;
 					case "9": 
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
