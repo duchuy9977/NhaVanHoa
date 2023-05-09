@@ -51,7 +51,9 @@ public class Manage {
 					for (LopNangKhieu lopNangKhieu : list1) {
 						System.out.println(lopNangKhieu.toString());
 					}
-				case 6 : 
+					break;
+				case 6 :
+					return null;
 				default:
 					System.out.println("thong tin ban nhap chua dung xin kiem tra lai");
 					break;
