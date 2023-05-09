@@ -11,6 +11,7 @@ import connection.ConnectionUtil;
 import entities.Account;
 import entities.GiaoVien;
 import function.Function;
+import treEm.TreEmManager;
 
 public class MyApp {
 	public static String user = null;
@@ -63,11 +64,13 @@ public class MyApp {
 		while(true) {
 			do {
 				System.out.println("===============================================");
-				System.out.println("hello Lươngv Lọ");
-				System.out.println("Chủ tịch chào lương lọ");
+				System.out.println("hello PhucHL1, đã xem rồi nghe phúc");
+				System.out.println("Chủ tịch chào PhucHL1");
 				System.out.println("hello Anh Phi");
 				System.out.println("hello chu tich");
 				System.out.println("Hello Anh Hai");
+				System.out.println("Hello Anh Phát 2 chai, Chủ tịch đã xem");
+				System.out.println("Hello PHi chai, Chủ tịch đã xem");
 				System.out.println("   Đăng Nhập");
 				System.out.print("      user    : ");
 				user = sc.nextLine();
@@ -160,7 +163,8 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin phụ huynh!");
 						break;
 					case "2": 
-						System.out.println("Bạn đã chọn chức năng Quản lý trẻ!");
+//						System.out.println("Bạn đã chọn chức năng Quản lý trẻ!");
+						TreEmManager.TreEmManager(user);
 						break;
 					case "3": 
 						System.out.println("Bạn đã chọn chức năng Xem thông tin Tuyển Sinh!");
