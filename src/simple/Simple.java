@@ -77,17 +77,31 @@ public class Simple {
 		return list;
 	}
 
-	public String delete() {
-		Connection con = ConnectionUtil.getConnection();
-		String sql = "delete from HOCPHI where IDDangKy in (select IDDangKy from DANGKYLOPHOC where IDLop = ?)\r\n"
+	public void delete() {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		ResultSet rs = null;
+		try {
+			validate validation = new validate();
+			String idlop = validation.inputidlop("hay nhap ma so id lop mà bạn muốn xoá");
+			conn = ConnectionUtil.getConnection();
+			String sql = "select * from LOPNANGKHIEU where IDLop = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setString(1, idlop);
+			rs = prstmt.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Ma id lop khong ton tai!");
+				return;
+			}
+
+			prstmt.close();
+			rs.close();
+		String sql1 = "delete from HOCPHI where IDDangKy in (select IDDangKy from DANGKYLOPHOC where IDLop = ?)\r\n"
 				+ "delete from DANGKYLOPHOC where IDLop = ?\r\n"
 				+ "delete from BUOIHOC where IDLop = ?\r\n"
 				+ "delete from THONGTINTUYENSINH where IDLop = ?\r\n"
 				+ "delete from LOPNANGKHIEU where IDLop= ?";
-		try {
-			validate vali = new validate();
-			String idlop = vali.inputidlop("moi ban nhap vao id lop can xoa");
-			PreparedStatement pr = con.prepareStatement(sql);
+			PreparedStatement pr = conn.prepareStatement(sql1);
 			pr.setString(1, idlop);
 			pr.setString(2, idlop);
 			pr.setString(3, idlop);
@@ -97,17 +111,16 @@ public class Simple {
 			if (rowsDeleted > 0) {
 			    System.out.println("Dữ liệu đã được xóa thành công.");
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("delete that bai");
+		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("delete that bai");
 		} finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}return "delete thanh cong";
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+		System.out.println("-----------------------------------------------------------------------------");
 	}
 	
 	public String updatedata() {
