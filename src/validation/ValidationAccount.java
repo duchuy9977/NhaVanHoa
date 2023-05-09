@@ -16,14 +16,13 @@ public class ValidationAccount {
 		do {
 			System.out.println(message);
 			String userName = input.nextLine();
-			FunctionAccount check = new FunctionAccount();
-			if (check.checkUserName(userName)) {
+
 				Pattern pattern = Pattern.compile("^[a-zA-Z_0-9]*$");
 				if (pattern.matcher(userName).find()) {
 					return userName;
 				}
 				System.out.println("ban nhap sai định dang của username, username k chứa ký tự đặc biệt, hay nhap lai");
-			}
+			
 		} while (true);
 	}
 
