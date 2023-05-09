@@ -1,15 +1,16 @@
-package app;
+package function;
 
 
 import java.util.List;
 import java.util.Scanner;
 
+import entities.LopNangKhieu;
 import simple.Simple;
 import validate.validate;
 
 public class Manage {
-	private static Scanner sc = new Scanner(System.in);
-	public static void main(String[] args) {
+	public String lopnangkhieu() {
+		Scanner sc = new Scanner(System.in);
 		validate validate=new validate();
 		Simple sim = new Simple();
 		do {
