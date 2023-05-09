@@ -227,4 +227,39 @@ public class FunctionGiaoVien {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
 	}
+	
+	// function check tồn tại của id giáo viên khi tạo mới giáo viên
+		public boolean checkIDGiaoVien(String idGiaoVien) {
+			Connection conn = null;
+			PreparedStatement prstmt = null;
+			ResultSet rs = null;
+			try {
+				conn = ConnectionUtil.getConnection();
+
+				String sql = "Select * from GIAOVIEN where IDGiaoVien = ?";
+				prstmt = conn.prepareStatement(sql);
+				prstmt.setString(1, idGiaoVien);
+				rs = prstmt.executeQuery();
+				// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
+				// con trỏ k đc đẩy lên đâu dòng.
+				if (!rs.isBeforeFirst()) {
+					System.out.println("IDGiaoVien có thể sử dụng được!");
+					return true;
+				}
+//				displayResultSet(rs);
+				System.out.println("IDGiaoVien đã có, hay nhập lại!");
+				return false;
+
+			} catch (SQLException i) {
+				i.printStackTrace();
+				System.out.println("check that bai");
+				return false;
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("check that bai");
+				return false;
+			} finally {
+				ConnectionUtil.closeConnection(null, prstmt, conn);
+			}
+		}
 }

@@ -16,12 +16,15 @@ public class ValidationGiaoVien {
 		do {
 			System.out.println(message);
 			String idGiaoVien = input.nextLine();
-			Pattern pattern = Pattern.compile("^GV[0-9]{3,3}$");
-			if (pattern.matcher(idGiaoVien).find()) {
+			FunctionGiaoVien check = new FunctionGiaoVien();
+			if (check.checkIDGiaoVien(idGiaoVien)) {
+				Pattern pattern = Pattern.compile("^GV[0-9]{3,3}$");
+				if (pattern.matcher(idGiaoVien).find()) {
 
-				return idGiaoVien;
+					return idGiaoVien;
+				}
+				System.out.println("ban nhap sai ma ID Giao Vien, hay nhap lai theo format (GV***)");
 			}
-			System.out.println("ban nhap sai ma ID Giao Vien, hay nhap lai theo format (GV***)");
 		} while (true);
 	}
 

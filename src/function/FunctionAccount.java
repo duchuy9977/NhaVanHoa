@@ -26,12 +26,12 @@ public class FunctionAccount {
 				// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
 				// con trỏ k đc đẩy lên đâu dòng.
 				if (!rs.isBeforeFirst()) {
-					System.out.println("không tìm thấy username này, hãy nhập lại hoặc tạo mới account rồi quay lại!");
-					return false;
+					System.out.println("username có thể sử dụng được!");
+					return true;
 				}
 //				displayResultSet(rs);
-				System.out.println("username có thể sử dụng được!");
-				return true;
+				System.out.println("username đã có, hay nhập lại!");
+				return false;
 
 			} catch (SQLException i) {
 				i.printStackTrace();
