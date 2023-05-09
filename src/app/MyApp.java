@@ -83,7 +83,7 @@ public class MyApp {
 		while(true) {
 			do {
 				System.out.println("===============================================");
-				System.out.println("Huy hê hê");
+				System.out.println("Hellowold");
 				System.out.println("   Đăng Nhập");
 				System.out.print("      user    : ");
 				user = sc.nextLine();
