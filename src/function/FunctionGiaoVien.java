@@ -192,7 +192,7 @@ public class FunctionGiaoVien {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
 	}
-	
+//	
 // function check tồn tại của id môn học khi tạo mới giáo viên
 	public boolean checkIDMonHoc(String idMonHoc) {
 		Connection conn = null;
