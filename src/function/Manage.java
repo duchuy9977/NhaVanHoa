@@ -45,12 +45,15 @@ public class Manage {
 					break;
 				case 4:
 					sim.delete();
+					break;
 				case 5 :
 					List<LopNangKhieu> list1 = sim.selectsobuoi();
 					for (LopNangKhieu lopNangKhieu : list1) {
 						System.out.println(lopNangKhieu.toString());
 					}
+				case 6 : 
 				default:
+					System.out.println("thong tin ban nhap chua dung xin kiem tra lai");
 					break;
 				}
 				

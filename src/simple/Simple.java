@@ -92,7 +92,7 @@ public class Simple {
 				System.out.println("Ma id lop khong ton tai!");
 				return;
 			}
-
+			
 			prstmt.close();
 			rs.close();
 		String sql1 = "delete from HOCPHI where IDDangKy in (select IDDangKy from DANGKYLOPHOC where IDLop = ?)\r\n"
@@ -201,6 +201,8 @@ public class Simple {
 		return sobuoi ;
 		
 	}
+	
+
 }
 
 	
