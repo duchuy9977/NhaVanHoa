@@ -9,12 +9,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.LopNangKhieu;
+
 import connection.ConnectionUtil;
 import validate.validate;
 
 public class Simple {
-	public String insertdata (LopNangKhieu lop) {
+	public String insertdata (entities.LopNangKhieu lop) {
 		Connection con = ConnectionUtil.getConnection() ; 
 		String sql = "insert into LOPNANGKHIEU(IDLop,IDMonHoc,TenLop,SoBuoi,NgayKhaiGiang,NgayBatDau,NgayKetThuc)values (\r\n"
 				+ "?,?,?,?,?,?,?)";
@@ -45,15 +45,15 @@ public class Simple {
 		return "insert thanh cong";
 	}
 	
-	public List<LopNangKhieu> selectall() {
-		List <LopNangKhieu> list= new ArrayList<>();
+	public List<entities.LopNangKhieu> selectall() {
+		List <entities.LopNangKhieu> list= new ArrayList<>();
 		Connection con = ConnectionUtil.getConnection();
 		String sql = "select * from LOPNANGKHIEU";
 		try {
 			Statement sttm = con.createStatement();
 			ResultSet rs = sttm.executeQuery(sql);
 			while (rs.next()) {
-				LopNangKhieu lop = new LopNangKhieu();
+				entities.LopNangKhieu lop = new entities.LopNangKhieu();
 				lop.setIdlop(rs.getString("IDLop"));
 				lop.setIdmonhoc(rs.getString("IDMonHoc"));
 				lop.setTenlop(rs.getString("TenLop"));
@@ -75,106 +75,8 @@ public class Simple {
 				}
 			}
 		return list;
-}
-	
-//	public String updatedata1() {
-//		Connection con = ConnectionUtil.getConnection();
-//		String sql = "update LOPNANGKHIEU set ? = ? where IDLop=?";
-//		validate validate =new validate();
-//		try {
-//			String idlop = validate.inputidlop("nhap vao id lop");
-//			String x=validate.abc();
-//			String y=null;
-//			Date y2 = null;
-//			Date y3 = null;
-//			Date y4 = null;
-//			int y1=0;
-//			PreparedStatement pr = con.prepareStatement(sql);
-//			if(x.equals("IDMonHoc")) {
-//				 y=validate.inputidmonhoc("moi nhap mon hoc");
-//			pr.setString(1, x);
-//			pr.setString(2, y);
-//			pr.setString(3, idlop);
-//			}
-//			if(x.equals("TenLop")) {
-//				 y=validate.inputstring("moi nhap ten lop");
-//			pr.setString(1, x);
-//			pr.setString(2, y);
-//			pr.setString(3, idlop);
-//			}
-//			
-//			if(x.equals("SoBuoi")) {
-//				 y1=validate.inputsobuoi("moi nhap so buoi");
-//			pr.setString(1, x);
-//			pr.setInt(2, y1);
-//			pr.setString(3, idlop);
-//			}
-//			
-//			if(x.equals("NgayKhaiGiang")) {
-//				 y2=validate.inputdate("moi nhap ngay khai giang");
-//			pr.setString(1, x);
-//			pr.setDate(2, y2);
-//			pr.setString(3, idlop);
-//			}
-//			
-//			if(x.equals("NgayBatDau")) {
-//				 y3=validate.inputdate("moi nhap ngay bat dau");
-//			pr.setString(1, x);
-//			pr.setDate(2, y3);
-//			pr.setString(3, idlop);
-//			}
-//			
-//			if(x.equals("NgayKhaiGiang")) {
-//				 y4=validate.inputdate("moi nhap ket thuc");
-//			pr.setString(1, x);
-//			pr.setDate(2, y4);
-//			pr.setString(3, idlop);
-//			}
-//			int rowsUpdated = pr.executeUpdate();
-//			if (rowsUpdated > 0) {
-//			    System.out.println("Dữ liệu đã được cập nhật thành công.");
-//			}
-//			
-//			
-//			
-//			PreparedStatement pr = con.prepareStatement(sql);
-//			pr.setString(1, x);
-//			if(x.equals("TenLop")){
-//			pr.setString(2, y);
-//			}
-//			if(x.equals("SoBuoi")){
-//				pr.setInt(2, y1);
-//			}
-//			
-//			if(x.equals("NgayKhaiGiang")){
-//				pr.setDate(2, y2);
-//			}
-//			if(x.equals("NgayBatDau")){
-//				pr.setDate(2, y3);
-//			}
-//			if(x.equals("NgayKetThuc")){
-//				pr.setDate(2, y4);
-//			}
-//			else{
-//				pr.setString(2, y);
-//			}
-//			pr.setString(3, idlop);
-//			pr.executeUpdate();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				con.close();
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//	
-//		return "update thanh cong";
-//}
-	
+	}
+
 	public String delete() {
 		Connection con = ConnectionUtil.getConnection();
 		String sql = "delete from HOCPHI where IDDangKy in (select IDDangKy from DANGKYLOPHOC where IDLop = ?)\r\n"

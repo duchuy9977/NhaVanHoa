@@ -4,6 +4,7 @@ package app;
 import java.util.List;
 import java.util.Scanner;
 
+import entities.LopNangKhieu;
 import simple.Simple;
 import validate.validate;
 
