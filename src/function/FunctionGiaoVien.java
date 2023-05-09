@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import connection.ConnectionUtil;
 import entities.Account;
 import entities.GiaoVien;
+import validate.validate;
 import validation.ValidationGiaoVien;
 
 public class FunctionGiaoVien {
@@ -157,4 +158,73 @@ public class FunctionGiaoVien {
 		System.out.println("-----------------------------------------------------------------------------");
 	}
 
+//Function check tồn tại của user name khi tạo mới giáo viên
+	public boolean checkUserName(String username) {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = ConnectionUtil.getConnection();
+
+			String sql = "Select * from Account where Username = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setString(1, username);
+			rs = prstmt.executeQuery();
+			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
+			// con trỏ k đc đẩy lên đâu dòng.
+			if (!rs.isBeforeFirst()) {
+				System.out.println("không tìm thấy username này, hãy nhập lại hoặc tạo mới account rồi quay lại!");
+				return false;
+			}
+//			displayResultSet(rs);
+			System.out.println("username có thể sử dụng được!");
+			return true;
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("check that bai");
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("check that bai");
+			return false;
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
+//	
+// function check tồn tại của id môn học khi tạo mới giáo viên
+	public boolean checkIDMonHoc(String idMonHoc) {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = ConnectionUtil.getConnection();
+
+			String sql = "Select * from MONHOC where IDMonHoc = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setString(1, idMonHoc);
+			rs = prstmt.executeQuery();
+			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
+			// con trỏ k đc đẩy lên đâu dòng.
+			if (!rs.isBeforeFirst()) {
+				System.out.println("không tìm thấy idMonHoc này, hãy nhập lại hoặc tạo mới môn học rồi quay lại!");
+				return false;
+			}
+//			displayResultSet(rs);
+			System.out.println("idMonHoc có thể sử dụng được!");
+			return true;
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("check that bai");
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("check that bai");
+			return false;
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
 }
