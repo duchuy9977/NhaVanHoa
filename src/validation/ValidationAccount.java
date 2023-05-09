@@ -3,24 +3,30 @@ package validation;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import function.FunctionAccount;
+
 public class ValidationAccount {
 
 	public ValidationAccount() {
 	}
+
 	Scanner input = new Scanner(System.in);
+
 	public String inputUserName(String message) {
 		do {
 			System.out.println(message);
 			String userName = input.nextLine();
-			Pattern pattern = Pattern.compile("^[a-zA-Z_0-9]*$");
-			if (pattern.matcher(userName).find()) {
-
-				return userName;
+			FunctionAccount check = new FunctionAccount();
+			if (check.checkUserName(userName)) {
+				Pattern pattern = Pattern.compile("^[a-zA-Z_0-9]*$");
+				if (pattern.matcher(userName).find()) {
+					return userName;
+				}
+				System.out.println("ban nhap sai định dang của username, username k chứa ký tự đặc biệt, hay nhap lai");
 			}
-			System.out.println("ban nhap sai định dang của username, username k chứa ký tự đặc biệt, hay nhap lai");
 		} while (true);
 	}
-	
+
 	public String inputPassWork(String message) {
 		do {
 			System.out.println(message);
@@ -33,7 +39,7 @@ public class ValidationAccount {
 			System.out.println("ban nhap sai dinh dang mat khau, hay nhap lai");
 		} while (true);
 	}
-	
+
 	public String inputName(String message) {
 		do {
 			System.out.println(message);
@@ -45,7 +51,7 @@ public class ValidationAccount {
 			System.out.println("ban nhap sai, hay nhap lai ho va ten dai it nhat 2 ky tu!");
 		} while (true);
 	}
-	
+
 	public String inputIdRole(String message) {
 		do {
 			System.out.println(message);
@@ -57,7 +63,7 @@ public class ValidationAccount {
 			System.out.println("ban nhap sai, hay nhap lai ho va ten dai it nhat 2 ky tu!");
 		} while (true);
 	}
-	
+
 	public String inputNameRole(String message) {
 		do {
 			System.out.println(message);
@@ -69,7 +75,7 @@ public class ValidationAccount {
 			System.out.println("ban nhap sai, hay nhap lai tên chức vụ dài it nhat 2 ky tu!");
 		} while (true);
 	}
-	
+
 	public String inputStatus(String message) {
 		do {
 			System.out.println(message);
