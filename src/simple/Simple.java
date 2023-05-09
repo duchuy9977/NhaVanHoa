@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import connection.ConnectionUtil;
 import validate.validate;
 
@@ -161,7 +160,47 @@ public class Simple {
 	return "update thanh cong";
 	}
 	
-	
+	public List<entities.LopNangKhieu> selectsobuoi (){
+		ArrayList<entities.LopNangKhieu> sobuoi = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			validate vali = new validate();
+			int sobuoi1 = vali.inputsobuoi("moi ban nhap so buoi hoc 1");
+			int sobuoi2 = vali.inputsobuoi("moi ban nhap so buoi hoc 2");
+			String sql = "select * from LOPNANGKHIEU where SoBuoi > ? and SoBuoi < ?";
+			pr = con.prepareStatement(sql);
+			pr.setInt(1, sobuoi1);
+			pr.setInt(2, sobuoi2);
+			rs=pr.executeQuery();
+			if(!rs.isBeforeFirst()) {
+				System.out.println("khong co giao vien nao thoa man yeu cau");
+			}
+			while (rs.next()) {
+				entities.LopNangKhieu lop = new entities.LopNangKhieu();
+				lop.setIdlop(rs.getString("IDLop"));
+				lop.setIdmonhoc(rs.getString("IDMonHoc"));
+				lop.setTenlop(rs.getString("TenLop"));
+				lop.setSobuoi(rs.getInt("SoBuoi"));
+				lop.setNgaykhaigiang(rs.getDate("NgayKhaiGiang"));
+				lop.setNgaybatdau(rs.getDate("NgayBatDau"));
+				lop.setNgayketthuc(rs.getDate("NgayKetThuc"));
+				sobuoi.add(lop);
+		}
+		}catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("select giao vien that bai ");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("select giao vien that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, pr, con);
+		}
+		return sobuoi ;
+		
+	}
 }
 
 	
