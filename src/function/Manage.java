@@ -44,6 +44,11 @@ public class Manage {
 					break;
 				case 4:
 					sim.delete();
+				case 5 :
+					List<LopNangKhieu> list1 = sim.selectsobuoi();
+					for (LopNangKhieu lopNangKhieu : list1) {
+						System.out.println(lopNangKhieu.toString());
+					}
 				default:
 					break;
 				}
