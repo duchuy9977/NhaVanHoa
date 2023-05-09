@@ -21,6 +21,7 @@ public class Manage {
 				System.out.println("2. hien thi tat ca thong tin");
 				System.out.println("3. cap nhap thong tin");
 				System.out.println("4. xoa thong tin");
+				System.out.println("5. hien thi thong tin co so buoi hoc > ? va nho hon ?");
 				System.out.println();
 				System.out.println("6. thoat khoi chuong trinh");
 				System.out.println();
