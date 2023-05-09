@@ -91,7 +91,7 @@ public class MyApp {
 					System.out.println("   9. xoá thông tin giáo viên.");
 					System.out.println("   0. Đăng Xuất..");
 					System.out.println("===============================================");
-					System.out.println("  Mời bạn chọn tính năng: aaa");
+					System.out.println("  Mời bạn chọn tính năng: ");
 					
 					choice = sc.nextLine();
 					
