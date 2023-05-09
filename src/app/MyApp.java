@@ -10,8 +10,7 @@ import java.util.Scanner;
 import connection.ConnectionUtil;
 import entities.Account;
 import entities.GiaoVien;
-import function.Function;
-import treEm.TreEmManager;
+import function.FunctionGiaoVien;
 
 public class MyApp {
 	public static String user = null;
@@ -59,18 +58,11 @@ public class MyApp {
 		Connection conn = ConnectionUtil.getConnection();
 		//Chức năng Login
 		Scanner sc = new Scanner(System.in);
-		Function function = new Function();
+		FunctionGiaoVien function = new FunctionGiaoVien();
 		
 		while(true) {
 			do {
 				System.out.println("===============================================");
-				System.out.println("hello PhucHL1, đã xem rồi nghe phúc");
-				System.out.println("Chủ tịch chào PhucHL1");
-				System.out.println("hello Anh Phi");
-				System.out.println("hello chu tich");
-				System.out.println("Hello Anh Hai");
-				System.out.println("Hello Anh Phát 2 chai, Chủ tịch đã xem");
-				System.out.println("Hello PHi chai, Chủ tịch đã xem");
 				System.out.println("   Đăng Nhập");
 				System.out.print("      user    : ");
 				user = sc.nextLine();
@@ -95,7 +87,8 @@ public class MyApp {
 					System.out.println("   6. Xem tình trạng đơn đăng kí Ca dạy");
 					System.out.println("   7. Thêm mới giáo viên");
 					System.out.println("   8. Tạo mới Account");
-					System.out.println("   0. Đăng Xuất");
+					System.out.println("   9. xoá thông tin giáo viên.");
+					System.out.println("   0. Đăng Xuất..");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
 					
@@ -132,6 +125,10 @@ public class MyApp {
 						y.inputInfo();
 						function.addAccount(y);
 						break;
+					case "9": 
+						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
+						function.deleteGiaoVien();
+						break;
 					case "0": 
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
 						break;
@@ -163,8 +160,7 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin phụ huynh!");
 						break;
 					case "2": 
-//						System.out.println("Bạn đã chọn chức năng Quản lý trẻ!");
-						TreEmManager.TreEmManager(user);
+						System.out.println("Bạn đã chọn chức năng Quản lý trẻ!");
 						break;
 					case "3": 
 						System.out.println("Bạn đã chọn chức năng Xem thông tin Tuyển Sinh!");
@@ -194,7 +190,6 @@ public class MyApp {
 					System.out.println("   3. Xem ca dạy");
 					System.out.println("   4. Đăng kí Ca dạy");
 					System.out.println("   5. Xem tình trạng đơn đăng kí");
-					System.out.println("   6. Xoá thông tin giáo viên");
 					System.out.println("   0. Đăng Xuất");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
@@ -217,10 +212,7 @@ public class MyApp {
 					case "5": 
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
 						break;
-					case "6": 
-						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
-						function.deleteGiaoVien();
-						break;
+
 					case "0": 
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
 						break;
