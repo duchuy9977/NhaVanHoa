@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class ValidationMonHoc {
-	private static Scanner input = new Scanner(System.in);
+	 Scanner input = new Scanner(System.in);
 	public ValidationMonHoc() {
 		
 	}
