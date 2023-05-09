@@ -10,7 +10,7 @@ public class ConnectionUtil {
 	private static final String URL = "jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;";
 	private static final String DATABASE = "databaseName=NhaVanHoa";
 	private static final String USER_NAME = "sa";
-	private static final String PASSWORD = "VN12345";
+	private static final String PASSWORD = "Password.1";
 
 	public static Connection getConnection() {
 		Connection con = null;
