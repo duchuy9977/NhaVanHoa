@@ -91,7 +91,7 @@ public class MyApp {
 					System.out.println("   9. xoá thông tin giáo viên.");
 					System.out.println("   0. Đăng Xuất..");
 					System.out.println("===============================================");
-					System.out.println("  Mời bạn chọn tính năng: aaa");
+					System.out.println("  Mời bạn chọn tính năng: ");
 					
 					choice = sc.nextLine();
 					
@@ -105,6 +105,7 @@ public class MyApp {
 					case "3": 
 						System.out.println("Bạn đã chọn chức năng Quản lý lớp học!");
 						Manage ma = new Manage();
+						ma.lopnangkhieu();
 						break;
 					case "4": 
 						System.out.println("Bạn đã chọn chức năng Đăng Thông tin tuyển sinh!");
