@@ -3,7 +3,7 @@ package validation;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class buoihoc_PhucHL1 {
+public class validation_buoihoc_PhucHL1 {
 	public static Scanner input = new Scanner(System.in);
 	
 	public void Validate() {

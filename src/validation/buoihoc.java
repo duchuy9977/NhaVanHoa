@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class buoihoc {
 	public class Validate {
 		private Scanner sc = new Scanner(System.in);
-
+// Bang vatidation_PhucHL1
 		public Validate() {
 
 		}
