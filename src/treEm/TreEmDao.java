@@ -9,8 +9,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import utils.ConnectionUtil;
+import validate.validate;
 
 public class TreEmDao {
 	public void inserIntoDB(TreEm tre) {
@@ -236,7 +238,7 @@ public class TreEmDao {
 			if (!rs.isBeforeFirst()) {
 				System.out.println("Không có thông tin phù hợp. Mời nhập lại");
 				return;
-			}			
+			}
 			displayRS(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -245,5 +247,88 @@ public class TreEmDao {
 		} finally {
 			ConnectionUtil.closeConnection(rs, ps, con);
 		}
-}
+	}
+
+	public void seachbyDangky() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			validation validate = new validation();
+			String GioiTinh = validate.inputGioiTinh("Xin hãy nhập giới tính muốn liệt kê");
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement("SELECT * FROM TREEM where GioiTinh = ?");
+			ps.setString(1, GioiTinh);
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Không có thông tin phù hợp. Mời nhập lại");
+				return;
+			}
+			displayRS(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
+	}
+
+	public void seachDaThongQua() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			validation validate = new validation();
+			String Status = "Approved";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(
+					"Select * from TreEm where IDTre in (Select IDTre from DANGKYLOPHOC where Status = ?)");
+			ps.setString(1, Status);
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Không có thông tin trẻ em đã duyệt đăng ký.");
+				return;
+			}
+			displayRS(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
+	}
+
+	public void seachTop3MonHoc() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			validation validate = new validation();
+			int x = validate.inputSoThang("Vui lòng nhập tháng trong năm 2023");
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement("SELECT  top 3  MonHoc.TenMon from MonHoc \r\n"
+					+ "join LOPNANGKHIEU on MONHOC.IDMonHoc = LOPNANGKHIEU.IDMonHoc\r\n"
+					+ "join DANGKYLOPHOC on LOPNANGKHIEU.IDLop = DANGKYLOPHOC.IDLop\r\n"
+					+ "where month(LOPNANGKHIEU.NgayKhaiGiang) = ? AND YEAR(LOPNANGKHIEU.NgayKhaiGiang) = 2023\r\n"
+					+ "group by MonHoc.TenMon");
+			ps.setInt(1, x);
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Không có môn học nào trong tháng " + x + "/2023");
+				return;
+			}else {
+				while(rs.next()) {
+					System.out.println(rs.getString("TenMon"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
+	}
 }

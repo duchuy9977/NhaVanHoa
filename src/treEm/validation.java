@@ -31,7 +31,6 @@ public class validation {
 		} while (true);
 	}
 
-
 	public String inputGioiTinh(String message) {
 		String GioiTinh = null;
 		do {
@@ -68,15 +67,15 @@ public class validation {
 		try {
 			validation validate = new validation();
 			con = ConnectionUtil.getConnection();
-			ps = con.prepareStatement("SELECT * FROM PHUHUYNH WHERE Username = ? " );
+			ps = con.prepareStatement("SELECT * FROM PHUHUYNH WHERE Username = ? ");
 			ps.setString(1, username);
 			rs = ps.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				idPhuHuynh = rs.getString("IDPhuHuynh");
-				
+
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -100,6 +99,7 @@ public class validation {
 			}
 		} while (true);
 	}
+
 	public String inputStatus(String message) {
 		do {
 			System.out.println(message);
@@ -111,6 +111,25 @@ public class validation {
 			} else {
 				System.out.println("Vui lòng nhập Status là Active hoặc Ban ");
 			}
-		}while (true);
+		} while (true);
+	}
+
+	public int inputSoThang(String message) {
+		try {
+			System.out.println(message);
+			int x = input.nextInt();
+			if (x >= 1) {
+				return x;
+			} else if (x >= 12) {
+				return x;
+			} else {
+				System.out.println("Tháng không tồn tại. Vui lòng nhập lại");
+			}
+		} catch (Exception e) {
+			System.out.println("Định dạng không đúng. Vui lòng kiểm tra lại");
+			e.printStackTrace();
+		}
+		while (true)
+			;
 	}
 }

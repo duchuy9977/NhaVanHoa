@@ -19,73 +19,64 @@ public class MyApp {
 	public static String name = null;
 	public static String role = null;
 	public static String roleName = null;
-	
+
 	public static boolean login(String user, String pass) {
 		Connection conn = ConnectionUtil.getConnection();
 		ResultSet rs = null;
 		PreparedStatement prstmt = null;
-		
-		//Kết quả trả về
+
+		// Kết quả trả về
 		boolean result = false;
-		
-		String sql =  "select * from Account where username = ? and password = ? and Status = 'Active'";
-		
+
+		String sql = "select * from Account where username = ? and password = ? and Status = 'Active'";
+
 		try {
 			prstmt = conn.prepareStatement(sql);
 			prstmt.setString(1, user);
 			prstmt.setString(2, pass);
 			rs = prstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				result = true;
-				//Lấy tên người dùng và role
+				// Lấy tên người dùng và role
 				name = rs.getString("name");
 				role = rs.getString("IDRole");
 				roleName = rs.getString("NameRole");
 			}
-			if(!result) {
+			if (!result) {
 				System.out.println("Bạn đã nhập sai user hoặc password!!!");
 			}
-		}  catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Lỗi trong lúc tương tác với dữ liệu");
 			System.out.println(e.getMessage());
 		} finally {
 			ConnectionUtil.closeConnection(rs, prstmt, conn);
-		}		
+		}
 		return result;
 	}
-	
+
 	public static void main(String[] args) {
 		Connection conn = ConnectionUtil.getConnection();
-		//Chức năng Login
+		// Chức năng Login
 		Scanner sc = new Scanner(System.in);
 		Function function = new Function();
-		
-		while(true) {
+
+		while (true) {
 			do {
 				System.out.println("===============================================");
-				System.out.println("hello PhucHL1, đã xem rồi nghe phúc");
-				System.out.println("Chủ tịch chào PhucHL1");
-				System.out.println("hello Anh Phi");
-				System.out.println("hello chu tich");
-				System.out.println("Hello Anh Hai");
-				System.out.println("Hello Anh Phát 2 chai, Chủ tịch đã xem");
-				System.out.println("Hello PHi chai, Chủ tịch đã xem");
 				System.out.println("   Đăng Nhập");
 				System.out.print("      user    : ");
 				user = sc.nextLine();
 				System.out.print("      password: ");
 				password = sc.nextLine();
 				System.out.println("===============================================");
-				
+
 			} while (!login(user, password));
-			
-			
-			
-			if(role.equals("admin")) {
+
+			if (role.equals("admin")) {
 				String choice = "a";
-				while(!choice.equals("0")) {
-					System.out.println("Chào mừng trở lại "+ roleName + " " + name + "!!!");
+				while (!choice.equals("0")) {
+					System.out.println("Chào mừng trở lại " + roleName + " " + name + "!!!");
 					System.out.println("Mời nhập chức năng bạn muốn sử dụng");
 					System.out.println("   1. Cập nhật thông tin cá nhân");
 					System.out.println("   2. Quản lý Môn học");
@@ -98,54 +89,54 @@ public class MyApp {
 					System.out.println("   0. Đăng Xuất");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
-					
+
 					choice = sc.nextLine();
-					
+
 					switch (choice) {
-					case "1": 
+					case "1":
 						System.out.println("Bạn đã chọn chức năng cập nhật thông tin các nhân!");
 						break;
-					case "2": 
+					case "2":
 						System.out.println("Bạn đã chọn chức năng Quản lý Môn học!");
 						break;
-					case "3": 
+					case "3":
 						System.out.println("Bạn đã chọn chức năng Quản lý lớp học!");
 						break;
-					case "4": 
+					case "4":
 						System.out.println("Bạn đã chọn chức năng Đăng Thông tin tuyển sinh!");
 						break;
-					case "5": 
+					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Lớp học!");
 						break;
-					case "6": 
+					case "6":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Ca dạy!");
 						break;
-					case "7": 
+					case "7":
 						System.out.println("Bạn đã chọn chức năng Xem thêm mới giáo viên!");
 						GiaoVien x = new GiaoVien();
 						x.inputInfo();
 						function.insertGiaoVien(x);
 						break;
-					case "8": 
+					case "8":
 						System.out.println("Bạn đã chọn chức năng tạo mới Account!");
 						Account y = new Account();
 						y.inputInfo();
 						function.addAccount(y);
 						break;
-					case "0": 
+					case "0":
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
 						break;
 					default:
-						System.out.println("Không hợp lệ, mời nhập lại!");;
+						System.out.println("Không hợp lệ, mời nhập lại!");
+						;
 					}
 				}
-				
-				
+
 			}
-			if(role.equals("phuhuynh")) {
+			if (role.equals("phuhuynh")) {
 				String choice = "a";
-				while(!choice.equals("0")) {
-					System.out.println("Chào mừng trở lại "+ roleName + " " + name + "!!!");
+				while (!choice.equals("0")) {
+					System.out.println("Chào mừng trở lại " + roleName + " " + name + "!!!");
 					System.out.println("Mời nhập chức năng bạn muốn sử dụng");
 					System.out.println("   1. Cập nhật thông tin phụ huynh");
 					System.out.println("   2. Quản lý trẻ");
@@ -155,39 +146,40 @@ public class MyApp {
 					System.out.println("   0. Đăng Xuất");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
-					
+
 					choice = sc.nextLine();
-					
+
 					switch (choice) {
-					case "1": 
+					case "1":
 						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin phụ huynh!");
 						break;
-					case "2": 
+					case "2":
 //						System.out.println("Bạn đã chọn chức năng Quản lý trẻ!");
 						TreEmManager.TreEmManager(user);
 						break;
-					case "3": 
+					case "3":
 						System.out.println("Bạn đã chọn chức năng Xem thông tin Tuyển Sinh!");
 						break;
-					case "4": 
+					case "4":
 						System.out.println("Bạn đã chọn chức năng Đăng kí lớp học!");
 						break;
-					case "5": 
+					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
 						break;
-					case "0": 
+					case "0":
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
 						break;
 					default:
-						System.out.println("Không hợp lệ, mời nhập lại!");;
+						System.out.println("Không hợp lệ, mời nhập lại!");
+						;
 					}
 				}
-				
+
 			}
-			if(role.equals("giaovien")) {
+			if (role.equals("giaovien")) {
 				String choice = "a";
-				while(!choice.equals("0")) {
-					System.out.println("Chào mừng trở lại "+ roleName + " " + name + "!!!");
+				while (!choice.equals("0")) {
+					System.out.println("Chào mừng trở lại " + roleName + " " + name + "!!!");
 					System.out.println("Mời nhập chức năng bạn muốn sử dụng");
 					System.out.println("   1. Xem thông tin giáo viên");
 					System.out.println("   2. Cập nhật thông tin");
@@ -198,42 +190,42 @@ public class MyApp {
 					System.out.println("   0. Đăng Xuất");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
-					
+
 					choice = sc.nextLine();
-					
+
 					switch (choice) {
-					case "1": 
+					case "1":
 						System.out.println("Bạn đã chọn chức năng Xem thông tin giáo viên!");
 						break;
-					case "2": 
+					case "2":
 						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin!");
 						break;
-					case "3": 
+					case "3":
 						System.out.println("Bạn đã chọn chức năng Xem ca dạy!");
 						break;
-					case "4": 
+					case "4":
 						System.out.println("Bạn đã chọn chức năng Đăng kí Ca dạy!");
 						break;
-					case "5": 
+					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
 						break;
-					case "6": 
+					case "6":
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
 						function.deleteGiaoVien();
 						break;
-					case "0": 
+					case "0":
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
 						break;
 					default:
-						System.out.println("Không hợp lệ, mời nhập lại!");;
+						System.out.println("Không hợp lệ, mời nhập lại!");
+						;
 					}
 				}
-				
+
 			}
 			System.out.println("Chương trình kết thúc");
-			
+
 		}
-		
-		
+
 	}
 }
