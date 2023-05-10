@@ -68,6 +68,7 @@ public class MyApp {
 
 		FunctionGiaoVien functionGV = new FunctionGiaoVien();
 		FunctionAccount functionAcc = new FunctionAccount();
+		MenuUpdateGiaoVien menuUpdateGV = new MenuUpdateGiaoVien();
 		ValidationGiaoVien validationGV = new ValidationGiaoVien();
 		ValidationAccount validationAcc = new ValidationAccount();
 		while (true) {
@@ -97,6 +98,7 @@ public class MyApp {
 					System.out.println("   7. Thêm mới giáo viên");
 					System.out.println("   8. Tạo mới Account");
 					System.out.println("   9. xoá thông tin giáo viên.");
+					System.out.println("   10. update thông tin giáo viên.");
 					System.out.println("   0. Đăng Xuất..");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
@@ -189,7 +191,10 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
 						functionGV.deleteGiaoVien();
 						break;
-
+					case "10":
+						System.out.println("Bạn đã chọn chức năng update thông tin giáo viên!");
+						menuUpdateGV.menuUpdate();
+						break;
 					case "0":
 
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");

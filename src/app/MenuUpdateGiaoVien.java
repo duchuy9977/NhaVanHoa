@@ -2,13 +2,13 @@ package app;
 
 import java.util.Scanner;
 
-
+import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
 import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
 
-public class menuUpdateGiaoVien {
+public class MenuUpdateGiaoVien {
 	public static void menuUpdate() {
 		Scanner scanner = new Scanner(System.in);
 		FunctionGiaoVien functionGV = new FunctionGiaoVien();
@@ -34,6 +34,7 @@ public class menuUpdateGiaoVien {
 				switch (choice) {
 				case 1:
 					System.out.println("Bạn đã chọn chức năng cập nhật id môn học của Giao Vien!");
+					GiaoVien x = new GiaoVien();
 					
 					break;
 				case 2:
