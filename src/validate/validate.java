@@ -23,11 +23,8 @@ public class validate {
 	public String inputidmonhoc(String message) {
 		System.out.println(message);
 		do {
-			String idmonhoc = sc.nextLine();
-//			if(x.matcher(idmonhoc).find()) {
-//				
+			String idmonhoc = sc.nextLine();	
 				return idmonhoc ; 
-//			}System.out.println("id mon hoc gom 5 ki tu va bat dau bang MH");
 		} while (true);
 	}
 	
@@ -76,36 +73,5 @@ public class validate {
 			}System.out.println("moi ban nhap lai");
 		}
 	}
-//	public String main(String[] args) {
-//		System.out.println("nhap 1 de update id mon hoc");
-//		System.out.println("nhap 2 de update ten lop");
-//		System.out.println("nhap 3 de update so buoi");
-//		System.out.println("nhap 4 de update ngay khai giang");
-//		System.out.println("nhap 5 de update ngay bat dau");
-//		System.out.println("nhap 6 de update ngay ket thuc");
-//		System.out.println("nhap 7 de thoat");
-//		int choice = Integer.parseInt(sc.nextLine());
-//		if (choice == 1) {
-//			return MonHoc;
-//		}
-//		if (choice == 2) {
-//			return "MonHoc";
-//		}
-//		if (choice == 3) {
-//			return "MonHoc";
-//		}
-//		if (choice == 4) {
-//			return "MonHoc";
-//		}
-//		if (choice == 5) {
-//			return "MonHoc";
-//		}
-//		if (choice == 6) {
-//			return "MonHoc";
-//		}
-//		if (choice == 7) {
-//			return "MonHoc";
-//		}
-//	}
 
 }
