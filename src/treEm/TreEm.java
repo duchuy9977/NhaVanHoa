@@ -11,7 +11,6 @@ public class TreEm {
 	String TruongDangHoc;
 	String GioiTinh;
 	String Status;
-	
 
 	@Override
 	public String toString() {
@@ -20,86 +19,69 @@ public class TreEm {
 				+ Status + "]";
 	}
 
-
 	public String getIDTre() {
 		return IDTre;
 	}
-
 
 	public void setIDTre(String iDTre) {
 		IDTre = iDTre;
 	}
 
-
 	public String getIDPhuHuynh() {
 		return IDPhuHuynh;
 	}
-
 
 	public void setIDPhuHuynh(String iDPhuHuynh) {
 		IDPhuHuynh = iDPhuHuynh;
 	}
 
-
 	public int getSTT() {
 		return STT;
 	}
-
 
 	public void setSTT(int sTT) {
 		STT = sTT;
 	}
 
-
 	public String getTenTre() {
 		return TenTre;
 	}
-
 
 	public void setTenTre(String tenTre) {
 		TenTre = tenTre;
 	}
 
-
 	public Date getNgaySinh() {
 		return NgaySinh;
 	}
-
 
 	public void setNgaySinh(Date ngaySinh) {
 		NgaySinh = ngaySinh;
 	}
 
-
 	public String getTruongDangHoc() {
 		return TruongDangHoc;
 	}
-
 
 	public void setTruongDangHoc(String truongDangHoc) {
 		TruongDangHoc = truongDangHoc;
 	}
 
-
 	public String getGioiTinh() {
 		return GioiTinh;
 	}
-
 
 	public void setGioiTinh(String gioiTinh) {
 		GioiTinh = gioiTinh;
 	}
 
-
 	public String getStatus() {
 		return Status;
 	}
 
-
 	public void setStatus(String status) {
 		Status = status;
 	}
-
 
 	public TreEm(String iDTre, String iDPhuHuynh, int sTT, String tenTre, Date ngaySinh, String truongDangHoc,
 			String gioiTinh, String status) {
@@ -113,11 +95,9 @@ public class TreEm {
 		Status = status;
 	}
 
-
 	public TreEm() {
 
 	}
-
 
 	public void inputInfo(String username) {
 		validation validate = new validation();
@@ -129,8 +109,8 @@ public class TreEm {
 				break;
 			}
 			System.out.println("IDTre đã tồn tại. Mời nhập lại!");
-		}while (true);
-		
+		} while (true);
+
 		this.IDPhuHuynh = validate.inputIDPhuHuynh(username);
 		this.STT = tre.inputSTT(username);
 		this.TenTre = validate.inputString("Xin hãy nhập tên trẻ");

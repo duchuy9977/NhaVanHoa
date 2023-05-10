@@ -16,7 +16,8 @@ import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
 import simple.Simple;
 //import function.Manage;
-import treEm.TreEmManager;import function.FuncitionLopNangKhieu;
+import treEm.TreEmManager;
+import function.FuncitionLopNangKhieu;
 
 public class MyApp {
 	public static String user = null;
@@ -161,7 +162,7 @@ public class MyApp {
 					case "8":
 						System.out.println("Bạn đã chọn chức năng tạo mới Account!");
 						Account y = new Account();
-						
+
 						while (true) {
 							y.setUserName(validationAcc.inputUserName("hay nhap username tao moi"));
 							if (functionAcc.checkUserName(y.getUserName())) {
@@ -221,10 +222,8 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin phụ huynh!");
 						break;
 
-
 					case "2":
 						TreEmManager.TreEmManager(user);
-
 
 						break;
 					case "3":
@@ -261,8 +260,6 @@ public class MyApp {
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
 
-
-
 					choice = sc.nextLine();
 
 					switch (choice) {
@@ -270,9 +267,9 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Xem thông tin giáo viên!");
 						break;
 
-					case "2": 
+					case "2":
 						System.out.println("Bạn đã chọn chức năng Cập nhật id môn học cho giáo viên!");
-						
+
 						break;
 					case "3":
 						System.out.println("Bạn đã chọn chức năng Xem ca dạy!");
@@ -297,12 +294,9 @@ public class MyApp {
 					}
 				}
 
-		
-
 			}
 
 			System.out.println("Chương trình kết thúc");
-
 
 		}
 
