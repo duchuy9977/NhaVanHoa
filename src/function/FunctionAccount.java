@@ -18,19 +18,19 @@ public class FunctionAccount {
 			PreparedStatement prstmt = null;
 			ResultSet rs = null;
 			try {
-				conn = ConnectionUtil.getConnection();
 				String sql = "Select * from Account where Username = ?";
+				conn = ConnectionUtil.getConnection();
 				prstmt = conn.prepareStatement(sql);
 				prstmt.setString(1, username);
 				rs = prstmt.executeQuery();
 				// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
 				// con trỏ k đc đẩy lên đâu dòng.
 				if (!rs.isBeforeFirst()) {
-					System.out.println("username có thể sử dụng được!");
+					System.out.println("username chưa có");
 					return true;
 				}
 //				displayResultSet(rs);
-				System.out.println("username đã có, hay nhập lại!");
+				System.out.println("username đã có");
 				return false;
 
 			} catch (SQLException i) {
@@ -54,8 +54,10 @@ public class FunctionAccount {
 			int numberRecords = 0;
 			try {
 
-				conn = ConnectionUtil.getConnection();
 				String sql = "INSERT INTO ACCOUNT VALUES (?,?,?,?,?,?)";
+				
+				
+				conn = ConnectionUtil.getConnection();
 				prstmt = conn.prepareStatement(sql);
 				prstmt.setString(1, acc.getUserName());
 				prstmt.setString(2, acc.getPassWork());
