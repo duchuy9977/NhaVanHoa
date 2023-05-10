@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import connection.ConnectionUtil;
 import entities.BuoiHoc_PhucHL1_LienKetFunction;
+import treEm.validation;
 
 
 public class Function_PhucHL1 {
@@ -14,7 +15,7 @@ public class Function_PhucHL1 {
 	public void Function() {
 	}
 	//function thêm mới buổi học. 
-	//update đang làm
+
 	public void insertBuoiHoc(BuoiHoc_PhucHL1_LienKetFunction nvh) {
 		Connection conn = null;
 		PreparedStatement prstmt = null;
@@ -49,6 +50,40 @@ public class Function_PhucHL1 {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
 		System.out.println("Thêm mới buổi học thành công");
+	}
+	// Update
+	public void updateBuoiHoc() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			validation validate = new validation();
+			String idBuoiHoc = validate.inputString("Xin hãy nhập buổi học");
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement("SELECT * FROM TREEM where BuoiHoc = ?");
+			ps.setString(1, idBuoiHoc);
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Không có buổi học trong bảng. Mời nhập lại");
+				return;
+			}
+			ps.close();
+			rs.close();
+			String Thu = validate.inputString("Nhập vào Thứ ngày mới:");
+			PreparedStatement ps1 = con.prepareStatement("UPDATE THU set Thu = ? where Thu = ?");
+			ps1.setString(1, Thu);
+			ps1.setString(2, Thu);
+			int x = ps1.executeUpdate();
+			if (x != 0) {
+				System.out.println("Đã update thành công");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
 	}
 
 	//	Delete buổi học
@@ -98,8 +133,8 @@ public class Function_PhucHL1 {
 //			System.out.println("delete thanh cong");
 //		}
 
-	String sql1 = "  delete from THU where IDBuoiHoc IN (Select IDBuoiHoc from BUOIHOC  WHERE IDBuoiHoc = ?)\r\n"
-			+ "  delete from BUOIHOC where IDBuoiHoc IN (Select IDBuoiHoc from BUOIHOC  WHERE IDBuoiHoc = ? )\r\n"
+	String sql1 = "  delete from THU where IDBuoiHoc IN (Select IDBuoiHoc from THU WHERE IDBuoiHoc = ?)\r\n"
+			+ "  delete from BUOIHOC where IDBuoiHoc IN (Select IDBuoiHoc from BUOIHOC WHERE IDBuoiHoc = ? )\r\n"
 			+ "  delete from BUOIHOC where IDBuoiHoc = ?";
 	PreparedStatement prstmt1 = conn.prepareStatement(sql1);
 	prstmt1.setString(1, idBuoiHoc);
