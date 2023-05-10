@@ -9,7 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.LopNangKhieu;
 import connection.ConnectionUtil;
+import treEm.TreEm;
 import validate.validate;
 
 public class Simple {
@@ -92,7 +94,6 @@ public class Simple {
 				System.out.println("Ma id lop khong ton tai!");
 				return;
 			}
-			
 			prstmt.close();
 			rs.close();
 		String sql1 = "delete from HOCPHI where IDDangKy in (select IDDangKy from DANGKYLOPHOC where IDLop = ?)\r\n"
@@ -127,8 +128,9 @@ public class Simple {
 		String sql = "update LOPNANGKHIEU set IDMonHoc = ?, TenLop=?,SoBuoi=?,NgayKhaiGiang=?,NgayBatDau=?,NgayKetThuc=? where IDLop = ?";
 		try {
 			validate vali = new validate();
-			String idmonhoc = vali.inputidmonhoc("nhap vao id mon hoc");
-			String tenlop = vali.inputstring("nhap vao id ten lop");
+			Simple sim = new Simple();
+			String idmonhoc = sim.Checkexistidmonhoc();
+			String tenlop = vali.inputstring("nhap vao ten lop");
 			int sobuoi = vali.inputsobuoi("nhap vao so buoi");
 			Date ngaykhaigiang = vali.inputdate("nhap vao ngay khai giang");
 			Date ngaybatdau = vali.inputdate("nhap vao ngay bat dau");
@@ -202,7 +204,101 @@ public class Simple {
 		
 	}
 	
+	public String Checkexistidmonhoc() {
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs = null;
+		String IDMonHoc = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			do {
+				validate vali = new validate();
+				String TenMonHoc = vali.inputidmonhoc("moi ban nhap vao ten mon hoc");
+				String sql = "select * from MONHOC where TenMon = ?";
+				pr = con.prepareStatement(sql);
+				pr.setString(1, TenMonHoc);
+				rs=pr.executeQuery();
+				if(rs.next()) {
+					 IDMonHoc = rs.getString("IDMonHoc");
+					 return IDMonHoc;
+				} System.out.println("Ten Mon hoc chua ton tai");
+			}
+			while(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, pr, con);
+		}
+		return IDMonHoc;
+	}
+		
+	public ArrayList<LopNangKhieu> inramanhinh(ResultSet rs) {
+		ArrayList<LopNangKhieu> list = new ArrayList<>();
 
+		try {
+
+			while (rs.next()) {
+				String IDLop = rs.getString("IDLop");
+				String IDMonHoc = rs.getString("IDMonHoc");
+				String TenLop = rs.getString("Tenlop");
+				int SoBuoi = rs.getInt("SoBuoi");
+				Date NgayKhaiGiang = rs.getDate("NgayKhaiGiang");
+				Date NgayBatDau = rs.getDate("NgayBatDau");
+				Date NgayKetThuc = rs.getDate("NgayKetThuc");
+				int SoLuongTreTheoHoc = rs.getInt("SoLuongTreTheoHoc");
+				LopNangKhieu x = new LopNangKhieu(IDLop, IDMonHoc, TenLop, SoBuoi, NgayKhaiGiang, NgayBatDau, NgayKetThuc);
+				x.setSohocsinhtheohoc(SoLuongTreTheoHoc);
+				System.out.println(x.toString1());
+				list.add(x);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<entities.LopNangKhieu> selec2() {
+		List <entities.LopNangKhieu> list2= new ArrayList<>();
+		Connection con = null;
+		Statement st = null;
+		String sql = "select lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.SoBuoi,lnk.NgayKhaiGiang,lnk.NgayBatDau,lnk.NgayKetThuc, count (dklh.IDTre) as SoLuongTreTheoHoc\r\n"
+				+ "from LOPNANGKHIEU as lnk\r\n"
+				+ "inner join DANGKYLOPHOC as dklh on lnk.IDLop=dklh.IDLop\r\n"
+				+ "group by lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.SoBuoi,lnk.NgayKhaiGiang,lnk.NgayBatDau,lnk.NgayKetThuc";
+		try {
+			con=ConnectionUtil.getConnection();
+			st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				entities.LopNangKhieu lop1 = new entities.LopNangKhieu();
+				lop1.setIdlop(rs.getString("IDLop"));
+				lop1.setIdmonhoc(rs.getString("IDMonHoc"));
+				lop1.setTenlop(rs.getString("TenLop"));
+				lop1.setSobuoi(rs.getInt("SoBuoi"));
+				lop1.setNgaykhaigiang(rs.getDate("NgayKhaiGiang"));
+				lop1.setNgaybatdau(rs.getDate("NgayBatDau"));
+				lop1.setNgayketthuc(rs.getDate("NgayKetThuc"));
+				lop1.setSohocsinhtheohoc(rs.getInt("SoLuongTreTheoHoc"));
+				list2.add(lop1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list2;
+	}
 }
 
 	
