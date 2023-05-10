@@ -1,6 +1,10 @@
 package entities;
 
+import app.MenuUpdateGiaoVien;
+import function.FunctionAccount;
+import function.FunctionGiaoVien;
 import validation.ValidationAccount;
+import validation.ValidationGiaoVien;
 
 public class Account {
 	private String userName;
@@ -86,5 +90,25 @@ public class Account {
 //		this.nameRole = validation.inputNameRole("hay nhap ten chuc vu tao moi");
 //		this.status = validation.inputStatus("hay nhap trang thai, trang thai chi nhan 2 gia tri la Ban hoac Active");
 //	}
-	
+	public void inputInfoCreateAcc() {
+		FunctionAccount functionAcc = new FunctionAccount();
+		ValidationAccount validationAcc = new ValidationAccount();
+		Account y = new Account();
+
+		while (true) {
+			y.setUserName(validationAcc.inputUserName("hay nhap username tao moi"));
+			if (functionAcc.checkUserName(y.getUserName())) {
+				break;
+			} else {
+				System.out.println("username bị trùng");
+			}
+		}
+		y.setPassWork(validationAcc.inputPassWork("hay nhap passwork tao moi"));
+		y.setName(validationAcc.inputName("hay nhap ho va ten tao moi"));
+		y.setIdRole(validationAcc.inputIdRole(
+				"hay nhap id chuc vu tao moi, idrole chi nhan 3 gia tri la admin, giaovien hoac phuhuynh"));
+		y.setNameRole(validationAcc.inputNameRole("hay nhap ten chuc vu tao moi"));
+		y.setStatus(validationAcc
+				.inputStatus("hay nhap trang thai, trang thai chi nhan 2 gia tri la Ban hoac Active"));
+	}
 }

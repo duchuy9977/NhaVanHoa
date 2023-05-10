@@ -18,7 +18,7 @@ public class MenuUpdateGiaoVien {
 		boolean flag = true;
 		do {
 			try {
-				System.out.println("Chuong trinh quan ly giao vien");
+				System.out.println("Chuong trinh update thoong tin giao vien");
 				System.out.println("===============================================================");
 				System.out.println("1. update id môn học của Giao Vien");
 				System.out.println("2. update lương mỗi buổi dạy của giáo viên");
