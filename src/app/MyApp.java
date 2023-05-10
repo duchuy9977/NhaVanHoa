@@ -12,11 +12,11 @@ import entities.Account;
 import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
+import validation.ValidationAccount;
+import validation.ValidationGiaoVien;
 import simple.Simple;
 //import function.Manage;
-import treEm.TreEmManager;
-
-import function.FuncitionLopNangKhieu;
+import treEm.TreEmManager;import function.FuncitionLopNangKhieu;
 
 public class MyApp {
 	public static String user = null;
@@ -64,15 +64,12 @@ public class MyApp {
 		Connection conn = ConnectionUtil.getConnection();
 		// Chức năng Login
 		Scanner sc = new Scanner(System.in);
-//		Function function = new Function();
-
-		FunctionGiaoVien function = new FunctionGiaoVien();
-
+		FunctionGiaoVien functionGV = new FunctionGiaoVien();
 
 		FunctionAccount functionAcc = new FunctionAccount();
-		
-
-		while(true) {
+		ValidationGiaoVien validationGV = new ValidationGiaoVien();
+		ValidationAccount validationAcc = new ValidationAccount();
+		while (true) {
 
 			do {
 				System.out.println("===============================================");
@@ -128,23 +125,71 @@ public class MyApp {
 					case "7":
 						System.out.println("Bạn đã chọn chức năng Xem thêm mới giáo viên!");
 						GiaoVien x = new GiaoVien();
-						x.inputInfo();
-						function.insertGiaoVien(x);
+						while (true) {
+							x.setIdGiaoVien(validationGV.inputIdGiaoVien("hay nhap ma id giao vien"));
+							if (functionGV.checkIDGiaoVien(x.getIdGiaoVien())) {
+								break;
+							} else {
+								System.out.println("id giáo viên bị trùng");
+							}
+						}
+						while (true) {
+							x.setIdMonHoc(validationGV.inputIdMonHoc("hay nhap ma id mon hoc"));
+							if (functionGV.checkIDMonHoc(x.getIdMonHoc()) == false) {
+								break;
+							} else {
+								System.out.println("id môn học chưa có, hay nhập lại");
+							}
+						}
+						x.setLuongMoiBuoiDay(validationGV.inputLuongMoiBuoiDay("hay nhap he so luong mỗi buỗi dạy"));
+						while (true) {
+							x.setUserName(validationGV.inputUserName("hay nhap username"));
+							if (functionGV.checkUserName(x.getUserName()) == false) {
+								break;
+							} else {
+								System.out.println("user name chưa có, hay nhập lại");
+							}
+						}
+						x.setDiaChi(validationGV.inputDiaChi("hay nhap dia chi"));
+						x.setEmail(validationGV.inputEmail("hay nhap email"));
+						x.setSdt(validationGV.inputSDT("hay nhap so dien thoai"));
+						x.setSoNamKinhNghiem(validationGV.inputSoNamKinhNghiem("hay nhap so nam kinh nghiem"));
+
+//						x.inputInfo();
+						functionGV.insertGiaoVien(x);
 						break;
 					case "8":
 						System.out.println("Bạn đã chọn chức năng tạo mới Account!");
 						Account y = new Account();
-						y.inputInfo();
+						
+						while (true) {
+							y.setUserName(validationAcc.inputUserName("hay nhap username tao moi"));
+							if (functionAcc.checkUserName(y.getUserName())) {
+								break;
+							} else {
+								System.out.println("username bị trùng");
+							}
+						}
+						y.setPassWork(validationAcc.inputPassWork("hay nhap passwork tao moi"));
+						y.setName(validationAcc.inputName("hay nhap ho va ten tao moi"));
+						y.setIdRole(validationAcc.inputIdRole(
+								"hay nhap id chuc vu tao moi, idrole chi nhan 3 gia tri la admin, giaovien hoac phuhuynh"));
+						y.setNameRole(validationAcc.inputNameRole("hay nhap ten chuc vu tao moi"));
+						y.setStatus(validationAcc
+								.inputStatus("hay nhap trang thai, trang thai chi nhan 2 gia tri la Ban hoac Active"));
+//						y.inputInfo();
 
 						functionAcc.addAccount(y);
 
 						break;
 
-					case "9": 
+					case "9":
+
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
-						function.deleteGiaoVien();
+						functionGV.deleteGiaoVien();
 						break;
-					case "0": 
+
+					case "0":
 
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
 						break;
@@ -176,8 +221,10 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin phụ huynh!");
 						break;
 
+
 					case "2":
 						TreEmManager.TreEmManager(user);
+
 
 						break;
 					case "3":
@@ -196,7 +243,6 @@ public class MyApp {
 						break;
 					default:
 						System.out.println("Không hợp lệ, mời nhập lại!");
-						;
 					}
 				}
 
@@ -214,6 +260,8 @@ public class MyApp {
 					System.out.println("   0. Đăng Xuất");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
+
+
 
 					choice = sc.nextLine();
 
@@ -238,7 +286,7 @@ public class MyApp {
 
 					case "6":
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
-						function.deleteGiaoVien();
+						functionGV.deleteGiaoVien();
 						break;
 					case "0":
 
@@ -246,54 +294,15 @@ public class MyApp {
 						break;
 					default:
 						System.out.println("Không hợp lệ, mời nhập lại!");
-						;
 					}
 				}
 
+		
+
 			}
-			if(role.equals("buoihoc")) {
-				String choice = "a";
-				while(!choice.equals("0")) {
-					System.out.println("Chào mừng trở lại "+ roleName + " " + name + "!!!");
-					System.out.println("Mời nhập chức năng bạn muốn sử dụng");
-					System.out.println("   1. Xem thông tin buổi học");
-					System.out.println("   2. Cập nhật thông tin");
-					System.out.println("   3. Xem buổi học");
-					System.out.println("   4. Đăng kí buổi học");
-					System.out.println("   5. Xem tình trạng đơn đăng kí");
-					System.out.println("   0. Đăng xuất");
-					System.out.println("===============================================");
-					System.out.println("  Mời bạn chọn tính năng: ");
-					
-					choice = sc.nextLine();
-					
-					switch (choice) {
-					case "1": 
-						System.out.println("Bạn đã chọn chức năng Xem thông tin Buổi học!");
-						break;
-					case "2": 
-						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin!");
-						break;
-					case "3": 
-						System.out.println("Bạn đã chọn chức năng Xem Buổi học!");
-						break;
-					case "4": 
-						System.out.println("Bạn đã chọn chức năng Đăng kí Buổi học!");
-						
-						break;
-					case "5": 
-						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
-						break;
-					case "0": 
-						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
-						break;
-					default:
-						System.out.println("Không hợp lệ, mời nhập lại!");;
-		}
-	}
-				
-}
+
 			System.out.println("Chương trình kết thúc");
+
 
 		}
 

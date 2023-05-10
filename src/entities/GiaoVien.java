@@ -118,15 +118,15 @@ public class GiaoVien {
 				+ ", soNamKinhNghiem=" + soNamKinhNghiem + "]";
 	}
 
-	public void inputInfo() {
-		ValidationGiaoVien validation = new ValidationGiaoVien();
-		this.idGiaoVien = validation.inputIdGiaoVien("hay nhap ma id giao vien");
-		this.idMonHoc = validation.inputIdMonHoc("hay nhap ma id mon hoc");
-		this.luongMoiBuoiDay = validation.inputLuongMoiBuoiDay("hay nhap he so luong");
-		this.userName = validation.inputUserName("hay nhap username");
-		this.diaChi = validation.inputDiaChi("hay nhap dia chi");
-		this.email = validation.inputEmail("hay nhap email");
-		this.sdt = validation.inputSDT("hay nhap so dien thoai");
-		this.soNamKinhNghiem = validation.inputSoNamKinhNghiem("hay nhap so nam kinh nghiem");
-	}
+//	public void inputInfo() {
+//		ValidationGiaoVien validation = new ValidationGiaoVien();
+//		this.idGiaoVien = validation.inputIdGiaoVien("hay nhap ma id giao vien");
+//		this.idMonHoc = validation.inputIdMonHoc("hay nhap ma id mon hoc");
+//		this.luongMoiBuoiDay = validation.inputLuongMoiBuoiDay("hay nhap he so luong");
+//		this.userName = validation.inputUserName("hay nhap username");
+//		this.diaChi = validation.inputDiaChi("hay nhap dia chi");
+//		this.email = validation.inputEmail("hay nhap email");
+//		this.sdt = validation.inputSDT("hay nhap so dien thoai");
+//		this.soNamKinhNghiem = validation.inputSoNamKinhNghiem("hay nhap so nam kinh nghiem");
+//	}
 }
