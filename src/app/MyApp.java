@@ -198,11 +198,7 @@ public class MyApp {
 						;
 					}
 				}
-<<<<<<< HEAD
-							
-=======
 
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 			}
 			if (role.equals("phuhuynh")) {
 				String choice = "a";
@@ -304,19 +300,11 @@ public class MyApp {
 		
 
 			}
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 			System.out.println("Chương trình kết thúc");
 
 
 		}
-<<<<<<< HEAD
-			
-=======
-		
 
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 	}
 }
