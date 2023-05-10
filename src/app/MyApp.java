@@ -251,7 +251,7 @@ public class MyApp {
 					
 					switch (choice) {
 					case "1": 
-						System.out.println("Bạn đã chọn chức năng Xem thông tin Giáo viên!");
+						System.out.println("Bạn đã chọn chức năng Xem thông tin Buổi học!");
 						break;
 					case "2": 
 						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin!");
