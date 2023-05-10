@@ -16,11 +16,8 @@ public class ValidationGiaoVien {
 		do {
 			System.out.println(message);
 			String idGiaoVien = input.nextLine();
-			
 			Pattern pattern = Pattern.compile("^GV[0-9]{3,3}$");
 			if (pattern.matcher(idGiaoVien).find()) {
-			
-				
 					return idGiaoVien;
 				}
 				System.out.println("ban nhap sai ma ID Giao Vien, hay nhap lai theo format (GV***)");

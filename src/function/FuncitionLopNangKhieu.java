@@ -9,7 +9,7 @@ import simple.Simple;
 import validate.validate;
 
 public class FuncitionLopNangKhieu {
-public static void main(String[] args) {
+public static void FuncitionLopNangKhieu(){
 	
 		Scanner sc = new Scanner(System.in);
 		validate validate=new validate();

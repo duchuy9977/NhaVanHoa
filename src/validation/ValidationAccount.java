@@ -16,7 +16,7 @@ public class ValidationAccount {
 		do {
 			System.out.println(message);
 			String userName = input.nextLine();
-
+			
 				Pattern pattern = Pattern.compile("^[a-zA-Z_0-9]*$");
 				if (pattern.matcher(userName).find()) {
 					return userName;
