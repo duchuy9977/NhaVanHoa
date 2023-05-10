@@ -12,16 +12,11 @@ import entities.Account;
 import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
-<<<<<<< HEAD
 import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
-=======
 import simple.Simple;
 //import function.Manage;
-import treEm.TreEmManager;
-
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
-import function.FuncitionLopNangKhieu;
+import treEm.TreEmManager;import function.FuncitionLopNangKhieu;
 
 public class MyApp {
 	public static String user = null;
@@ -68,28 +63,14 @@ public class MyApp {
 	public static void main(String[] args) {
 		Connection conn = ConnectionUtil.getConnection();
 		// Chức năng Login
-<<<<<<< HEAD
 		Scanner sc = new Scanner(System.in);
 		FunctionGiaoVien functionGV = new FunctionGiaoVien();
-=======
-		Scanner sc = new Scanner(System.in);
-//		Function function = new Function();
 
-		FunctionGiaoVien function = new FunctionGiaoVien();
-
-
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 		FunctionAccount functionAcc = new FunctionAccount();
 		ValidationGiaoVien validationGV = new ValidationGiaoVien();
 		ValidationAccount validationAcc = new ValidationAccount();
-		
-<<<<<<< HEAD
 		while (true) {
-=======
 
-		while(true) {
-
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 			do {
 				System.out.println("===============================================");
 				System.out.println("   Đăng Nhập");
@@ -201,21 +182,15 @@ public class MyApp {
 						functionAcc.addAccount(y);
 
 						break;
-<<<<<<< HEAD
-					case "9":
-=======
 
-					case "9": 
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
+					case "9":
+
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
 						functionGV.deleteGiaoVien();
 						break;
-<<<<<<< HEAD
-					case "0":
-=======
-					case "0": 
 
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
+					case "0":
+
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
 						break;
 					default:
@@ -245,15 +220,12 @@ public class MyApp {
 					case "1":
 						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin phụ huynh!");
 						break;
-<<<<<<< HEAD
-					case "2":
-						System.out.println("Bạn đã chọn chức năng Quản lý trẻ!");
-=======
+
 
 					case "2":
 						TreEmManager.TreEmManager(user);
 
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
+
 						break;
 					case "3":
 						System.out.println("Bạn đã chọn chức năng Xem thông tin Tuyển Sinh!");
@@ -271,7 +243,6 @@ public class MyApp {
 						break;
 					default:
 						System.out.println("Không hợp lệ, mời nhập lại!");
-						;
 					}
 				}
 
@@ -290,8 +261,8 @@ public class MyApp {
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
 
-<<<<<<< HEAD
-=======
+
+
 					choice = sc.nextLine();
 
 					switch (choice) {
@@ -315,7 +286,7 @@ public class MyApp {
 
 					case "6":
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
-						function.deleteGiaoVien();
+						functionGV.deleteGiaoVien();
 						break;
 					case "0":
 
@@ -323,97 +294,17 @@ public class MyApp {
 						break;
 					default:
 						System.out.println("Không hợp lệ, mời nhập lại!");
-						;
 					}
 				}
 
-			}
-			if(role.equals("buoihoc")) {
-				String choice = "a";
-				while(!choice.equals("0")) {
-					System.out.println("Chào mừng trở lại "+ roleName + " " + name + "!!!");
-					System.out.println("Mời nhập chức năng bạn muốn sử dụng");
-					System.out.println("   1. Xem thông tin buổi học");
-					System.out.println("   2. Cập nhật thông tin");
-					System.out.println("   3. Xem buổi học");
-					System.out.println("   4. Đăng kí buổi học");
-					System.out.println("   5. Xem tình trạng đơn đăng kí");
-					System.out.println("   0. Đăng xuất");
-					System.out.println("===============================================");
-					System.out.println("  Mời bạn chọn tính năng: ");
-					
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
-					choice = sc.nextLine();
-
-					switch (choice) {
-<<<<<<< HEAD
-					case "1":
-						System.out.println("Bạn đã chọn chức năng Xem thông tin giáo viên!");
-=======
-					case "1": 
-						System.out.println("Bạn đã chọn chức năng Xem thông tin Buổi học!");
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
-						break;
-<<<<<<< HEAD
-					case "2":
-						System.out.println("Bạn đã chọn chức năng Cập nhật id môn học cho giáo viên!");
-
-=======
-					case "2": 
-						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin!");
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
-						break;
-<<<<<<< HEAD
-					case "3":
-						System.out.println("Bạn đã chọn chức năng Xem ca dạy!");
-=======
-					case "3": 
-						System.out.println("Bạn đã chọn chức năng Xem Buổi học!");
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
-						break;
-<<<<<<< HEAD
-					case "4":
-						System.out.println("Bạn đã chọn chức năng Đăng kí Ca dạy!");
-=======
-					case "4": 
-						System.out.println("Bạn đã chọn chức năng Đăng kí Buổi học!");
-						
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
-						break;
-					case "5":
-						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
-						break;
-<<<<<<< HEAD
-
-					case "0":
-=======
-					case "0": 
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
-						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
-						break;
-					default:
-<<<<<<< HEAD
-						System.out.println("Không hợp lệ, mời nhập lại!");
-						;
-					}
-				}
+		
 
 			}
 			System.out.println("Chương trình kết thúc");
 
-=======
-						System.out.println("Không hợp lệ, mời nhập lại!");;
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
-		}
-<<<<<<< HEAD
-=======
-	}
-				
-}
-			System.out.println("Chương trình kết thúc");
 
 		}
+		
 
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 	}
 }
