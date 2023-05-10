@@ -65,7 +65,6 @@ public class MyApp {
 		// Chức năng Login
 		Scanner sc = new Scanner(System.in);
 		FunctionGiaoVien functionGV = new FunctionGiaoVien();
-
 		FunctionAccount functionAcc = new FunctionAccount();
 		ValidationGiaoVien validationGV = new ValidationGiaoVien();
 		ValidationAccount validationAcc = new ValidationAccount();
@@ -123,7 +122,7 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Ca dạy!");
 						break;
 					case "7":
-						System.out.println("Bạn đã chọn chức năng Xem thêm mới giáo viên!");
+						System.out.println("Bạn đã chọn chức năng thêm mới giáo viên!");
 						GiaoVien x = new GiaoVien();
 						while (true) {
 							x.setIdGiaoVien(validationGV.inputIdGiaoVien("hay nhap ma id giao vien"));
