@@ -92,10 +92,10 @@ public class MyApp {
 					System.out.println("   3. Quản lý lớp học");
 					System.out.println("   4. Đăng Thông tin tuyển sinh");
 					System.out.println("   5. Xem tình trạng đơn đăng kí Lớp học");
-					System.out.println("   6. Xem tình trạng đơn đăng kí Ca dạy");
+					System.out.println("   6. Thêm buổi học");
 					System.out.println("   7. Thêm mới giáo viên");
 					System.out.println("   8. Tạo mới Account");
-					System.out.println("   9. xoá thông tin giáo viên.");
+					System.out.println("   9. Xoá thông tin giáo viên.");
 					System.out.println("   0. Đăng Xuất..");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
