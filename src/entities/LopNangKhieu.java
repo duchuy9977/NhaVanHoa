@@ -2,6 +2,7 @@ package entities;
 
 import java.sql.Date;
 
+import simple.Simple;
 import validate.validate;
 
 public class LopNangKhieu {
@@ -12,6 +13,7 @@ public class LopNangKhieu {
 	private Date ngaykhaigiang;
 	private Date ngaybatdau;
 	private Date ngayketthuc;
+	private int sohocsinhtheohoc;
 	public LopNangKhieu() {
 		super();
 	}
@@ -25,6 +27,12 @@ public class LopNangKhieu {
 		this.ngaykhaigiang = ngaykhaigiang;
 		this.ngaybatdau = ngaybatdau;
 		this.ngayketthuc = ngayketthuc;
+	}
+	public int getSohocsinhtheohoc() {
+		return sohocsinhtheohoc;
+	}
+	public void setSohocsinhtheohoc(int sohocsinhtheohoc) {
+		this.sohocsinhtheohoc = sohocsinhtheohoc;
 	}
 	public String getIdlop() {
 		return idlop;
@@ -75,10 +83,17 @@ public class LopNangKhieu {
 				+ "]";
 	}
 	
+	public String toString1() {
+		return "LopNangKhieu [idlop=" + idlop + ", idmonhoc=" + idmonhoc + ", tenlop=" + tenlop + ", sobuoi=" + sobuoi
+				+ ", ngaykhaigiang=" + ngaykhaigiang + ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc
+				+ ", sohocsinhtheohoc=" + sohocsinhtheohoc +"]";
+	}
+	
 	public void intutdata() {
+		Simple sim = new Simple();
 		validate vali = new validate();
-		this.idlop = vali.inputidlop("moi ban nhap ma giao vien");
-		this.idmonhoc = vali.inputidmonhoc("moi ban nhap mon hoc");
+		this.idlop = vali.inputidlop("moi ban nhap id lop");
+		this.idmonhoc = sim.Checkexistidmonhoc();
 		this.tenlop = vali.inputstring("moi ban nhap ten lop");
 		this.sobuoi = vali.inputsobuoi("moi ban nhap so buoi");
 		this.ngaykhaigiang = vali.inputdate("moi ban nhap ngay khai giang");
@@ -86,4 +101,5 @@ public class LopNangKhieu {
 		this.ngayketthuc = vali.inputdate("moi ban nhap ngay ket thuc");
 
 	}
+	
 }

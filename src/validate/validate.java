@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+
+
 public class validate {
 	public static Scanner sc = new Scanner(System.in);
 	
@@ -22,10 +24,10 @@ public class validate {
 		System.out.println(message);
 		do {
 			String idmonhoc = sc.nextLine();
-			Pattern x = Pattern.compile("^MH[0-9]{3}");
-			if(x.matcher(idmonhoc).find()) {
+//			if(x.matcher(idmonhoc).find()) {
+//				
 				return idmonhoc ; 
-			}System.out.println("id mon hoc gom 5 ki tu va bat dau bang MH");
+//			}System.out.println("id mon hoc gom 5 ki tu va bat dau bang MH");
 		} while (true);
 	}
 	
