@@ -47,6 +47,28 @@ public class TreEmDao {
 		}
 	}
 
+	public boolean checkIDTre(String IDTre) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement("SELECT * FROM TREEM WHERE IDTre = ?");
+			ps.setString(1, IDTre);
+			rs = ps.executeQuery();		
+			if (!rs.isBeforeFirst()) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
+		return true;
+	}
+
 	public static Date checkNgaySinh() {
 		Date NgaySinh = null;
 		boolean choice = true;
@@ -293,8 +315,8 @@ public class TreEmDao {
 			if (!rs.isBeforeFirst()) {
 				System.out.println("Không có môn học nào trong tháng " + x + "/2023");
 				return;
-			}else {
-				while(rs.next()) {
+			} else {
+				while (rs.next()) {
 					System.out.println(rs.getString("TenMon"));
 				}
 			}
@@ -306,21 +328,16 @@ public class TreEmDao {
 			ConnectionUtil.closeConnection(rs, ps, con);
 		}
 	}
+
 	public void sortAnhEm() {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			ps = con.prepareStatement("SELECT *\r\n"
-					+ "FROM TREEM\r\n"
-					+ "WHERE IDPhuHuynh IN (\r\n"
-					+ "	SELECT IDPhuHuynh\r\n"
-					+ "	FROM TREEM\r\n"
-					+ "	GROUP BY IDPhuHuynh\r\n"
-					+ "	HAVING COUNT(*) > 1\r\n"
-					+ ")\r\n"
-					+ "ORDER BY IDPhuHuynh , STT");
+			ps = con.prepareStatement("SELECT *\r\n" + "FROM TREEM\r\n" + "WHERE IDPhuHuynh IN (\r\n"
+					+ "	SELECT IDPhuHuynh\r\n" + "	FROM TREEM\r\n" + "	GROUP BY IDPhuHuynh\r\n"
+					+ "	HAVING COUNT(*) > 1\r\n" + ")\r\n" + "ORDER BY IDPhuHuynh , STT");
 			rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) {
 				System.out.println("Không có thông tin phù hợp. Mời nhập lại");

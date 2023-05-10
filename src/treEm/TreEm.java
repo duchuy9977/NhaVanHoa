@@ -122,7 +122,15 @@ public class TreEm {
 	public void inputInfo(String username) {
 		validation validate = new validation();
 		TreEmDao tre = new TreEmDao();
-		this.IDTre = validate.inputIDTre("Xin hãy nhập ID trẻ em");
+		do {
+			String IDTre = validate.inputIDTre("Xinh hãy nhập IDtre");
+			if (!tre.checkIDTre(IDTre)) {
+				this.IDTre = IDTre;
+				break;
+			}
+			System.out.println("IDTre đã tồn tại. Mời nhập lại!");
+		}while (true);
+		
 		this.IDPhuHuynh = validate.inputIDPhuHuynh(username);
 		this.STT = tre.inputSTT(username);
 		this.TenTre = validate.inputString("Xin hãy nhập tên trẻ");
