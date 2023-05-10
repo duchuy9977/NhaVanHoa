@@ -65,12 +65,8 @@ public class MyApp {
 		Connection conn = ConnectionUtil.getConnection();
 		// Chức năng Login
 		Scanner sc = new Scanner(System.in);
-<<<<<<< HEAD
-		FunctionGiaoVien functionGV = new FunctionGiaoVien();
-=======
-		FunctionGiaoVien functionGV = new FunctionGiaoVien();
 
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
+		FunctionGiaoVien functionGV = new FunctionGiaoVien();
 		FunctionAccount functionAcc = new FunctionAccount();
 		ValidationGiaoVien validationGV = new ValidationGiaoVien();
 		ValidationAccount validationAcc = new ValidationAccount();
