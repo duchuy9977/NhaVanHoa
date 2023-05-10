@@ -8,13 +8,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import app.LopNangKhieu;
 import connection.ConnectionUtil;
-import treEm.TreEm;
 import validate.validate;
 
 public class Simple {
+	private static Scanner sc = new Scanner(System.in);
 	public String insertdata (entities.LopNangKhieu lop) {
 		Connection con = ConnectionUtil.getConnection() ; 
 		String sql = "insert into LOPNANGKHIEU(IDLop,IDMonHoc,TenLop,SoBuoi,NgayKhaiGiang,NgayBatDau,NgayKetThuc)values (\r\n"
@@ -299,6 +300,146 @@ public class Simple {
 		}
 		return list2;
 	}
+	
+	public ArrayList<String> monhoct1003() {
+		ArrayList<String> list = new ArrayList<String>();
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		String lop1 = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "select TenMon from MONHOC";
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				lop1 = rs.getString("TenMon");
+				list.add(lop1);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
+	public ArrayList<LopNangKhieu> inranamninh(ResultSet rs) {
+		ArrayList<LopNangKhieu> list = new ArrayList<>();
+		try {
+			while (rs.next()) {
+				String IDLop = rs.getString("IDLop");
+				String IDMonHoc = rs.getString("IDMonHoc");
+				String Tenlop = rs.getString("TenLop");
+				int SoBuoi = rs.getInt("SoBuoi");
+				Date NgayKhaiGiang = rs.getDate("NgayKhaiGiang");
+				Date NgayBatDau = rs.getDate("NgayBatDau");
+				Date NgayKetThuc = rs.getDate("NgayKetThuc");
+				LopNangKhieu lop = new LopNangKhieu(IDLop, IDMonHoc, Tenlop, SoBuoi, NgayKhaiGiang, NgayBatDau,
+						NgayKetThuc);
+				System.out.println(lop.toString());
+				list.add(lop);
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return list;
+	}
+
+	public void ClickMonHoc(String message) {
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs = null;
+		try {
+			System.out.println(message);
+			String tenmonhoc;
+			while (true) {
+				tenmonhoc = sc.nextLine();
+				if(checkTenMH(tenmonhoc)==true) {
+					break;
+				}else {
+					System.out.println("moi ban nhap dung ky tu ten mon hoc tren man hinh");
+				}
+			}
+			con = ConnectionUtil.getConnection();
+			String sql = "select lnk.* from LOPNANGKHIEU as lnk,MONHOC as mh where lnk.IDMonHoc=mh.IDMonHoc and mh.TenMon=? \r\n"
+					+ "  and lnk.NgayKhaiGiang >= DATEADD(DAY, 14, GETDATE())\r\n"
+					+ "  AND lnk.NgayKetThuc > GETDATE()";
+			pr = con.prepareStatement(sql);
+			pr.setString(1, tenmonhoc);
+			rs = pr.executeQuery();
+			if(!rs.isBeforeFirst()) {
+				System.out.println("khong co mon hoc thoa man yeu cau");
+				return;
+			}
+			inranamninh(rs);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static boolean checkTenMH(String maDeThi) {
+		Connection conn = ConnectionUtil.getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		int row = 0;
+		try {
+			String sql = "select COUNT(*) as soluong from MONHOC where TenMon=?";
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, maDeThi);
+			rs = pstm.executeQuery();
+			rs.next();
+			row = rs.getInt("soluong");
+
+		} catch (Exception e) {
+			e.fillInStackTrace();
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+				if (pstm != null) {
+					pstm.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e2) {
+				e2.fillInStackTrace();
+			}
+		}
+		if (row > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public void dangkihoc(){
+		Simple sim1 = new Simple();
+		ArrayList<String> lop = sim1.monhoct1003();
+		System.out.println(lop);
+		sim1.ClickMonHoc("moi ban chon lop");
+		
+}
 }
 
 	
