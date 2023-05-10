@@ -115,21 +115,20 @@ public class validation {
 	}
 
 	public int inputSoThang(String message) {
-		try {
-			System.out.println(message);
-			int x = input.nextInt();
-			if (x >= 1) {
-				return x;
-			} else if (x >= 12) {
-				return x;
-			} else {
-				System.out.println("Tháng không tồn tại. Vui lòng nhập lại");
+		do {
+			try {
+				System.out.println(message);
+				int x = input.nextInt();
+				if (x >= 1 && x <= 12) {
+					return x;
+				} else {
+					System.out.println("Tháng không đúng. Vui lòng nhập lại");
+				}
+			} catch (Exception e) {
+				System.out.println("Định dạng không đúng. Vui lòng kiểm tra lại");
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			System.out.println("Định dạng không đúng. Vui lòng kiểm tra lại");
-			e.printStackTrace();
-		}
-		while (true)
-			;
+
+		} while (true);
 	}
 }

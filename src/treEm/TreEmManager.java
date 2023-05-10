@@ -52,7 +52,7 @@ public class TreEmManager {
 					teDao.seachTop3MonHoc();
 					break;
 				case "8":
-
+					teDao.sortAnhEm();
 					break;
 				case "0":
 					System.out.println("Bạn đã thoát khỏi chương trình!!!");

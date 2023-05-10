@@ -249,31 +249,6 @@ public class TreEmDao {
 		}
 	}
 
-	public void seachbyDangky() {
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			validation validate = new validation();
-			String GioiTinh = validate.inputGioiTinh("Xin hãy nhập giới tính muốn liệt kê");
-			con = ConnectionUtil.getConnection();
-			ps = con.prepareStatement("SELECT * FROM TREEM where GioiTinh = ?");
-			ps.setString(1, GioiTinh);
-			rs = ps.executeQuery();
-			if (!rs.isBeforeFirst()) {
-				System.out.println("Không có thông tin phù hợp. Mời nhập lại");
-				return;
-			}
-			displayRS(rs);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			ConnectionUtil.closeConnection(rs, ps, con);
-		}
-	}
-
 	public void seachDaThongQua() {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -323,6 +298,35 @@ public class TreEmDao {
 					System.out.println(rs.getString("TenMon"));
 				}
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
+	}
+	public void sortAnhEm() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement("SELECT *\r\n"
+					+ "FROM TREEM\r\n"
+					+ "WHERE IDPhuHuynh IN (\r\n"
+					+ "	SELECT IDPhuHuynh\r\n"
+					+ "	FROM TREEM\r\n"
+					+ "	GROUP BY IDPhuHuynh\r\n"
+					+ "	HAVING COUNT(*) > 1\r\n"
+					+ ")\r\n"
+					+ "ORDER BY IDPhuHuynh , STT");
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Không có thông tin phù hợp. Mời nhập lại");
+				return;
+			}
+			displayRS(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
