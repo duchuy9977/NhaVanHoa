@@ -12,6 +12,7 @@ import entities.Account;
 import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
+import menuChucNangCon.MenuPhuHuynh;
 import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
 import simple.Simple;
@@ -65,8 +66,8 @@ public class MyApp {
 		Connection conn = ConnectionUtil.getConnection();
 		// Chức năng Login
 		Scanner sc = new Scanner(System.in);
-
 		FunctionGiaoVien functionGV = new FunctionGiaoVien();
+
 		FunctionAccount functionAcc = new FunctionAccount();
 		ValidationGiaoVien validationGV = new ValidationGiaoVien();
 		ValidationAccount validationAcc = new ValidationAccount();
@@ -97,6 +98,7 @@ public class MyApp {
 					System.out.println("   7. Thêm mới giáo viên");
 					System.out.println("   8. Tạo mới Account");
 					System.out.println("   9. xoá thông tin giáo viên.");
+					System.out.println("  10. Quản Lý Phụ Huynh");
 					System.out.println("   0. Đăng Xuất..");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
@@ -124,7 +126,7 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Ca dạy!");
 						break;
 					case "7":
-						System.out.println("Bạn đã chọn chức năng thêm mới giáo viên!");
+						System.out.println("Bạn đã chọn chức năng Xem thêm mới giáo viên!");
 						GiaoVien x = new GiaoVien();
 						while (true) {
 							x.setIdGiaoVien(validationGV.inputIdGiaoVien("hay nhap ma id giao vien"));
@@ -188,6 +190,10 @@ public class MyApp {
 
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
 						functionGV.deleteGiaoVien();
+						break;
+						
+					case "10":
+						MenuPhuHuynh.quanLyPhuHuynh();
 						break;
 
 					case "0":
