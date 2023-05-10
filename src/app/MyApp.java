@@ -100,11 +100,8 @@ public class MyApp {
 					System.out.println("   8. Tạo mới Account");
 
 					System.out.println("   9. xoá thông tin giáo viên.");
-<<<<<<< HEAD
 					System.out.println("   10. update thông tin giáo viên.");
-=======
-					System.out.println("  10. Quản Lý Phụ Huynh");
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
+					System.out.println("  11. Quản Lý Phụ Huynh");
 					System.out.println("   0. Đăng Xuất..");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
@@ -197,18 +194,17 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
 						functionGV.deleteGiaoVien();
 						break;
-<<<<<<< HEAD
+
 					case "10":
 						System.out.println("Bạn đã chọn chức năng update thông tin giáo viên!");
 						menuUpdateGV.menuUpdate();
 						break;
-=======
+
 						
-					case "10":
+					case "11":
 						MenuPhuHuynh.quanLyPhuHuynh();
 						break;
 
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 					case "0":
 
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
