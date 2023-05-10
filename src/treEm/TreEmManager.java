@@ -56,7 +56,7 @@ public class TreEmManager {
 					break;
 				case "0":
 					System.out.println("Bạn đã thoát khỏi chương trình!!!");
-					break;
+					return;
 				default:
 					System.out.println("Không hợp lệ, mời nhập lại!");
 					break;

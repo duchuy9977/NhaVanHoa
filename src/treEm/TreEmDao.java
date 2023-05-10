@@ -55,7 +55,7 @@ public class TreEmDao {
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement("SELECT * FROM TREEM WHERE IDTre = ?");
 			ps.setString(1, IDTre);
-			rs = ps.executeQuery();		
+			rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) {
 				return false;
 			}
@@ -351,5 +351,27 @@ public class TreEmDao {
 		} finally {
 			ConnectionUtil.closeConnection(rs, ps, con);
 		}
+	}
+
+	public boolean checkTableTreEm() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement("select * from TREEM");
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Hiện chưa có thông tin trẻ em nào. Xin hãy nhập thông tin trẻ em trước.");
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
+		return true;
 	}
 }
