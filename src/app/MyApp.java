@@ -97,12 +97,9 @@ public class MyApp {
 					System.out.println("   6. Thêm buổi học");
 					System.out.println("   7. Thêm mới giáo viên");
 					System.out.println("   8. Tạo mới Account");
-<<<<<<< HEAD
-					System.out.println("   9. Xoá thông tin giáo viên.");
-=======
+
 					System.out.println("   9. xoá thông tin giáo viên.");
 					System.out.println("  10. Quản Lý Phụ Huynh");
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 					System.out.println("   0. Đăng Xuất..");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
