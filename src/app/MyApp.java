@@ -10,6 +10,7 @@ import java.util.Scanner;
 import connection.ConnectionUtil;
 import entities.Account;
 import entities.GiaoVien;
+import function.FunctionAccount;
 import function.FunctionGiaoVien;
 import function.Manage;
 
@@ -60,7 +61,11 @@ public class MyApp {
 		//Chức năng Login
 		Scanner sc = new Scanner(System.in);
 		FunctionGiaoVien function = new FunctionGiaoVien();
+
+
+		FunctionAccount functionAcc = new FunctionAccount();
 		
+
 		while(true) {
 			do {
 				System.out.println("===============================================");
@@ -126,7 +131,9 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng tạo mới Account!");
 						Account y = new Account();
 						y.inputInfo();
-						function.addAccount(y);
+
+						functionAcc.addAccount(y);
+
 						break;
 					case "9": 
 						System.out.println("Bạn đã chọn chức năng Xoá thông tin giáo viên!");
@@ -189,7 +196,7 @@ public class MyApp {
 					System.out.println("Chào mừng trở lại "+ roleName + " " + name + "!!!");
 					System.out.println("Mời nhập chức năng bạn muốn sử dụng");
 					System.out.println("   1. Xem thông tin giáo viên");
-					System.out.println("   2. Cập nhật thông tin");
+					System.out.println("   2. Cập nhật id môn học cho giáo viên");
 					System.out.println("   3. Xem ca dạy");
 					System.out.println("   4. Đăng kí Ca dạy");
 					System.out.println("   5. Xem tình trạng đơn đăng kí");
@@ -204,7 +211,8 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Xem thông tin giáo viên!");
 						break;
 					case "2": 
-						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin!");
+						System.out.println("Bạn đã chọn chức năng Cập nhật id môn học cho giáo viên!");
+						
 						break;
 					case "3": 
 						System.out.println("Bạn đã chọn chức năng Xem ca dạy!");
