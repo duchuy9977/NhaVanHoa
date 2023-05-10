@@ -1,8 +1,8 @@
 package entities;
 
-import app.MenuUpdateGiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
+import menuChucNangCon.MenuUpdateGiaoVien;
 import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
 

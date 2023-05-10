@@ -1,4 +1,4 @@
-package app;
+package menuChucNangCon;
 
 import java.util.Scanner;
 

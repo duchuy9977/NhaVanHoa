@@ -13,6 +13,7 @@ import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
 import menuChucNangCon.MenuPhuHuynh;
+import menuChucNangCon.MenuUpdateGiaoVien;
 import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
 import simple.Simple;
