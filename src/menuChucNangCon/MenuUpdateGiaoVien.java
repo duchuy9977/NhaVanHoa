@@ -12,9 +12,6 @@ public class MenuUpdateGiaoVien {
 	public static void menuUpdate() {
 		Scanner scanner = new Scanner(System.in);
 		FunctionGiaoVien functionGV = new FunctionGiaoVien();
-		FunctionAccount functionAcc = new FunctionAccount();
-		ValidationGiaoVien validationGV = new ValidationGiaoVien();
-		ValidationAccount validationAcc = new ValidationAccount();
 		boolean flag = true;
 		do {
 			try {
@@ -27,7 +24,7 @@ public class MenuUpdateGiaoVien {
 				System.out.println("5. update email giáo viên");
 				System.out.println("6. update số điện thoại giáo viên");
 				System.out.println("7. update số năm kinh nghiệm giáo viên");
-				System.out.println("9. thoát khỏi trình update");
+				System.out.println("8. thoát khỏi trình update");
 
 				int choice = Integer.parseInt(scanner.nextLine());
 
@@ -35,33 +32,49 @@ public class MenuUpdateGiaoVien {
 				case 1:
 					System.out.println("Bạn đã chọn chức năng cập nhật id môn học của Giao Vien!");
 					GiaoVien x = new GiaoVien();
-					
+					x.inputInfoUpdateIdMonhoc();
+					functionGV.updateIdMonHoc(x);
 					break;
 				case 2:
-				
+					System.out.println("Bạn đã chọn chức năng cập nhật lương mỗi buổi dạy của Giao Vien!");
+					GiaoVien y = new GiaoVien();
+					y.inputInfoUpdateLuongMoiBuoiDay();
+					functionGV.updateLuongMoiBuoiDay(y);
 					break;
 
 				case 3:
-				
+					System.out.println("Bạn đã chọn chức năng cập nhật user name của Giao Vien!");
+					GiaoVien a = new GiaoVien();
+					a.inputInfoUpdateUserName();
+					functionGV.updateLuongMoiBuoiDay(a);
 					break;
 
 				case 4:
-
+					System.out.println("Bạn đã chọn chức năng cập nhật địa chỉ của Giao Vien!");
+					GiaoVien b = new GiaoVien();
+					b.inputInfoUpdateDiaChi();
+					functionGV.updateLuongMoiBuoiDay(b);
 					break;
 				case 5:
-
+					System.out.println("Bạn đã chọn chức năng cập nhật email của Giao Vien!");
+					GiaoVien c = new GiaoVien();
+					c.inputInfoUpdateEmail();
+					functionGV.updateLuongMoiBuoiDay(c);
 					break;
 
 				case 6:
-				
+					System.out.println("Bạn đã chọn chức năng cập nhật SĐT của Giao Vien!");
+					GiaoVien d = new GiaoVien();
+					d.inputInfoUpdateSDT();
+					functionGV.updateLuongMoiBuoiDay(d);
 					break;
 				case 7:
-					
+					System.out.println("Bạn đã chọn chức năng cập nhật số năm kinh nghiệm của Giao Vien!");
+					GiaoVien e = new GiaoVien();
+					e.inputInfoUpdateSoNamKinhNghiem();
+					functionGV.updateLuongMoiBuoiDay(e);
 					break;
 				case 8:
-				
-					break;
-				case 9:
 					flag = false;
 					break;
 
