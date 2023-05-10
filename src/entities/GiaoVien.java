@@ -1,5 +1,8 @@
 package entities;
 
+import function.FunctionAccount;
+import function.FunctionGiaoVien;
+import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
 
 public class GiaoVien {
@@ -129,4 +132,38 @@ public class GiaoVien {
 //		this.sdt = validation.inputSDT("hay nhap so dien thoai");
 //		this.soNamKinhNghiem = validation.inputSoNamKinhNghiem("hay nhap so nam kinh nghiem");
 //	}
+	public void inputInfoAddGV() {
+		GiaoVien x = new GiaoVien();
+		FunctionGiaoVien functionGV = new FunctionGiaoVien();
+		ValidationGiaoVien validationGV = new ValidationGiaoVien();
+		while (true) {
+			x.setIdGiaoVien(validationGV.inputIdGiaoVien("hay nhap ma id giao vien"));
+			if (functionGV.checkIDGiaoVien(x.getIdGiaoVien())) {
+				break;
+			} else {
+				System.out.println("id giáo viên bị trùng");
+			}
+		}
+		while (true) {
+			x.setIdMonHoc(validationGV.inputIdMonHoc("hay nhap ma id mon hoc"));
+			if (functionGV.checkIDMonHoc(x.getIdMonHoc()) == false) {
+				break;
+			} else {
+				System.out.println("id môn học chưa có, hay nhập lại");
+			}
+		}
+		x.setLuongMoiBuoiDay(validationGV.inputLuongMoiBuoiDay("hay nhap he so luong mỗi buỗi dạy"));
+		while (true) {
+			x.setUserName(validationGV.inputUserName("hay nhap username"));
+			if (functionGV.checkUserName(x.getUserName()) == false) {
+				break;
+			} else {
+				System.out.println("user name chưa có, hay nhập lại");
+			}
+		}
+		x.setDiaChi(validationGV.inputDiaChi("hay nhap dia chi"));
+		x.setEmail(validationGV.inputEmail("hay nhap email"));
+		x.setSdt(validationGV.inputSDT("hay nhap so dien thoai"));
+		x.setSoNamKinhNghiem(validationGV.inputSoNamKinhNghiem("hay nhap so nam kinh nghiem"));
+	}
 }

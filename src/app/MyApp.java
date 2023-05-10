@@ -131,37 +131,37 @@ public class MyApp {
 					case "7":
 						System.out.println("Bạn đã chọn chức năng Xem thêm mới giáo viên!");
 						GiaoVien x = new GiaoVien();
-						while (true) {
-							x.setIdGiaoVien(validationGV.inputIdGiaoVien("hay nhap ma id giao vien"));
-							if (functionGV.checkIDGiaoVien(x.getIdGiaoVien())) {
-								break;
-							} else {
-								System.out.println("id giáo viên bị trùng");
-							}
-						}
-						while (true) {
-							x.setIdMonHoc(validationGV.inputIdMonHoc("hay nhap ma id mon hoc"));
-							if (functionGV.checkIDMonHoc(x.getIdMonHoc()) == false) {
-								break;
-							} else {
-								System.out.println("id môn học chưa có, hay nhập lại");
-							}
-						}
-						x.setLuongMoiBuoiDay(validationGV.inputLuongMoiBuoiDay("hay nhap he so luong mỗi buỗi dạy"));
-						while (true) {
-							x.setUserName(validationGV.inputUserName("hay nhap username"));
-							if (functionGV.checkUserName(x.getUserName()) == false) {
-								break;
-							} else {
-								System.out.println("user name chưa có, hay nhập lại");
-							}
-						}
-						x.setDiaChi(validationGV.inputDiaChi("hay nhap dia chi"));
-						x.setEmail(validationGV.inputEmail("hay nhap email"));
-						x.setSdt(validationGV.inputSDT("hay nhap so dien thoai"));
-						x.setSoNamKinhNghiem(validationGV.inputSoNamKinhNghiem("hay nhap so nam kinh nghiem"));
+//						while (true) {
+//							x.setIdGiaoVien(validationGV.inputIdGiaoVien("hay nhap ma id giao vien"));
+//							if (functionGV.checkIDGiaoVien(x.getIdGiaoVien())) {
+//								break;
+//							} else {
+//								System.out.println("id giáo viên bị trùng");
+//							}
+//						}
+//						while (true) {
+//							x.setIdMonHoc(validationGV.inputIdMonHoc("hay nhap ma id mon hoc"));
+//							if (functionGV.checkIDMonHoc(x.getIdMonHoc()) == false) {
+//								break;
+//							} else {
+//								System.out.println("id môn học chưa có, hay nhập lại");
+//							}
+//						}
+//						x.setLuongMoiBuoiDay(validationGV.inputLuongMoiBuoiDay("hay nhap he so luong mỗi buỗi dạy"));
+//						while (true) {
+//							x.setUserName(validationGV.inputUserName("hay nhap username"));
+//							if (functionGV.checkUserName(x.getUserName()) == false) {
+//								break;
+//							} else {
+//								System.out.println("user name chưa có, hay nhập lại");
+//							}
+//						}
+//						x.setDiaChi(validationGV.inputDiaChi("hay nhap dia chi"));
+//						x.setEmail(validationGV.inputEmail("hay nhap email"));
+//						x.setSdt(validationGV.inputSDT("hay nhap so dien thoai"));
+//						x.setSoNamKinhNghiem(validationGV.inputSoNamKinhNghiem("hay nhap so nam kinh nghiem"));
 
-//						x.inputInfo();
+						x.inputInfoAddGV();
 						functionGV.insertGiaoVien(x);
 						break;
 					case "8":
