@@ -287,4 +287,33 @@ public class FunctionGiaoVien {
 				ConnectionUtil.closeConnection(null, prstmt, conn);
 			}
 		}
+		
+		// Function update user mane trong bang giao vien
+				public void updateUserName(GiaoVien gv) {
+					Connection conn = null;
+					PreparedStatement prstmt = null;
+					int numberRecords = 0;
+					try {
+						conn = ConnectionUtil.getConnection();
+						String sql = "Update GIAOVIEN set Username = 'huytv28' where IDGiaoVien = 'GV018'";
+						prstmt = conn.prepareStatement(sql);
+						prstmt.setString(1, gv.getUserName());
+						prstmt.setString(2, gv.getIdGiaoVien());
+						numberRecords = prstmt.executeUpdate();
+						if (numberRecords == 0) {
+							System.out.println("Update username cho giao vien that bai");
+						} else {
+							System.out.println("Update username cho giao vien thành công");
+						}
+
+					} catch (SQLException i) {
+						i.printStackTrace();
+						System.out.println("Update username cho giao vien that bai");
+					} catch (Exception e) {
+						e.printStackTrace();
+						System.out.println("Update username cho giao vien that bai");
+					} finally {
+						ConnectionUtil.closeConnection(null, prstmt, conn);
+					}
+				}
 }
