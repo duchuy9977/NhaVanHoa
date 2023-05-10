@@ -77,14 +77,14 @@ public class Account {
 				+ ", nameRole=" + nameRole + ", status=" + status + "]";
 	}
 	
-	public void inputInfo() {
-		ValidationAccount validation = new ValidationAccount();
-		this.userName = validation.inputUserName("hay nhap username tao moi");
-		this.passWork = validation.inputPassWork("hay nhap passwork tao moi");
-		this.name = validation.inputName("hay nhap ho va ten tao moi");
-		this.idRole = validation.inputIdRole("hay nhap id chuc vu tao moi, idrole chi nhan 3 gia tri la admin, giaovien hoac phuhuynh");
-		this.nameRole = validation.inputNameRole("hay nhap ten chuc vu tao moi");
-		this.status = validation.inputStatus("hay nhap trang thai, trang thai chi nhan 2 gia tri la Ban hoac Active");
-	}
+//	public void inputInfo() {
+//		ValidationAccount validation = new ValidationAccount();
+//		this.userName = validation.inputUserName("hay nhap username tao moi");
+//		this.passWork = validation.inputPassWork("hay nhap passwork tao moi");
+//		this.name = validation.inputName("hay nhap ho va ten tao moi");
+//		this.idRole = validation.inputIdRole("hay nhap id chuc vu tao moi, idrole chi nhan 3 gia tri la admin, giaovien hoac phuhuynh");
+//		this.nameRole = validation.inputNameRole("hay nhap ten chuc vu tao moi");
+//		this.status = validation.inputStatus("hay nhap trang thai, trang thai chi nhan 2 gia tri la Ban hoac Active");
+//	}
 	
 }

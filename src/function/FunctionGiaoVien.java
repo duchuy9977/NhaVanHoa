@@ -70,7 +70,7 @@ public class FunctionGiaoVien {
 			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
 			// con trỏ k đc đẩy lên đâu dòng.
 			if (!rs.isBeforeFirst()) {
-				System.out.println("Ma so tk khong ton tai!");
+				System.out.println("Ma id giao vien khong ton tai!");
 				return;
 			}
 //				displayResultSet(rs);
@@ -175,11 +175,11 @@ public class FunctionGiaoVien {
 			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
 			// con trỏ k đc đẩy lên đâu dòng.
 			if (!rs.isBeforeFirst()) {
-				System.out.println("không tìm thấy idMonHoc này, hãy nhập lại hoặc tạo mới môn học rồi quay lại!");
+				System.out.println("idMonHoc này chưa có trong database");
 				return false;
 			}
 //			displayResultSet(rs);
-			System.out.println("idMonHoc có thể sử dụng được!");
+			System.out.println("idMonHoc có trong database");
 			return true;
 
 		} catch (SQLException i) {
@@ -254,6 +254,35 @@ public class FunctionGiaoVien {
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("Update mã id môn học that bai");
+			} finally {
+				ConnectionUtil.closeConnection(null, prstmt, conn);
+			}
+		}
+		
+// Function update Luong moi buoi day trong bang giao vien
+		public void updateLuongMoiBuoiDay(GiaoVien gv) {
+			Connection conn = null;
+			PreparedStatement prstmt = null;
+			int numberRecords = 0;
+			try {
+				conn = ConnectionUtil.getConnection();
+				String sql = "Update GIAOVIEN set LuongMoiBuoiDay = ? where IDGiaoVien = ?";
+				prstmt = conn.prepareStatement(sql);
+				prstmt.setInt(1, gv.getLuongMoiBuoiDay());
+				prstmt.setString(2, gv.getIdGiaoVien());
+				numberRecords = prstmt.executeUpdate();
+				if (numberRecords == 0) {
+					System.out.println("Update Luong moi buoi day that bai");
+				} else {
+					System.out.println("Update Luong moi buoi day thành công");
+				}
+
+			} catch (SQLException i) {
+				i.printStackTrace();
+				System.out.println("Update Luong moi buoi day that bai");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Update Luong moi buoi day that bai");
 			} finally {
 				ConnectionUtil.closeConnection(null, prstmt, conn);
 			}
