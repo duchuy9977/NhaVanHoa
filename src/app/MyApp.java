@@ -12,7 +12,7 @@ import entities.Account;
 import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
-
+import simple.Simple;
 //import function.Manage;
 import treEm.TreEmManager;
 
@@ -114,8 +114,7 @@ public class MyApp {
 						break;
 					case "3":
 						System.out.println("Bạn đã chọn chức năng Quản lý lớp học!");
-						FuncitionLopNangKhieu ma = new FuncitionLopNangKhieu();
-//						ma.lopnangkhieu();
+						FuncitionLopNangKhieu.FuncitionLopNangKhieu();
 						break;
 					case "4":
 						System.out.println("Bạn đã chọn chức năng Đăng Thông tin tuyển sinh!");
@@ -186,6 +185,8 @@ public class MyApp {
 						break;
 					case "4":
 						System.out.println("Bạn đã chọn chức năng Đăng kí lớp học!");
+						Simple sim1 = new Simple();
+						sim1.dangkihoc();
 						break;
 					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
