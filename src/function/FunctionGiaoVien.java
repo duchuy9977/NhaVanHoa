@@ -53,7 +53,6 @@ public class FunctionGiaoVien {
 
 	}
 
-
 // function delete thông tin giáo viên
 	public void deleteGiaoVien() {
 		Connection conn = null;
@@ -159,6 +158,7 @@ public class FunctionGiaoVien {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
 	}
+
 //	
 // function check tồn tại của id môn học khi tạo mới giáo viên
 	public boolean checkIDMonHoc(String idMonHoc) {
@@ -194,126 +194,126 @@ public class FunctionGiaoVien {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
 	}
-	
-	// function check tồn tại của id giáo viên khi tạo mới giáo viên
-		public boolean checkIDGiaoVien(String idGiaoVien) {
-			Connection conn = null;
-			PreparedStatement prstmt = null;
-			ResultSet rs = null;
-			try {
-				conn = ConnectionUtil.getConnection();
 
-				String sql = "Select * from GIAOVIEN where IDGiaoVien = ?";
-				prstmt = conn.prepareStatement(sql);
-				prstmt.setString(1, idGiaoVien);
-				rs = prstmt.executeQuery();
-				// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
-				// con trỏ k đc đẩy lên đâu dòng.
-				if (!rs.isBeforeFirst()) {
-					System.out.println("IDGiaoVien chưa có trong database!");
-					return true;
-				}
+// function check tồn tại của id giáo viên khi tạo mới giáo viên
+	public boolean checkIDGiaoVien(String idGiaoVien) {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = ConnectionUtil.getConnection();
+
+			String sql = "Select * from GIAOVIEN where IDGiaoVien = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setString(1, idGiaoVien);
+			rs = prstmt.executeQuery();
+			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
+			// con trỏ k đc đẩy lên đâu dòng.
+			if (!rs.isBeforeFirst()) {
+				System.out.println("IDGiaoVien chưa có trong database!");
+				return true;
+			}
 //				displayResultSet(rs);
-				System.out.println("IDGiaoVien đã có trong database!");
-				return false;
+			System.out.println("IDGiaoVien đã có trong database!");
+			return false;
 
-			} catch (SQLException i) {
-				i.printStackTrace();
-				System.out.println("check that bai");
-				return false;
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("check that bai");
-				return false;
-			} finally {
-				ConnectionUtil.closeConnection(null, prstmt, conn);
-			}
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("check that bai");
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("check that bai");
+			return false;
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
-		
+	}
+
 //Function update id môn học trong bảng giáo viên
-		public void updateIdMonHoc(GiaoVien gv) {
-			Connection conn = null;
-			PreparedStatement prstmt = null;
-			int numberRecords = 0;
-			try {
-				conn = ConnectionUtil.getConnection();
-				String sql = "Update GIAOVIEN set IDMonHoc = ? where IDGiaoVien = ?";
-				prstmt = conn.prepareStatement(sql);
-				prstmt.setString(1, gv.getIdMonHoc());
-				prstmt.setString(2, gv.getIdGiaoVien());
-				numberRecords = prstmt.executeUpdate();
-				if (numberRecords == 0) {
-					System.out.println("Update mã id môn học that bai");
-				} else {
-					System.out.println("Update mã id môn học thành công");
-				}
-
-			} catch (SQLException i) {
-				i.printStackTrace();
+	public void updateIdMonHoc(GiaoVien gv) {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		int numberRecords = 0;
+		try {
+			conn = ConnectionUtil.getConnection();
+			String sql = "Update GIAOVIEN set IDMonHoc = ? where IDGiaoVien = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setString(1, gv.getIdMonHoc());
+			prstmt.setString(2, gv.getIdGiaoVien());
+			numberRecords = prstmt.executeUpdate();
+			if (numberRecords == 0) {
 				System.out.println("Update mã id môn học that bai");
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Update mã id môn học that bai");
-			} finally {
-				ConnectionUtil.closeConnection(null, prstmt, conn);
+			} else {
+				System.out.println("Update mã id môn học thành công");
 			}
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Update mã id môn học that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Update mã id môn học that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
-		
+	}
+
 // Function update Luong moi buoi day trong bang giao vien
-		public void updateLuongMoiBuoiDay(GiaoVien gv) {
-			Connection conn = null;
-			PreparedStatement prstmt = null;
-			int numberRecords = 0;
-			try {
-				conn = ConnectionUtil.getConnection();
-				String sql = "Update GIAOVIEN set LuongMoiBuoiDay = ? where IDGiaoVien = ?";
-				prstmt = conn.prepareStatement(sql);
-				prstmt.setInt(1, gv.getLuongMoiBuoiDay());
-				prstmt.setString(2, gv.getIdGiaoVien());
-				numberRecords = prstmt.executeUpdate();
-				if (numberRecords == 0) {
-					System.out.println("Update Luong moi buoi day that bai");
-				} else {
-					System.out.println("Update Luong moi buoi day thành công");
-				}
-
-			} catch (SQLException i) {
-				i.printStackTrace();
+	public void updateLuongMoiBuoiDay(GiaoVien gv) {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		int numberRecords = 0;
+		try {
+			conn = ConnectionUtil.getConnection();
+			String sql = "Update GIAOVIEN set LuongMoiBuoiDay = ? where IDGiaoVien = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setInt(1, gv.getLuongMoiBuoiDay());
+			prstmt.setString(2, gv.getIdGiaoVien());
+			numberRecords = prstmt.executeUpdate();
+			if (numberRecords == 0) {
 				System.out.println("Update Luong moi buoi day that bai");
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Update Luong moi buoi day that bai");
-			} finally {
-				ConnectionUtil.closeConnection(null, prstmt, conn);
+			} else {
+				System.out.println("Update Luong moi buoi day thành công");
 			}
-		}
-		
-		// Function update user mane trong bang giao vien
-				public void updateUserName(GiaoVien gv) {
-					Connection conn = null;
-					PreparedStatement prstmt = null;
-					int numberRecords = 0;
-					try {
-						conn = ConnectionUtil.getConnection();
-						String sql = "Update GIAOVIEN set Username = 'huytv28' where IDGiaoVien = 'GV018'";
-						prstmt = conn.prepareStatement(sql);
-						prstmt.setString(1, gv.getUserName());
-						prstmt.setString(2, gv.getIdGiaoVien());
-						numberRecords = prstmt.executeUpdate();
-						if (numberRecords == 0) {
-							System.out.println("Update username cho giao vien that bai");
-						} else {
-							System.out.println("Update username cho giao vien thành công");
-						}
 
-					} catch (SQLException i) {
-						i.printStackTrace();
-						System.out.println("Update username cho giao vien that bai");
-					} catch (Exception e) {
-						e.printStackTrace();
-						System.out.println("Update username cho giao vien that bai");
-					} finally {
-						ConnectionUtil.closeConnection(null, prstmt, conn);
-					}
-				}
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Update Luong moi buoi day that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Update Luong moi buoi day that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
+
+// Function update user mane trong bang giao vien
+	public void updateUserName(GiaoVien gv) {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		int numberRecords = 0;
+		try {
+			conn = ConnectionUtil.getConnection();
+			String sql = "Update GIAOVIEN set Username = 'huytv28' where IDGiaoVien = 'GV018'";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setString(1, gv.getUserName());
+			prstmt.setString(2, gv.getIdGiaoVien());
+			numberRecords = prstmt.executeUpdate();
+			if (numberRecords == 0) {
+				System.out.println("Update username cho giao vien that bai");
+			} else {
+				System.out.println("Update username cho giao vien thành công");
+			}
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Update username cho giao vien that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Update username cho giao vien that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
 }
