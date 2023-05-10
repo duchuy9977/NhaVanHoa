@@ -146,8 +146,7 @@ public class MyApp {
 						System.out.println("Không hợp lệ, mời nhập lại!");;
 					}
 				}
-				
-				
+							
 			}
 			if(role.equals("phuhuynh")) {
 				String choice = "a";
@@ -233,52 +232,10 @@ public class MyApp {
 				}
 				
 			}
-			if(role.equals("buoihoc")) {
-				String choice = "a";
-				while(!choice.equals("0")) {
-					System.out.println("Chào mừng trở lại "+ roleName + " " + name + "!!!");
-					System.out.println("Mời nhập chức năng bạn muốn sử dụng");
-					System.out.println("   1. Xem thông tin buổi học");
-					System.out.println("   2. Cập nhật thông tin");
-					System.out.println("   3. Xem buổi học");
-					System.out.println("   4. Đăng kí buổi học");
-					System.out.println("   5. Xem tình trạng đơn đăng kí");
-					System.out.println("   0. Đăng xuất");
-					System.out.println("===============================================");
-					System.out.println("  Mời bạn chọn tính năng: ");
-					
-					choice = sc.nextLine();
-					
-					switch (choice) {
-					case "1": 
-						System.out.println("Bạn đã chọn chức năng Xem thông tin Buổi học!");
-						break;
-					case "2": 
-						System.out.println("Bạn đã chọn chức năng Cập nhật thông tin!");
-						break;
-					case "3": 
-						System.out.println("Bạn đã chọn chức năng Xem Buổi học!");
-						break;
-					case "4": 
-						System.out.println("Bạn đã chọn chức năng Đăng kí Buổi học!");
-						
-						break;
-					case "5": 
-						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
-						break;
-					case "0": 
-						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");
-						break;
-					default:
-						System.out.println("Không hợp lệ, mời nhập lại!");;
-		}
-	}
-				
-}
+
 			System.out.println("Chương trình kết thúc");
 			
 		}
-		
-		
+			
 	}
 }

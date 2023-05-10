@@ -52,7 +52,7 @@ public class Function_PhucHL1 {
 		System.out.println("Thêm mới buổi học thành công");
 	}
 	// Update
-	public void updateBuoiHoc() {
+	public void updateBuoiHoc(String IdGiaoVien) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -60,7 +60,7 @@ public class Function_PhucHL1 {
 			validation validate = new validation();
 			String idBuoiHoc = validate.inputString("Xin hãy nhập buổi học");
 			con = ConnectionUtil.getConnection();
-			ps = con.prepareStatement("SELECT * FROM TREEM where BuoiHoc = ?");
+			ps = con.prepareStatement("SELECT * FROM THU where BuoiHoc = ?");
 			ps.setString(1, idBuoiHoc);
 			rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) {
@@ -72,7 +72,7 @@ public class Function_PhucHL1 {
 			String Thu = validate.inputString("Nhập vào Thứ ngày mới:");
 			PreparedStatement ps1 = con.prepareStatement("UPDATE THU set Thu = ? where Thu = ?");
 			ps1.setString(1, Thu);
-			ps1.setString(2, Thu);
+			ps1.setString(2, idBuoiHoc);
 			int x = ps1.executeUpdate();
 			if (x != 0) {
 				System.out.println("Đã update thành công");
