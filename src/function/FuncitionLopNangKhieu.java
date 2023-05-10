@@ -8,7 +8,7 @@ import entities.LopNangKhieu;
 import simple.Simple;
 import validate.validate;
 
-public class Manage {
+public class FuncitionLopNangKhieu {
 public static void main(String[] args) {
 	
 		Scanner sc = new Scanner(System.in);
