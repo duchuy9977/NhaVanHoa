@@ -8,8 +8,9 @@ import entities.LopNangKhieu;
 import simple.Simple;
 import validate.validate;
 
-public class Manage {
-	public String lopnangkhieu() {
+public class FuncitionLopNangKhieu {
+public static void main(String[] args) {
+	
 		Scanner sc = new Scanner(System.in);
 		validate validate=new validate();
 		Simple sim = new Simple();
@@ -22,8 +23,9 @@ public class Manage {
 				System.out.println("3. cap nhap thong tin");
 				System.out.println("4. xoa thong tin");
 				System.out.println("5. hien thi thong tin co so buoi hoc > ? va nho hon ?");
+				System.out.println("6. hien thi thong tin lop hoc va so luong hoc sinh theo hoc lop do");
 				System.out.println();
-				System.out.println("6. thoat khoi chuong trinh");
+				System.out.println("7. thoat khoi chuong trinh");
 				System.out.println();
 				System.out.println("nhap lua chon cua ban");
 				int choice =Integer.parseInt(sc.nextLine());
@@ -31,6 +33,7 @@ public class Manage {
 				case 1:
 					LopNangKhieu lop = new LopNangKhieu();
 					lop.intutdata();
+					
 					sim.insertdata(lop);
 					System.out.println(lop);
 					break;
@@ -53,7 +56,12 @@ public class Manage {
 					}
 					break;
 				case 6 :
-					return null;
+					List<LopNangKhieu> list2 = sim.selec2();
+					for (LopNangKhieu lopNangKhieu : list2) {
+						System.out.println(lopNangKhieu.toString1());}
+					break;
+				case 7:
+					return;
 				default:
 					System.out.println("thong tin ban nhap chua dung xin kiem tra lai");
 					break;
