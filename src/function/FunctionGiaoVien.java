@@ -23,7 +23,6 @@ public class FunctionGiaoVien {
 		PreparedStatement prstmt = null;
 		int numberRecords = 0;
 		try {
-
 			conn = ConnectionUtil.getConnection();
 			String sql = "INSERT INTO dbo.GiaoVien VALUES (?,?,?,?,?,?,?,?)";
 			prstmt = conn.prepareStatement(sql);
@@ -54,38 +53,6 @@ public class FunctionGiaoVien {
 
 	}
 
-//function tạo mới account.
-	public void addAccount(Account acc) {
-		Connection conn = null;
-		PreparedStatement prstmt = null;
-		int numberRecords = 0;
-		try {
-
-			conn = ConnectionUtil.getConnection();
-			String sql = "INSERT INTO ACCOUNT VALUES (?,?,?,?,?,?)";
-			prstmt = conn.prepareStatement(sql);
-			prstmt.setString(1, acc.getUserName());
-			prstmt.setString(2, acc.getPassWork());
-			prstmt.setString(3, acc.getName());
-			prstmt.setString(4, acc.getIdRole());
-			prstmt.setString(5, acc.getNameRole());
-			prstmt.setString(6, acc.getStatus());
-			numberRecords = prstmt.executeUpdate();
-			if (numberRecords == 0) {
-				System.out.println("Tao moi Account that bai");
-			}
-
-		} catch (SQLException i) {
-			i.printStackTrace();
-			System.out.println("Tao moi Account that bai");
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Tao moi Account that bai");
-		} finally {
-			ConnectionUtil.closeConnection(null, prstmt, conn);
-		}
-		System.out.println("Tao moi Account thành công");
-	}
 
 // function delete thông tin giáo viên
 	public void deleteGiaoVien() {
@@ -172,7 +139,7 @@ public class FunctionGiaoVien {
 			rs = prstmt.executeQuery();
 			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
 			// con trỏ k đc đẩy lên đâu dòng.
-			if (!rs.isBeforeFirst()) {
+			if (!(rs.isBeforeFirst())) {
 				System.out.println("không tìm thấy username này, hãy nhập lại hoặc tạo mới account rồi quay lại!");
 				return false;
 			}
@@ -243,11 +210,11 @@ public class FunctionGiaoVien {
 				// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
 				// con trỏ k đc đẩy lên đâu dòng.
 				if (!rs.isBeforeFirst()) {
-					System.out.println("IDGiaoVien có thể sử dụng được!");
+					System.out.println("IDGiaoVien chưa có trong database!");
 					return true;
 				}
 //				displayResultSet(rs);
-				System.out.println("IDGiaoVien đã có, hay nhập lại!");
+				System.out.println("IDGiaoVien đã có trong database!");
 				return false;
 
 			} catch (SQLException i) {
@@ -258,6 +225,35 @@ public class FunctionGiaoVien {
 				e.printStackTrace();
 				System.out.println("check that bai");
 				return false;
+			} finally {
+				ConnectionUtil.closeConnection(null, prstmt, conn);
+			}
+		}
+		
+//Function update id môn học trong bảng giáo viên
+		public void updateIdMonHoc(GiaoVien gv) {
+			Connection conn = null;
+			PreparedStatement prstmt = null;
+			int numberRecords = 0;
+			try {
+				conn = ConnectionUtil.getConnection();
+				String sql = "Update GIAOVIEN set IDMonHoc = ? where IDGiaoVien = ?";
+				prstmt = conn.prepareStatement(sql);
+				prstmt.setString(1, gv.getIdMonHoc());
+				prstmt.setString(2, gv.getIdGiaoVien());
+				numberRecords = prstmt.executeUpdate();
+				if (numberRecords == 0) {
+					System.out.println("Update mã id môn học that bai");
+				} else {
+					System.out.println("Update mã id môn học thành công");
+				}
+
+			} catch (SQLException i) {
+				i.printStackTrace();
+				System.out.println("Update mã id môn học that bai");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Update mã id môn học that bai");
 			} finally {
 				ConnectionUtil.closeConnection(null, prstmt, conn);
 			}

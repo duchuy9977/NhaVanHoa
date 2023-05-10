@@ -27,7 +27,7 @@ public class validation {
 			if (s.length() >= 1) {
 				return s;
 			}
-			System.out.println("Không được nhập nhỏ hơn 1 kí tự");
+			System.out.println("Không được nhập nhỏ hơn 1 .kí tự");
 		} while (true);
 	}
 

@@ -16,15 +16,15 @@ public class ValidationGiaoVien {
 		do {
 			System.out.println(message);
 			String idGiaoVien = input.nextLine();
-			FunctionGiaoVien check = new FunctionGiaoVien();
-			if (check.checkIDGiaoVien(idGiaoVien)) {
-				Pattern pattern = Pattern.compile("^GV[0-9]{3,3}$");
-				if (pattern.matcher(idGiaoVien).find()) {
-
+			
+			Pattern pattern = Pattern.compile("^GV[0-9]{3,3}$");
+			if (pattern.matcher(idGiaoVien).find()) {
+			
+				
 					return idGiaoVien;
 				}
 				System.out.println("ban nhap sai ma ID Giao Vien, hay nhap lai theo format (GV***)");
-			}
+			
 		} while (true);
 	}
 
@@ -32,14 +32,12 @@ public class ValidationGiaoVien {
 		do {
 			System.out.println(message);
 			String idMonHoc = input.nextLine();
-			FunctionGiaoVien check = new FunctionGiaoVien();
-			if (check.checkIDMonHoc(idMonHoc)) {
 				Pattern pattern = Pattern.compile("^MH[0-9]{3,3}$");
 				if (pattern.matcher(idMonHoc).find()) {
 					return idMonHoc;
 				}
 				System.out.println("ban nhap sai ma ID Mon HOc, hay nhap lai theo format (MH***)");
-			}
+			
 		} while (true);
 	}
 
@@ -60,14 +58,13 @@ public class ValidationGiaoVien {
 		do {
 			System.out.println(message);
 			String userName = input.nextLine();
-			FunctionGiaoVien check = new FunctionGiaoVien();
-			if (check.checkUserName(userName)) {
+
 				Pattern pattern = Pattern.compile("^[a-zA-Z_0-9]*$");
 				if (pattern.matcher(userName).find()) {
 					return userName;
 				}
 				System.out.println("ban nhap sai định dang của username, username k chứa ký tự đặc biệt, hay nhap lai");
-			}
+			
 		} while (true);
 	}
 

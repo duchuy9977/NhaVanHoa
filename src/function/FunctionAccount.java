@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import connection.ConnectionUtil;
+import entities.Account;
 
 public class FunctionAccount {
 
@@ -18,7 +19,6 @@ public class FunctionAccount {
 			ResultSet rs = null;
 			try {
 				conn = ConnectionUtil.getConnection();
-
 				String sql = "Select * from Account where Username = ?";
 				prstmt = conn.prepareStatement(sql);
 				prstmt.setString(1, username);
@@ -45,5 +45,38 @@ public class FunctionAccount {
 				ConnectionUtil.closeConnection(null, prstmt, conn);
 			}
 
+		}
+		
+		//function tạo mới account.
+		public void addAccount(Account acc) {
+			Connection conn = null;
+			PreparedStatement prstmt = null;
+			int numberRecords = 0;
+			try {
+
+				conn = ConnectionUtil.getConnection();
+				String sql = "INSERT INTO ACCOUNT VALUES (?,?,?,?,?,?)";
+				prstmt = conn.prepareStatement(sql);
+				prstmt.setString(1, acc.getUserName());
+				prstmt.setString(2, acc.getPassWork());
+				prstmt.setString(3, acc.getName());
+				prstmt.setString(4, acc.getIdRole());
+				prstmt.setString(5, acc.getNameRole());
+				prstmt.setString(6, acc.getStatus());
+				numberRecords = prstmt.executeUpdate();
+				if (numberRecords == 0) {
+					System.out.println("Tao moi Account that bai");
+				}
+
+			} catch (SQLException i) {
+				i.printStackTrace();
+				System.out.println("Tao moi Account that bai");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Tao moi Account that bai");
+			} finally {
+				ConnectionUtil.closeConnection(null, prstmt, conn);
+			}
+			System.out.println("Tao moi Account thành công");
 		}
 }

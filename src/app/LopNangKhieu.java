@@ -12,6 +12,7 @@ public class LopNangKhieu {
 	private Date ngaykhaigiang;
 	private Date ngaybatdau;
 	private Date ngayketthuc;
+	private int sohocsinhtheohoc;
 	public LopNangKhieu() {
 		super();
 	}
@@ -25,6 +26,26 @@ public class LopNangKhieu {
 		this.ngaykhaigiang = ngaykhaigiang;
 		this.ngaybatdau = ngaybatdau;
 		this.ngayketthuc = ngayketthuc;
+	}
+	
+	public LopNangKhieu(String idlop, String idmonhoc, String tenlop, int sobuoi, Date ngaykhaigiang, Date ngaybatdau,
+			Date ngayketthuc, int sohocsinhtheohoc) {
+		super();
+		this.idlop = idlop;
+		this.idmonhoc = idmonhoc;
+		this.tenlop = tenlop;
+		this.sobuoi = sobuoi;
+		this.ngaykhaigiang = ngaykhaigiang;
+		this.ngaybatdau = ngaybatdau;
+		this.ngayketthuc = ngayketthuc;
+		this.sohocsinhtheohoc = sohocsinhtheohoc;
+	}
+	
+	public int getSohocsinhtheohoc() {
+		return sohocsinhtheohoc;
+	}
+	public void setSohocsinhtheohoc(int sohocsinhtheohoc) {
+		this.sohocsinhtheohoc = sohocsinhtheohoc;
 	}
 	public String getIdlop() {
 		return idlop;
@@ -73,6 +94,11 @@ public class LopNangKhieu {
 		return "LopNangKhieu [idlop=" + idlop + ", idmonhoc=" + idmonhoc + ", tenlop=" + tenlop + ", sobuoi=" + sobuoi
 				+ ", ngaykhaigiang=" + ngaykhaigiang + ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc
 				+ "]";
+	}
+	public String toString1() {
+		return "LopNangKhieu [idlop=" + idlop + ", idmonhoc=" + idmonhoc + ", tenlop=" + tenlop + ", sobuoi=" + sobuoi
+				+ ", ngaykhaigiang=" + ngaykhaigiang + ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc
+				+ ", sohocsinhtheohoc=" + sohocsinhtheohoc +"]";
 	}
 	
 	public void intutdata() {
