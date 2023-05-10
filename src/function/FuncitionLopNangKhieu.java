@@ -61,6 +61,7 @@ public static void main(String[] args) {
 						System.out.println(lopNangKhieu.toString1());}
 					break;
 				case 7:
+					return;
 				default:
 					System.out.println("thong tin ban nhap chua dung xin kiem tra lai");
 					break;
