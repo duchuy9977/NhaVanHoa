@@ -46,7 +46,7 @@ public class Simple {
 					e.printStackTrace();
 				}
 			}
-		return "insert thanh cong";
+		return "insert Thành công";
 	}
 	
 	public List<entities.LopNangKhieu> selectall() {
@@ -138,7 +138,7 @@ public class Simple {
 			Date ngaykhaigiang = vali.inputdate("Nhập vào ngày khai giảng");
 			Date ngaybatdau = vali.inputdate("Nhập vào ngày bắt đầu");
 			Date ngayketthuc = vali.inputdate("Nhập vào ngày kết thúc");
-			String idlop = vali.inputidlop("Nhập vào id lớp");
+			String idlop = sim.Checkidlop();
 			PreparedStatement pr = con.prepareStatement(sql);
 			pr.setString(1, idmonhoc);
 			pr.setString(2, tenlop);
@@ -211,20 +211,19 @@ public class Simple {
 		Connection con = null;
 		PreparedStatement pr = null;
 		ResultSet rs = null;
-		String IDMonHoc = null;
+		String idmonhoc = null;
 		try {
 			con = ConnectionUtil.getConnection();
 			do {
 				validate vali = new validate();
-				String TenMonHoc = vali.inputidmonhoc("Mời wbanj nhập vào tên môn học");
-				String sql = "select * from MONHOC where TenMon = ?";
+				idmonhoc = vali.inputidmonhoc("Mời bạn nhập vào ID môn học");
+				String sql = "select * from MONHOC where IDMonHoc=?";
 				pr = con.prepareStatement(sql);
-				pr.setString(1, TenMonHoc);
+				pr.setString(1, idmonhoc);
 				rs=pr.executeQuery();
-				if(rs.next()) {
-					 IDMonHoc = rs.getString("IDMonHoc");
-					 return IDMonHoc;
-				} System.out.println("Ten môn học không tồn tại");
+				if(!rs.isBeforeFirst()) {
+					System.out.println("ID môn học không tồn tại");
+				}else{return idmonhoc;}
 			}
 			while(true);
 		} catch (SQLException e) {
@@ -234,7 +233,7 @@ public class Simple {
 		} finally {
 			ConnectionUtil.closeConnection(rs, pr, con);
 		}
-		return IDMonHoc;
+		return idmonhoc;
 	}
 		
 	public ArrayList<LopNangKhieu> inramanhinh1(ResultSet rs) {
@@ -568,6 +567,35 @@ public class Simple {
 		}else {
 			return false;
 		}
+	}
+	
+	public String Checkidlop() {
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs = null;
+		String idlop = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			do {
+				validate vali = new validate();
+				idlop = vali.inputidmonhoc("Mời bạn nhập vào ID Lớp");
+				String sql = "select * from LOPNANGKHIEU where IDLop=?";
+				pr = con.prepareStatement(sql);
+				pr.setString(1, idlop);
+				rs=pr.executeQuery();
+				if(!rs.isBeforeFirst()) {
+					System.out.println("ID lớp không tồn tại");
+				}else{return idlop;}
+			}
+			while(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, pr, con);
+		}
+		return idlop;
 	}
 	}
 	
