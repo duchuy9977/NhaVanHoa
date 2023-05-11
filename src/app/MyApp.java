@@ -13,6 +13,7 @@ import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
 import menuChucNangCon.MenuPhuHuynh;
+import menuChucNangCon.MenuSelectGiaoVien;
 import menuChucNangCon.MenuUpdateGiaoVien;
 import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
@@ -70,6 +71,7 @@ public class MyApp {
 		FunctionGiaoVien functionGV = new FunctionGiaoVien();
 		FunctionAccount functionAcc = new FunctionAccount();
 		MenuUpdateGiaoVien menuUpdateGV = new MenuUpdateGiaoVien();
+		MenuSelectGiaoVien menuSelectGV = new MenuSelectGiaoVien();
 		while (true) {
 
 			do {
@@ -96,10 +98,10 @@ public class MyApp {
 					System.out.println("   6. Thêm buổi học");
 					System.out.println("   7. Thêm mới giáo viên");
 					System.out.println("   8. Tạo mới Account");
-					
 					System.out.println("   9. xoá thông tin giáo viên.");
 					System.out.println("  10. Update thông tin giáo viên.");
 					System.out.println("  11. Quản Lý Phụ Huynh");
+					System.out.println("  12. select thông tin giáo viên theo điều kiện");
 					System.out.println("   0. Đăng Xuất..");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
@@ -154,6 +156,10 @@ public class MyApp {
 						
 					case "11":
 						MenuPhuHuynh.quanLyPhuHuynh();
+						break;
+					case "12":
+						System.out.println("Bạn đã chọn chức năng select thông tin giáo viên theo điều kiện!");
+						menuSelectGV.menuSelect();
 						break;
 
 					case "0":

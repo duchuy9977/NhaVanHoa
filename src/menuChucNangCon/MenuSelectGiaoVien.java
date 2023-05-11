@@ -6,7 +6,7 @@ import entities.GiaoVien;
 import function.FunctionGiaoVien;
 
 public class MenuSelectGiaoVien {
-	public static void menuUpdate() {
+	public static void menuSelect() {
 		Scanner scanner = new Scanner(System.in);
 		FunctionGiaoVien functionGV = new FunctionGiaoVien();
 		boolean flag = true;
@@ -29,16 +29,12 @@ public class MenuSelectGiaoVien {
 					break;
 				case 2:
 					System.out.println("Bạn đã chọn chức năng Liệt kê thông tin giáo viên theo từng môn học!");
-					GiaoVien y = new GiaoVien();
-					y.inputInfoUpdateLuongMoiBuoiDay();
-					functionGV.updateLuongMoiBuoiDay(y);
+					functionGV.searchInfoGVByIdMonHoc();
 					break;
 
 				case 3:
 					System.out.println("Bạn đã chọn chức năng Tìm và hiển thị các giáo viên cùng địa chỉ");
-					GiaoVien a = new GiaoVien();
-					a.inputInfoUpdateUserName();
-					functionGV.updateLuongMoiBuoiDay(a);
+					functionGV.searchInfoGVByDiaChi();
 					break;
 
 				case 4:
