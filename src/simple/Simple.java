@@ -9,9 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import app.LopNangKhieu;
 import connection.ConnectionUtil;
+import entities.LopNangKhieu;
 import entities.MonHoc;
 import function.MonHocDao;
 import validate.validate;
@@ -244,7 +243,7 @@ public class Simple {
 				Date NgayBatDau = rs.getDate("NgayBatDau");
 				Date NgayKetThuc = rs.getDate("NgayKetThuc");
 				int SoLuongTreTheoHoc = rs.getInt("SoLuongTreTheoHoc");
-				LopNangKhieu x = new LopNangKhieu(IDLop, IDMonHoc, TenLop, SoBuoi, NgayKetThuc, NgayBatDau, NgayKetThuc);
+				LopNangKhieu x = new LopNangKhieu(IDLop, IDMonHoc, TenLop, SoBuoi, NgayBatDau, NgayKetThuc);
 				x.setSohocsinhtheohoc(SoLuongTreTheoHoc);
 				System.out.println(x.toString1());
 				list.add(x);
