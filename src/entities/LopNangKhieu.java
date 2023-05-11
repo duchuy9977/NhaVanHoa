@@ -13,11 +13,12 @@ public class LopNangKhieu {
 	private Date ngaybatdau;
 	private Date ngayketthuc;
 	private int sohocsinhtheohoc;
+	private int SoLuongHocVienToiDa;
 	public LopNangKhieu() {
 		super();
 	}
 	public LopNangKhieu(String idlop, String idmonhoc, String tenlop, int sobuoi, Date ngaybatdau,
-			Date ngayketthuc) {
+			Date ngayketthuc,int SoLuongHocVienToiDa) {
 		super();
 		this.idlop = idlop;
 		this.idmonhoc = idmonhoc;
@@ -25,6 +26,13 @@ public class LopNangKhieu {
 		this.sobuoi = sobuoi;
 		this.ngaybatdau = ngaybatdau;
 		this.ngayketthuc = ngayketthuc;
+		this.SoLuongHocVienToiDa=SoLuongHocVienToiDa;
+	}
+	public int getSoLuongHocVienToiDa() {
+		return SoLuongHocVienToiDa;
+	}
+	public void setSoLuongHocVienToiDa(int soLuongHocVienToiDa) {
+		SoLuongHocVienToiDa = soLuongHocVienToiDa;
 	}
 	public int getSohocsinhtheohoc() {
 		return sohocsinhtheohoc;
@@ -68,17 +76,17 @@ public class LopNangKhieu {
 	public void setNgayketthuc(Date ngayketthuc) {
 		this.ngayketthuc = ngayketthuc;
 	}
+
 	@Override
 	public String toString() {
 		return "LopNangKhieu [idlop=" + idlop + ", idmonhoc=" + idmonhoc + ", tenlop=" + tenlop + ", sobuoi=" + sobuoi
-				+ ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc
-				+ "]";
+				+ ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc + ", SoLuongHocVienToiDa="
+				+ SoLuongHocVienToiDa + "]";
 	}
-	
 	public String toString1() {
 		return "LopNangKhieu [idlop=" + idlop + ", idmonhoc=" + idmonhoc + ", tenlop=" + tenlop + ", sobuoi=" + sobuoi
 				+ ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc
-				+ ", sohocsinhtheohoc=" + sohocsinhtheohoc +"]";
+				+ ", SoLuongHocVienToiDa=" + SoLuongHocVienToiDa + ", sohocsinhtheohoc=" + sohocsinhtheohoc +"]";
 	}
 	
 	public void inputdata() {
@@ -108,6 +116,7 @@ public class LopNangKhieu {
 		this.sobuoi = vali.inputsobuoi("Mời bạn nhập số buổi");
 		this.ngaybatdau = vali.inputdate("Mời bạn nhập ngày bắt đàu");
 		this.ngayketthuc = vali.inputdate("Mời bạn nhập ngày kết thúc");
+		this.SoLuongHocVienToiDa=vali.inputsobuoi("Mời bạn nhập số học sinh theo học tối đa");
 
 	}
 }

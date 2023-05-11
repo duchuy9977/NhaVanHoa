@@ -19,8 +19,8 @@ public class Simple {
 	private static Scanner sc = new Scanner(System.in);
 	public String insertdata (entities.LopNangKhieu lop) {
 		Connection con = ConnectionUtil.getConnection() ; 
-		String sql = "insert into LOPNANGKHIEU(IDLop,IDMonHoc,TenLop,SoBuoi,NgayBatDau,NgayKetThuc)values (\r\n"
-				+ "?,?,?,?,?,?)";
+		String sql = "insert into LOPNANGKHIEU(IDLop,IDMonHoc,TenLop,SoBuoi,NgayBatDau,NgayKetThuc,SoLuongHocVienToiDa)values (\r\n"
+				+ "?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement prsttm = con.prepareStatement(sql);
 			prsttm.setString(1, lop.getIdlop());
@@ -29,6 +29,7 @@ public class Simple {
 			prsttm.setInt(4, lop.getSobuoi());
 			prsttm.setDate(5, lop.getNgaybatdau());
 			prsttm.setDate(6, lop.getNgayketthuc());
+			prsttm.setInt(7, lop.getSoLuongHocVienToiDa());
 			int numberRecords = prsttm.executeUpdate();
 			if (numberRecords == 0) {
 				System.out.println("insert Thất Bại");
@@ -62,6 +63,7 @@ public class Simple {
 				lop.setSobuoi(rs.getInt("SoBuoi"));
 				lop.setNgaybatdau(rs.getDate("NgayBatDau"));
 				lop.setNgayketthuc(rs.getDate("NgayKetThuc"));
+				lop.setSoLuongHocVienToiDa(rs.getInt("SoLuongHocVienToiDa"));
 				list.add(lop);
 			}
 			} catch (SQLException e) {
@@ -125,7 +127,7 @@ public class Simple {
 	
 	public String updatedata() {
 		Connection con = ConnectionUtil.getConnection();
-		String sql = "update LOPNANGKHIEU set IDMonHoc = ?, TenLop=?,SoBuoi=?,NgayBatDau=?,NgayKetThuc=? where IDLop = ?";
+		String sql = "update LOPNANGKHIEU set IDMonHoc = ?, TenLop=?,SoBuoi=?,NgayBatDau=?,NgayKetThuc=?,SoLuongHocVienToiDa=? where IDLop = ?";
 		try {
 			validate vali = new validate();
 			Simple sim = new Simple();
@@ -134,6 +136,7 @@ public class Simple {
 			int sobuoi = vali.inputsobuoi("Nhập vào số buổi");
 			Date ngaybatdau = vali.inputdate("Nhập vào ngày bắt đầu");
 			Date ngayketthuc = vali.inputdate("Nhập vào ngày kết thúc");
+			int soluonghocvientoida = vali.inputsobuoi("Nhập vào só lượng học viên tối đa");
 			String idlop = sim.Checkidlop();
 			PreparedStatement pr = con.prepareStatement(sql);
 			pr.setString(1, idmonhoc);
@@ -141,7 +144,8 @@ public class Simple {
 			pr.setInt(3, sobuoi);
 			pr.setDate(4, ngaybatdau);
 			pr.setDate(5, ngayketthuc);
-			pr.setString(6, idlop);
+			pr.setInt(6, soluonghocvientoida);
+			pr.setString(7, idlop);
 			int rowsUpdated = pr.executeUpdate();
 			if (rowsUpdated > 0) {
 			    System.out.println("Dữ liệu đã được cập nhật thành công.");
@@ -186,6 +190,7 @@ public class Simple {
 				lop.setSobuoi(rs.getInt("SoBuoi"));
 				lop.setNgaybatdau(rs.getDate("NgayBatDau"));
 				lop.setNgayketthuc(rs.getDate("NgayKetThuc"));
+				lop.setSoLuongHocVienToiDa(rs.getInt("SoLuongHocVienToiDa"));
 				sobuoi.add(lop);
 		}
 		}catch (SQLException i) {
@@ -229,42 +234,16 @@ public class Simple {
 		}
 		return idmonhoc;
 	}
-		
-	public ArrayList<LopNangKhieu> inramanhinh1(ResultSet rs) {
-		ArrayList<LopNangKhieu> list = new ArrayList<>();
 
-		try {
-
-			while (rs.next()) {
-				String IDLop = rs.getString("IDLop");
-				String IDMonHoc = rs.getString("IDMonHoc");
-				String TenLop = rs.getString("Tenlop");
-				int SoBuoi = rs.getInt("SoBuoi");
-				Date NgayBatDau = rs.getDate("NgayBatDau");
-				Date NgayKetThuc = rs.getDate("NgayKetThuc");
-				int SoLuongTreTheoHoc = rs.getInt("SoLuongTreTheoHoc");
-				LopNangKhieu x = new LopNangKhieu(IDLop, IDMonHoc, TenLop, SoBuoi, NgayBatDau, NgayKetThuc);
-				x.setSohocsinhtheohoc(SoLuongTreTheoHoc);
-				System.out.println(x.toString1());
-				list.add(x);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
 	
 	public List<entities.LopNangKhieu> selec2() {
 		List <entities.LopNangKhieu> list2= new ArrayList<>();
 		Connection con = null;
 		Statement st = null;
-		String sql = "select lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.SoBuoi,lnk.NgayBatDau,lnk.NgayKetThuc, count (dklh.IDTre) as SoLuongTreTheoHoc\r\n"
+		String sql = "select lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.SoBuoi,lnk.NgayBatDau,lnk.NgayKetThuc,lnk.SoLuongHocVienToiDa, count (dklh.IDTre) as SoLuongTreTheoHoc\r\n"
 				+ "from LOPNANGKHIEU as lnk\r\n"
 				+ "inner join DANGKYLOPHOC as dklh on lnk.IDLop=dklh.IDLop\r\n"
-				+ "group by lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.SoBuoi,lnk.NgayBatDau,lnk.NgayKetThuc";
+				+ "group by lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.SoBuoi,lnk.NgayBatDau,lnk.NgayKetThuc,lnk.SoLuongHocVienToiDa";
 		try {
 			con=ConnectionUtil.getConnection();
 			st = con.createStatement();
@@ -277,6 +256,7 @@ public class Simple {
 				lop1.setSobuoi(rs.getInt("SoBuoi"));
 				lop1.setNgaybatdau(rs.getDate("NgayBatDau"));
 				lop1.setNgayketthuc(rs.getDate("NgayKetThuc"));
+				lop1.setSoLuongHocVienToiDa(rs.getInt("SoLuongHocVienToiDa"));
 				lop1.setSohocsinhtheohoc(rs.getInt("SoLuongTreTheoHoc"));
 				list2.add(lop1);
 			}
@@ -334,7 +314,8 @@ public class Simple {
 				int SoBuoi = rs.getInt("SoBuoi");
 				Date NgayBatDau = rs.getDate("NgayBatDau");
 				Date NgayKetThuc = rs.getDate("NgayKetThuc");
-				entities.LopNangKhieu lop = new entities.LopNangKhieu(IDLop, IDMonHoc, Tenlop, SoBuoi, NgayBatDau, NgayKetThuc);
+				int soluonghocvientoida = rs.getInt("SoLuongHocVienToiDa");
+				entities.LopNangKhieu lop = new entities.LopNangKhieu(IDLop, IDMonHoc, Tenlop, SoBuoi, NgayBatDau, NgayKetThuc, soluonghocvientoida);
 				System.out.println(lop.toString());
 				list.add(lop);
 			}
