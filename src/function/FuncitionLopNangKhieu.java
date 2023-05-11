@@ -63,10 +63,11 @@ public static void FuncitionLopNangKhieu(){
 					break;
 				case 7:
 					sim.timkiemthongtintheousename();
+					break;
 				case 8:
 					return;
 				default:
-					System.out.println("thong tin ban nhap chua dung xin kiem tra lai");
+					System.out.println("Thông tin bạn nhập chưa đúng xin kiểm tra lại");
 					break;
 				}
 				
