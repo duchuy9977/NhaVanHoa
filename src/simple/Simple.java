@@ -369,7 +369,7 @@ public class Simple {
 				String choice = sc.nextLine();
 				try {
 					choosse = Integer.parseInt(choice);
-					if(choosse > 0 && choosse < countMonHoc) {
+					if(choosse > 0 && choosse <= countMonHoc) {
 						choosse--;
 						System.out.println("Bạn Đã chọn đăng kí môn " + monHoc.get(choosse).getTenMon());
 						break;
@@ -386,29 +386,61 @@ public class Simple {
 			}
 			
 			con = ConnectionUtil.getConnection();
-			String sql = "SELECT lop.IDLop, COUNT(lop.IDLop) as SL FROM LOPNANGKHIEU as lop\r\n"
+			String sql = "SELECT lop.IDLop, lop.TenLop, lop.NgayBatDau, lop.SoLuongHocVienToiDa, COUNT(lop.IDLop) as SL FROM LOPNANGKHIEU as lop\r\n"
 					+ "JOIN MONHOC as mh\r\n"
 					+ "ON lop.IDMonHoc = mh.IDMonHoc \r\n"
 					+ "JOIN DANGKYLOPHOC as dk\r\n"
 					+ "ON dk.IDLop = lop.IDLop\r\n"
 					+ "WHERE mh.IDMonHoc = ? AND Status = 'Approved'\r\n"
-					+ "GROUP BY lop.IDLop, lop.SoLuongHocVienToiDa\r\n"
+					+ "GROUP BY lop.IDLop, lop.SoLuongHocVienToiDa, lop.TenLop, lop.NgayBatDau, lop.SoLuongHocVienToiDa\r\n"
 					+ "HAVING COUNT(lop.IDLop) < lop.SoLuongHocVienToiDa";
 			pr = con.prepareStatement(sql);
 			pr.setString(1, monHoc.get(choosse).getIdMonHoc());
 			rs = pr.executeQuery();
+			
+			ArrayList<LopNangKhieu> lopList = new ArrayList<LopNangKhieu>();
 			if(!rs.isBeforeFirst()) {
 				System.out.println("không có môn học nào thỏa mãn yêu cầu");
+				System.out.println("===============================================");
 				return;
-			}
-
-			while(rs.next()) {
-				inranamninh(rs);
+			} else {
 				System.out.println("===============================================");
 				System.out.println("| ------> Các Lớp có thể đăng kí được <------ |");
 				System.out.println("===============================================");
-				System.out.println("|" + rs.getString("IDLop"));
-			} 
+				System.out.println("|STT|      Tên Lớp    |Ngày Bắt Đầu|Đã Đăng Ký|");
+				System.out.println("===============================================");
+				int row = 0;
+				while(rs.next()) {
+					LopNangKhieu lopHoc = new LopNangKhieu();
+					row++;
+					System.out.printf("|%3d|%17s|%12s|     %2d/%2d|\n",row, rs.getString("TenLop"),rs.getDate("NgayBatDau")+ "",rs.getInt("SL"),rs.getInt("SoLuongHocVienToiDa"));
+					lopHoc.setIdlop(rs.getString("IDLop"));
+					lopHoc.setTenlop(rs.getString("TenLop"));
+					lopList.add(lopHoc);
+				}
+				System.out.println("===============================================");
+				System.out.println("Mời nhập lớp bạn muốn đăng kí (1->" + (lopList.size()) +"): ");
+			}
+			while(true) {
+				String choice = sc.nextLine();
+				try {
+					choosse = Integer.parseInt(choice);
+					if(choosse > 0 && choosse <= lopList.size()) {
+						choosse--;
+						System.out.println("Bạn Đã chọn đăng kí lớp " + lopList.get(choosse).getIdlop() + " - " + lopList.get(choosse).getTenlop());
+						break;
+					} else {
+						System.out.println("Bạn đã nhập sai, mời nhập lại!");
+					}
+					
+				} catch (NumberFormatException e) {
+					System.out.println("Bạn Đã nhập sai mời nhập lại");
+				}catch (Exception e) {
+					System.out.println("Đã có lỗi xảy ra, mời nhập lại");
+
+				}
+			}
+
 			
 
 
@@ -477,7 +509,7 @@ public class Simple {
 			}
 		}
 		System.out.println("===========================================");
-		sim1.ClickMonHoc("Mời bạn chọn môn học muốn đăng ký(1->" +(countMonHoc - 1) + " : ", monHoc, countMonHoc);
+		sim1.ClickMonHoc("Mời bạn chọn môn học muốn đăng ký(1->" +(countMonHoc - 1) + ") : ", monHoc, countMonHoc);
 		
 }
 	//----------tim kiếm thông tin theo usename giáo viên
