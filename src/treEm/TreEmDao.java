@@ -140,6 +140,33 @@ public class TreEmDao {
 		}
 		return list;
 	}
+	
+	//Của Chủ tịch, Đừng Xóa :v
+	public ArrayList<TreEm> displayRSVersion2(ResultSet rs) {
+		ArrayList<TreEm> list = new ArrayList<>();
+
+		try {
+
+			while (rs.next()) {
+				String IDTre = rs.getString("IDTre");
+				String IDPhuHuynh = rs.getString("IDPhuHuynh");
+				int STT = rs.getInt("STT");
+				String TenTre = rs.getString("TenTre");
+				Date NgaySinh = rs.getDate("NgaySinh");
+				String TruongDangHoc = rs.getString("TruongDangHoc");
+				String GioiTinh = rs.getString("GioiTinh");
+				String Status = rs.getString("Status");
+				TreEm x = new TreEm(IDTre, IDPhuHuynh, STT, TenTre, NgaySinh, TruongDangHoc, GioiTinh, Status);
+				list.add(x);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	public int inputSTT(String username) {
 		Connection con = null;
