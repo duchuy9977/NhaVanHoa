@@ -16,7 +16,7 @@ public class validate {
 			Pattern x = Pattern.compile("^L[0-9]{3}$");
 			if (x.matcher(idlop).find()) {
 				return idlop;
-			}System.out.println("id lop phai 4 ki tu va bat dau bang ki tu L");
+			}System.out.println("ID lớp phải 4 kí tự và bắt đầu bằng kí tự L");
 		} while (true);
 	}
 	
@@ -24,7 +24,10 @@ public class validate {
 		System.out.println(message);
 		do {
 			String idmonhoc = sc.nextLine();	
-				return idmonhoc ; 
+			Pattern x = Pattern.compile("^MH[0-9]{3}$");
+			if (x.matcher(idmonhoc).find()) {
+				return idmonhoc;
+			}System.out.println("ID Môn Học phải 5 kí tự và bắt đầu bằng kí tự MH");
 		} while (true);
 	}
 	
@@ -34,7 +37,7 @@ public class validate {
 			String string = sc.nextLine();
 			if(string.length()>5) {
 				return string;
-			}System.out.println("phai nhap tren 5 ki tu");
+			}System.out.println("Phải nhập trên 5 kí tự");
 		} while (true);
 	}
 	
@@ -45,7 +48,7 @@ public class validate {
 				int sobuoi=Integer.parseInt(sc.nextLine());
 				return sobuoi;
 			} catch (Exception e) {
-				System.out.println("ki tu cna nhap la so");
+				System.out.println("Kí tự cần nhập là số");
 				// TODO: handle exception
 			}
 		} while (true);
@@ -59,19 +62,11 @@ public class validate {
 				Date x  = Date.valueOf(sc.nextLine());
 				return x ;
 			} catch (Exception e) {
-				System.out.println("nhap lai o dinh dinh yyyy-mm-dd");
+				System.out.println("Nhập ở định dạng yyyy-mm-dd");
 				// TODO: handle exception
 			}
 		} while (true);
 	}
-	public String abc() {
-		while (true) {
-			System.out.println("moi ban nhap cot can update");
-			String x=sc.nextLine();
-			if(x.equals("TenLop") || x.equals("IDMonHoc")|| x.equals("SoBuoi") || x.equals("NgayKhaiGiang") || x.equals("NgayKetThuc") ||x.equals("NgayBatDau")) {
-				return x ;
-			}System.out.println("moi ban nhap lai");
-		}
-	}
+
 
 }

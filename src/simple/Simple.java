@@ -9,9 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import app.LopNangKhieu;
 import connection.ConnectionUtil;
+import entities.LopNangKhieu;
 import entities.MonHoc;
 import function.MonHocDao;
 import validate.validate;
@@ -20,17 +19,16 @@ public class Simple {
 	private static Scanner sc = new Scanner(System.in);
 	public String insertdata (entities.LopNangKhieu lop) {
 		Connection con = ConnectionUtil.getConnection() ; 
-		String sql = "insert into LOPNANGKHIEU(IDLop,IDMonHoc,TenLop,SoBuoi,NgayKhaiGiang,NgayBatDau,NgayKetThuc)values (\r\n"
-				+ "?,?,?,?,?,?,?)";
+		String sql = "insert into LOPNANGKHIEU(IDLop,IDMonHoc,TenLop,SoBuoi,NgayBatDau,NgayKetThuc)values (\r\n"
+				+ "?,?,?,?,?,?)";
 		try {
 			PreparedStatement prsttm = con.prepareStatement(sql);
 			prsttm.setString(1, lop.getIdlop());
 			prsttm.setString(2, lop.getIdmonhoc());
 			prsttm.setString(3, lop.getTenlop());
 			prsttm.setInt(4, lop.getSobuoi());
-			prsttm.setDate(5, lop.getNgaykhaigiang());
-			prsttm.setDate(6, lop.getNgaybatdau());
-			prsttm.setDate(7, lop.getNgayketthuc());
+			prsttm.setDate(5, lop.getNgaybatdau());
+			prsttm.setDate(6, lop.getNgayketthuc());
 			int numberRecords = prsttm.executeUpdate();
 			if (numberRecords == 0) {
 				System.out.println("insert Thất Bại");
@@ -46,7 +44,7 @@ public class Simple {
 					e.printStackTrace();
 				}
 			}
-		return "insert thanh cong";
+		return "insert Thành công";
 	}
 	
 	public List<entities.LopNangKhieu> selectall() {
@@ -62,7 +60,6 @@ public class Simple {
 				lop.setIdmonhoc(rs.getString("IDMonHoc"));
 				lop.setTenlop(rs.getString("TenLop"));
 				lop.setSobuoi(rs.getInt("SoBuoi"));
-				lop.setNgaykhaigiang(rs.getDate("NgayKhaiGiang"));
 				lop.setNgaybatdau(rs.getDate("NgayBatDau"));
 				lop.setNgayketthuc(rs.getDate("NgayKetThuc"));
 				list.add(lop);
@@ -128,25 +125,23 @@ public class Simple {
 	
 	public String updatedata() {
 		Connection con = ConnectionUtil.getConnection();
-		String sql = "update LOPNANGKHIEU set IDMonHoc = ?, TenLop=?,SoBuoi=?,NgayKhaiGiang=?,NgayBatDau=?,NgayKetThuc=? where IDLop = ?";
+		String sql = "update LOPNANGKHIEU set IDMonHoc = ?, TenLop=?,SoBuoi=?,NgayBatDau=?,NgayKetThuc=? where IDLop = ?";
 		try {
 			validate vali = new validate();
 			Simple sim = new Simple();
 			String idmonhoc = sim.Checkexistidmonhoc();
 			String tenlop = vali.inputstring("Nhập vào tên lớp");
 			int sobuoi = vali.inputsobuoi("Nhập vào số buổi");
-			Date ngaykhaigiang = vali.inputdate("Nhập vào ngày khai giảng");
 			Date ngaybatdau = vali.inputdate("Nhập vào ngày bắt đầu");
 			Date ngayketthuc = vali.inputdate("Nhập vào ngày kết thúc");
-			String idlop = vali.inputidlop("Nhập vào id lớp");
+			String idlop = sim.Checkidlop();
 			PreparedStatement pr = con.prepareStatement(sql);
 			pr.setString(1, idmonhoc);
 			pr.setString(2, tenlop);
 			pr.setInt(3, sobuoi);
-			pr.setDate(4, ngaykhaigiang);
-			pr.setDate(5, ngaybatdau);
-			pr.setDate(6, ngayketthuc);
-			pr.setString(7, idlop);
+			pr.setDate(4, ngaybatdau);
+			pr.setDate(5, ngayketthuc);
+			pr.setString(6, idlop);
 			int rowsUpdated = pr.executeUpdate();
 			if (rowsUpdated > 0) {
 			    System.out.println("Dữ liệu đã được cập nhật thành công.");
@@ -189,7 +184,6 @@ public class Simple {
 				lop.setIdmonhoc(rs.getString("IDMonHoc"));
 				lop.setTenlop(rs.getString("TenLop"));
 				lop.setSobuoi(rs.getInt("SoBuoi"));
-				lop.setNgaykhaigiang(rs.getDate("NgayKhaiGiang"));
 				lop.setNgaybatdau(rs.getDate("NgayBatDau"));
 				lop.setNgayketthuc(rs.getDate("NgayKetThuc"));
 				sobuoi.add(lop);
@@ -211,20 +205,19 @@ public class Simple {
 		Connection con = null;
 		PreparedStatement pr = null;
 		ResultSet rs = null;
-		String IDMonHoc = null;
+		String idmonhoc = null;
 		try {
 			con = ConnectionUtil.getConnection();
 			do {
 				validate vali = new validate();
-				String TenMonHoc = vali.inputidmonhoc("Mời wbanj nhập vào tên môn học");
-				String sql = "select * from MONHOC where TenMon = ?";
+				idmonhoc = vali.inputidmonhoc("Mời bạn nhập vào ID môn học");
+				String sql = "select * from MONHOC where IDMonHoc=?";
 				pr = con.prepareStatement(sql);
-				pr.setString(1, TenMonHoc);
+				pr.setString(1, idmonhoc);
 				rs=pr.executeQuery();
-				if(rs.next()) {
-					 IDMonHoc = rs.getString("IDMonHoc");
-					 return IDMonHoc;
-				} System.out.println("Ten môn học không tồn tại");
+				if(!rs.isBeforeFirst()) {
+					System.out.println("ID môn học không tồn tại");
+				}else{return idmonhoc;}
 			}
 			while(true);
 		} catch (SQLException e) {
@@ -234,7 +227,7 @@ public class Simple {
 		} finally {
 			ConnectionUtil.closeConnection(rs, pr, con);
 		}
-		return IDMonHoc;
+		return idmonhoc;
 	}
 		
 	public ArrayList<LopNangKhieu> inramanhinh1(ResultSet rs) {
@@ -247,11 +240,10 @@ public class Simple {
 				String IDMonHoc = rs.getString("IDMonHoc");
 				String TenLop = rs.getString("Tenlop");
 				int SoBuoi = rs.getInt("SoBuoi");
-				Date NgayKhaiGiang = rs.getDate("NgayKhaiGiang");
 				Date NgayBatDau = rs.getDate("NgayBatDau");
 				Date NgayKetThuc = rs.getDate("NgayKetThuc");
 				int SoLuongTreTheoHoc = rs.getInt("SoLuongTreTheoHoc");
-				LopNangKhieu x = new LopNangKhieu(IDLop, IDMonHoc, TenLop, SoBuoi, NgayKhaiGiang, NgayBatDau, NgayKetThuc);
+				LopNangKhieu x = new LopNangKhieu(IDLop, IDMonHoc, TenLop, SoBuoi, NgayBatDau, NgayKetThuc);
 				x.setSohocsinhtheohoc(SoLuongTreTheoHoc);
 				System.out.println(x.toString1());
 				list.add(x);
@@ -269,10 +261,10 @@ public class Simple {
 		List <entities.LopNangKhieu> list2= new ArrayList<>();
 		Connection con = null;
 		Statement st = null;
-		String sql = "select lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.SoBuoi,lnk.NgayKhaiGiang,lnk.NgayBatDau,lnk.NgayKetThuc, count (dklh.IDTre) as SoLuongTreTheoHoc\r\n"
+		String sql = "select lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.SoBuoi,lnk.NgayBatDau,lnk.NgayKetThuc, count (dklh.IDTre) as SoLuongTreTheoHoc\r\n"
 				+ "from LOPNANGKHIEU as lnk\r\n"
 				+ "inner join DANGKYLOPHOC as dklh on lnk.IDLop=dklh.IDLop\r\n"
-				+ "group by lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.SoBuoi,lnk.NgayKhaiGiang,lnk.NgayBatDau,lnk.NgayKetThuc";
+				+ "group by lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.SoBuoi,lnk.NgayBatDau,lnk.NgayKetThuc";
 		try {
 			con=ConnectionUtil.getConnection();
 			st = con.createStatement();
@@ -283,7 +275,6 @@ public class Simple {
 				lop1.setIdmonhoc(rs.getString("IDMonHoc"));
 				lop1.setTenlop(rs.getString("TenLop"));
 				lop1.setSobuoi(rs.getInt("SoBuoi"));
-				lop1.setNgaykhaigiang(rs.getDate("NgayKhaiGiang"));
 				lop1.setNgaybatdau(rs.getDate("NgayBatDau"));
 				lop1.setNgayketthuc(rs.getDate("NgayKetThuc"));
 				lop1.setSohocsinhtheohoc(rs.getInt("SoLuongTreTheoHoc"));
@@ -333,19 +324,17 @@ public class Simple {
 		return list;
 	}
 
-	public ArrayList<LopNangKhieu> inranamhinh(ResultSet rs) {
-		ArrayList<LopNangKhieu> list = new ArrayList<>();
+	public ArrayList<entities.LopNangKhieu> inranamhinh(ResultSet rs) {
+		ArrayList<entities.LopNangKhieu> list = new ArrayList<>();
 		try {
 			while (rs.next()) {
 				String IDLop = rs.getString("IDLop");
 				String IDMonHoc = rs.getString("IDMonHoc");
 				String Tenlop = rs.getString("TenLop");
 				int SoBuoi = rs.getInt("SoBuoi");
-				Date NgayKhaiGiang = rs.getDate("NgayKhaiGiang");
 				Date NgayBatDau = rs.getDate("NgayBatDau");
 				Date NgayKetThuc = rs.getDate("NgayKetThuc");
-				LopNangKhieu lop = new LopNangKhieu(IDLop, IDMonHoc, Tenlop, SoBuoi, NgayKhaiGiang, NgayBatDau,
-						NgayKetThuc);
+				entities.LopNangKhieu lop = new entities.LopNangKhieu(IDLop, IDMonHoc, Tenlop, SoBuoi, NgayBatDau, NgayKetThuc);
 				System.out.println(lop.toString());
 				list.add(lop);
 			}
@@ -404,6 +393,7 @@ public class Simple {
 				System.out.println("===============================================");
 				return;
 			} else {
+
 				System.out.println("===============================================");
 				System.out.println("| ------> Các Lớp có thể đăng kí được <------ |");
 				System.out.println("===============================================");
@@ -624,6 +614,35 @@ public class Simple {
 		}else {
 			return false;
 		}
+	}
+	
+	public String Checkidlop() {
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs = null;
+		String idlop = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			do {
+				validate vali = new validate();
+				idlop = vali.inputidlop("Mời bạn nhập vào ID Lớp cần update");
+				String sql = "select * from LOPNANGKHIEU where IDLop=?";
+				pr = con.prepareStatement(sql);
+				pr.setString(1, idlop);
+				rs=pr.executeQuery();
+				if(!rs.isBeforeFirst()) {
+					System.out.println("ID lớp không tồn tại");
+				}else{return idlop;}
+			}
+			while(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, pr, con);
+		}
+		return idlop;
 	}
 	}
 	
