@@ -102,6 +102,19 @@ public class ValidationGiaoVien {
 			System.out.println("ban nhap sai, hay nhap lai thon tin dia chi it nhat 2 ky tu!");
 		} while (true);
 	}
+	
+	public String inputString(String message) {
+		do {
+			System.out.println(message);
+			String str = input.nextLine();
+			if (str.length() >= 2) {
+
+				return str;
+			}
+			System.out.println("ban nhap sai, hay nhap lai chuỗi ký tự it nhat 2 ky tu!");
+		} while (true);
+	}
+
 
 	public String inputSDT(String message) {
 		do {
