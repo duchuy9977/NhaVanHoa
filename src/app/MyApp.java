@@ -203,6 +203,7 @@ public class MyApp {
 						break;
 					case "4":
 						System.out.println("Bạn đã chọn chức năng Đăng kí lớp học!");
+						
 						Simple sim1 = new Simple();
 						sim1.dangkihoc();
 						break;

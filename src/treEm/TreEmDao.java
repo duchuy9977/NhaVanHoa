@@ -404,7 +404,7 @@ public class TreEmDao {
 		return true;
 	}
 	
-	//
+	//Code chủ tịch
 	public boolean checkTablePhuHuynhCoTre(String idPhuHuynh) {
 		Connection con = null;
 		PreparedStatement ps = null;
