@@ -358,33 +358,56 @@ public class Simple {
 		return list;
 	}
 
-	public void ClickMonHoc(String message) {
+	public void ClickMonHoc(String message, ArrayList<MonHoc> monHoc, int countMonHoc) {
 		Connection con = null;
 		PreparedStatement pr = null;
 		ResultSet rs = null;
 		try {
 			System.out.println(message);
-			String tenmonhoc;
-			while (true) {
-				tenmonhoc = sc.nextLine();
-				if(checkTenMH(tenmonhoc)==true) {
-					break;
-				}else {
-					System.out.println("moi ban nhap dung ky tu ten mon hoc tren man hinh");
+			int choosse = -1;
+			while(true) {
+				String choice = sc.nextLine();
+				try {
+					choosse = Integer.parseInt(choice);
+					if(choosse > 0 && choosse < countMonHoc) {
+						choosse--;
+						System.out.println("Bạn Đã chọn đăng kí môn " + monHoc.get(choosse).getTenMon());
+						break;
+					} else {
+						System.out.println("Bạn đã nhập sai, mời nhập lại!");
+					}
+					
+				} catch (NumberFormatException e) {
+					System.out.println("Bạn Đã nhập sai mời nhập lại");
+				}catch (Exception e) {
+					System.out.println("Đã có lỗi xảy ra, mời nhập lại");
 				}
 			}
+			
 			con = ConnectionUtil.getConnection();
-			String sql = "select lnk.* from LOPNANGKHIEU as lnk,MONHOC as mh where lnk.IDMonHoc=mh.IDMonHoc and mh.TenMon=? \r\n"
-					+ "  and lnk.NgayKhaiGiang >= DATEADD(DAY, -14, GETDATE())\r\n"
-					+ "  AND lnk.NgayKetThuc > GETDATE()";
+			String sql = "SELECT lop.IDLop, COUNT(lop.IDLop) as SL FROM LOPNANGKHIEU as lop\r\n"
+					+ "JOIN MONHOC as mh\r\n"
+					+ "ON lop.IDMonHoc = mh.IDMonHoc \r\n"
+					+ "JOIN DANGKYLOPHOC as dk\r\n"
+					+ "ON dk.IDLop = lop.IDLop\r\n"
+					+ "WHERE mh.IDMonHoc = ? AND Status = 'Approved'\r\n"
+					+ "GROUP BY lop.IDLop, lop.SoLuongHocVienToiDa\r\n"
+					+ "HAVING COUNT(lop.IDLop) < lop.SoLuongHocVienToiDa";
 			pr = con.prepareStatement(sql);
-			pr.setString(1, tenmonhoc);
+			pr.setString(1, monHoc.get(choosse).getIdMonHoc());
 			rs = pr.executeQuery();
 			if(!rs.isBeforeFirst()) {
 				System.out.println("khong co mon hoc thoa man yeu cau");
 				return;
 			}
-			inranamninh(rs);
+			while(rs.next()) {
+				inranamninh(rs);
+				System.out.println("===============================================");
+				System.out.println("| ------> Các Lớp có thể đăng kí được <------ |");
+				System.out.println("===============================================");
+				System.out.println("|" + rs.getString("IDLop"));
+			} 
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -451,10 +474,8 @@ public class Simple {
 			}
 		}
 		System.out.println("===========================================");
-		sim1.ClickMonHoc("Mời bạn chọn môn học muốn đăng ký");
-		while(true) {
-			
-		}
+		sim1.ClickMonHoc("Mời bạn chọn môn học muốn đăng ký(1->" +(countMonHoc - 1) + " : ", monHoc, countMonHoc);
+		
 }
 }
 
