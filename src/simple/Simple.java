@@ -237,7 +237,7 @@ public class Simple {
 		return IDMonHoc;
 	}
 		
-	public ArrayList<LopNangKhieu> inramanhinh(ResultSet rs) {
+	public ArrayList<LopNangKhieu> inramanhinh1(ResultSet rs) {
 		ArrayList<LopNangKhieu> list = new ArrayList<>();
 
 		try {
@@ -333,7 +333,7 @@ public class Simple {
 		return list;
 	}
 
-	public ArrayList<LopNangKhieu> inranamninh(ResultSet rs) {
+	public ArrayList<LopNangKhieu> inranamhinh(ResultSet rs) {
 		ArrayList<LopNangKhieu> list = new ArrayList<>();
 		try {
 			while (rs.next()) {
@@ -384,7 +384,7 @@ public class Simple {
 				System.out.println("khong co mon hoc thoa man yeu cau");
 				return;
 			}
-			inranamninh(rs);
+			inranamhinh(rs);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -456,6 +456,45 @@ public class Simple {
 			
 		}
 }
+	//----------tim kiếm thông tin theo usename giáo viên
+	public List<entities.LopNangKhieu> timkiemthongtintheousename(){
+		List<entities.LopNangKhieu> list = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs =null;
+		try {
+			System.out.println("mời bạn nhập usename giáo viên cần tìm ");
+			String usename = sc.nextLine();
+			con=ConnectionUtil.getConnection();
+			String sql = "select lnk.*,gv.Username from LOPNANGKHIEU as lnk \r\n"
+					+ "inner join MONHOC as mh\r\n"
+					+ "on lnk.IDMonHoc=mh.IDMonHoc\r\n"
+					+ "inner join GIAOVIEN as gv\r\n"
+					+ "on mh.IDMonHoc=gv.IDMonHoc\r\n"
+					+ "where gv.Username=?";
+			pr=con.prepareStatement(sql);
+			pr.setString(1, usename);
+			rs=pr.executeQuery();
+			if(!rs.isBeforeFirst()) {
+				System.out.println("không có giáo viên theo yêu cầu của bạn");
+			}
+			inranamhinh(rs);
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	return list;
 }
+	}
+	
+
 
 	

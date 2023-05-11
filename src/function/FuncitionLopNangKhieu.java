@@ -24,8 +24,9 @@ public static void FuncitionLopNangKhieu(){
 				System.out.println("4. xoa thong tin");
 				System.out.println("5. hien thi thong tin co so buoi hoc > ? va nho hon ?");
 				System.out.println("6. hien thi thong tin lop hoc va so luong hoc sinh theo hoc lop do");
+				System.out.println("7. hien thi thong tin lop hoc theo usename giao vien");
 				System.out.println();
-				System.out.println("7. thoat khoi chuong trinh");
+				System.out.println("8. thoat khoi chuong trinh");
 				System.out.println();
 				System.out.println("nhap lua chon cua ban");
 				int choice =Integer.parseInt(sc.nextLine());
@@ -61,6 +62,8 @@ public static void FuncitionLopNangKhieu(){
 						System.out.println(lopNangKhieu.toString1());}
 					break;
 				case 7:
+					sim.timkiemthongtintheousename();
+				case 8:
 					return;
 				default:
 					System.out.println("thong tin ban nhap chua dung xin kiem tra lai");
