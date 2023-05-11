@@ -629,7 +629,51 @@ public class Simple {
 		}
 		return idlop;
 	}
-	}
+	
+	public List<LopNangKhieu> caclopthieuhocsinh(){
+		List<LopNangKhieu>list1 = new ArrayList<>();
+		Connection con =null;
+		Statement st = null;
+		ResultSet rs = null;
+		try {
+			con=ConnectionUtil.getConnection();
+			String sql= "select lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.NgayBatDau,lnk.NgayKetThuc,lnk.SoBuoi,lnk.SoLuongHocVienToiDa, count(dk.IDTre) as sohocsinhtheohoc from LOPNANGKHIEU lnk\r\n"
+					+ "inner join DANGKYLOPHOC dk \r\n"
+					+ "on lnk.IDLop=dk.IDLop\r\n"
+					+ "where GETDATE()>lnk.NgayBatDau \r\n"
+					+ "group by lnk.IDLop,lnk.IDMonHoc,lnk.TenLop,lnk.NgayBatDau,lnk.NgayKetThuc,lnk.SoBuoi,lnk.SoLuongHocVienToiDa\r\n"
+					+ "having lnk.SoLuongHocVienToiDa>count(dk.IDTre)";
+			Statement sttm = con.createStatement();
+			rs = sttm.executeQuery(sql);
+			if(!rs.isBeforeFirst()) {
+				System.out.println("Không hoặc chưa có lớp thõa mãn yêu cầu của bạn");
+			}
+			while (rs.next()) {
+				entities.LopNangKhieu lop1 = new entities.LopNangKhieu();
+				lop1.setIdlop(rs.getString("IDLop"));
+				lop1.setIdmonhoc(rs.getString("IDMonHoc"));
+				lop1.setTenlop(rs.getString("TenLop"));
+				lop1.setSobuoi(rs.getInt("SoBuoi"));
+				lop1.setNgaybatdau(rs.getDate("NgayBatDau"));
+				lop1.setNgayketthuc(rs.getDate("NgayKetThuc"));
+				lop1.setSoLuongHocVienToiDa(rs.getInt("SoLuongHocVienToiDa"));
+				lop1.setSohocsinhtheohoc(rs.getInt("sohocsinhtheohoc"));
+				list1.add(lop1);
+		}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list1;
+}
+}
 	
 
 

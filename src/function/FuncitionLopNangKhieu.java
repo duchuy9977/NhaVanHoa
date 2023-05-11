@@ -25,8 +25,9 @@ public static void FuncitionLopNangKhieu(){
 				System.out.println("5. Hiển thị thông tin có số buổi học > ? va số buổi học < ?");
 				System.out.println("6. Hiển thị thông tin lớp học và số lượng học sinh theo học lớp đó");
 				System.out.println("7. Hiển thị thông tin lóp học theo usename giáo viên");
+				System.out.println("8. Hiển thị thông tin lóp học đến ngày khai giảng mà vẫn chưa đủ học viên đăng kí học");
 				System.out.println();
-				System.out.println("8. Thoát khỏi chương trình");
+				System.out.println("9. Thoát khỏi chương trình");
 				System.out.println();
 				System.out.println("Nhập sự lựa chọn của bạn");
 				int choice =Integer.parseInt(sc.nextLine());
@@ -65,6 +66,11 @@ public static void FuncitionLopNangKhieu(){
 					sim.timkiemthongtintheousename();
 					break;
 				case 8:
+					List<LopNangKhieu> list3 = sim.caclopthieuhocsinh();
+					for (LopNangKhieu lopNangKhieu : list3) {
+						System.out.println(lopNangKhieu.toString1());}
+					break;
+				case 9:
 					return;
 				default:
 					System.out.println("Thông tin bạn nhập chưa đúng xin kiểm tra lại");
