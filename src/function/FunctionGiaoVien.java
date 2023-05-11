@@ -434,7 +434,7 @@ public class FunctionGiaoVien {
 		}
 	}
 	
-	public void sortTop3GVDayNhieuNhat(GiaoVien gv) {
+	public void sortTop3GVDayNhieuNhat() {
 		Connection conn = null;
 		PreparedStatement prstmt = null;
 		ResultSet rs = null;
