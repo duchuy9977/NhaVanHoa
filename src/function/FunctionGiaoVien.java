@@ -1,6 +1,7 @@
 package function;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -374,62 +375,100 @@ public class FunctionGiaoVien {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
 	}
-	
+
 	// Function update SĐT trong bang giao vien
-		public void updateSDT(GiaoVien gv) {
-			Connection conn = null;
-			PreparedStatement prstmt = null;
-			int numberRecords = 0;
-			try {
-				conn = ConnectionUtil.getConnection();
-				String sql = "Update GIAOVIEN set SDT = ? where IDGiaoVien = ?";
-				prstmt = conn.prepareStatement(sql);
-				prstmt.setString(1, gv.getSdt());
-				prstmt.setString(2, gv.getIdGiaoVien());
-				numberRecords = prstmt.executeUpdate();
-				if (numberRecords == 0) {
-					System.out.println("Update SĐT cho giao vien that bai");
-				} else {
-					System.out.println("Update SĐT cho giao vien thành công");
-				}
-
-			} catch (SQLException i) {
-				i.printStackTrace();
+	public void updateSDT(GiaoVien gv) {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		int numberRecords = 0;
+		try {
+			conn = ConnectionUtil.getConnection();
+			String sql = "Update GIAOVIEN set SDT = ? where IDGiaoVien = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setString(1, gv.getSdt());
+			prstmt.setString(2, gv.getIdGiaoVien());
+			numberRecords = prstmt.executeUpdate();
+			if (numberRecords == 0) {
 				System.out.println("Update SĐT cho giao vien that bai");
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Update SĐT cho giao vien that bai");
-			} finally {
-				ConnectionUtil.closeConnection(null, prstmt, conn);
+			} else {
+				System.out.println("Update SĐT cho giao vien thành công");
 			}
-		}
-		
-		// Function update số năm kinh nghiêm trong bang giao vien
-				public void updateSoNamKinhNghiem(GiaoVien gv) {
-					Connection conn = null;
-					PreparedStatement prstmt = null;
-					int numberRecords = 0;
-					try {
-						conn = ConnectionUtil.getConnection();
-						String sql = "Update GIAOVIEN set SoNamKinhNghiem = ? where IDGiaoVien = ?";
-						prstmt = conn.prepareStatement(sql);
-						prstmt.setInt(1, gv.getSoNamKinhNghiem());
-						prstmt.setString(2, gv.getIdGiaoVien());
-						numberRecords = prstmt.executeUpdate();
-						if (numberRecords == 0) {
-							System.out.println("Update SĐT cho giao vien that bai");
-						} else {
-							System.out.println("Update SĐT cho giao vien thành công");
-						}
 
-					} catch (SQLException i) {
-						i.printStackTrace();
-						System.out.println("Update SĐT cho giao vien that bai");
-					} catch (Exception e) {
-						e.printStackTrace();
-						System.out.println("Update SĐT cho giao vien that bai");
-					} finally {
-						ConnectionUtil.closeConnection(null, prstmt, conn);
-					}
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Update SĐT cho giao vien that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Update SĐT cho giao vien that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
+
+	// Function update số năm kinh nghiêm trong bang giao vien
+	public void updateSoNamKinhNghiem(GiaoVien gv) {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		int numberRecords = 0;
+		try {
+			conn = ConnectionUtil.getConnection();
+			String sql = "Update GIAOVIEN set SoNamKinhNghiem = ? where IDGiaoVien = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setInt(1, gv.getSoNamKinhNghiem());
+			prstmt.setString(2, gv.getIdGiaoVien());
+			numberRecords = prstmt.executeUpdate();
+			if (numberRecords == 0) {
+				System.out.println("Update SĐT cho giao vien that bai");
+			} else {
+				System.out.println("Update SĐT cho giao vien thành công");
+			}
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Update SĐT cho giao vien that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Update SĐT cho giao vien that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
+	
+	public void sortTop3GVDayNhieuNhat(GiaoVien gv) {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		ResultSet rs = null;
+		try {
+			ValidationGiaoVien validation = new ValidationGiaoVien();
+			int x = validation.inputInt("Vui lòng nhập tháng trong năm 2020 cần sort");
+			conn = ConnectionUtil.getConnection();
+			String sql = "Select top 3 ACCOUNT.Name, LUONG.SoBuoiTrongThang \r\n"
+					+ "from LUONG Join GIAOVIEN on LUONG.IDGiaoVien = GIAOVIEN.IDGiaoVien\r\n"
+					+ "Join ACCOUNT on GIAOVIEN.Username = ACCOUNT.Username\r\n"
+					+ "where LUONG.Thang = ? and LUONG.Nam = 2020\r\n"
+					+ "Order by LUONG.SoBuoiTrongThang DESC";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setInt(1, x);
+			rs = prstmt.executeQuery();
+			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
+			// con trỏ k đc đẩy lên đâu dòng.
+			if (!rs.isBeforeFirst()) {
+				System.out.println("không có giáo viên nào có buổi dạy trong tháng " + x);
+				return;
+			}else {
+				while (rs.next()) {
+					System.out.println(rs.getString("Name") + rs.getInt("SoBuoiTrongThang"));
 				}
+			}
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("sort that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("sort that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
 }

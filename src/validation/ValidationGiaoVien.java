@@ -77,6 +77,19 @@ public class ValidationGiaoVien {
 			}
 		} while (true);
 	}
+	
+	public int inputInt(String message) {
+		do {
+			try {
+				System.out.println(message);
+				int x = Integer.parseInt(input.nextLine());
+				return x;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("hay nhap lai bang chu so");
+			}
+		} while (true);
+	}
 
 	public String inputDiaChi(String message) {
 		do {
