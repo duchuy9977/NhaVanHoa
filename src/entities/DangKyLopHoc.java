@@ -1,18 +1,20 @@
 package entities;
 
+import java.sql.Date;
+
 public class DangKyLopHoc {
 	private int idDangKy;
 	private String idTre;
 	private String idLop;
 	private String status;
 	private float diem;
-	private String ngayDangKy;
+	private Date ngayDangKy;
 
 	public DangKyLopHoc() {
 		super();
 	}
 
-	public DangKyLopHoc(int idDangKy, String idTre, String idLop, String status, float diem, String ngayDangKy) {
+	public DangKyLopHoc(int idDangKy, String idTre, String idLop, String status, float diem, Date ngayDangKy) {
 		super();
 		this.idDangKy = idDangKy;
 		this.idTre = idTre;
@@ -62,11 +64,11 @@ public class DangKyLopHoc {
 		this.diem = diem;
 	}
 
-	public String getNgayDangKy() {
+	public Date getNgayDangKy() {
 		return ngayDangKy;
 	}
 
-	public void setNgayDangKy(String ngayDangKy) {
+	public void setNgayDangKy(Date ngayDangKy) {
 		this.ngayDangKy = ngayDangKy;
 	}
 
