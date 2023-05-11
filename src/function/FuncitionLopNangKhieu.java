@@ -33,7 +33,7 @@ public static void FuncitionLopNangKhieu(){
 				switch (choice) {
 				case 1:
 					LopNangKhieu lop = new LopNangKhieu();
-					lop.intutdata();
+					lop.inputdata();
 					
 					sim.insertdata(lop);
 					System.out.println(lop);
