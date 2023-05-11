@@ -40,11 +40,11 @@ public class MenuSelectGiaoVien {
 
 				case 4:
 					System.out.println("Bạn đã chọn chức năng Liệt kê các giáo viên đã có lớp dạy");
-			
+					functionGV.listGVDaCoLopDay();
 					break;
 				case 5:
 					System.out.println("Bạn đã chọn chức năng Thống kê lương của các giáo viên nhận được trong tháng");
-					
+					functionGV.monthlySalaryStatistics();
 					break;
 
 				case 6:
