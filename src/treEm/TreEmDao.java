@@ -113,6 +113,33 @@ public class TreEmDao {
 			ConnectionUtil.closeConnection(rs, ps, con);
 		}
 	}
+	
+	//Hàm này của chủ tích :v
+	public void seachByIdPhuhuynh(String idPhuHuynh) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement("SELECT * FROM TREEM WHERE IDPhuHuynh = ?");
+			ps.setString(1, idPhuHuynh);
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Không có tên trẻ trong bảng");
+				return;
+			}
+			System.out.println("=========================================");
+			System.out.println("");
+			System.out.println("=========================================");
+			System.out.println("=========================================");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
+	}
 
 	public ArrayList<TreEm> displayRS(ResultSet rs) {
 		ArrayList<TreEm> list = new ArrayList<>();
@@ -141,32 +168,7 @@ public class TreEmDao {
 		return list;
 	}
 	
-	//Của Chủ tịch, Đừng Xóa :v
-	public ArrayList<TreEm> displayRSVersion2(ResultSet rs) {
-		ArrayList<TreEm> list = new ArrayList<>();
-
-		try {
-
-			while (rs.next()) {
-				String IDTre = rs.getString("IDTre");
-				String IDPhuHuynh = rs.getString("IDPhuHuynh");
-				int STT = rs.getInt("STT");
-				String TenTre = rs.getString("TenTre");
-				Date NgaySinh = rs.getDate("NgaySinh");
-				String TruongDangHoc = rs.getString("TruongDangHoc");
-				String GioiTinh = rs.getString("GioiTinh");
-				String Status = rs.getString("Status");
-				TreEm x = new TreEm(IDTre, IDPhuHuynh, STT, TenTre, NgaySinh, TruongDangHoc, GioiTinh, Status);
-				list.add(x);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
+	
 
 	public int inputSTT(String username) {
 		Connection con = null;
@@ -387,6 +389,29 @@ public class TreEmDao {
 		try {
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement("select * from TREEM");
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Hiện chưa có thông tin trẻ em nào. Xin hãy nhập thông tin trẻ em trước.");
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
+		return true;
+	}
+	
+	//
+	public boolean checkTablePhuHuynhCoTre(String idPhuHuynh) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement("select * from TREEM WHERE IDPhuHuynh = ?");
 			rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) {
 				System.out.println("Hiện chưa có thông tin trẻ em nào. Xin hãy nhập thông tin trẻ em trước.");
