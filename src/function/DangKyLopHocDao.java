@@ -3,28 +3,86 @@ package function;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import connection.ConnectionUtil;
+import entities.LopNangKhieu;
+import treEm.TreEm;
 
 public class DangKyLopHocDao {
-	public static void insertDangKyLopHoc(String idLop) {
+	public static void chonTreDangKy(String idLop, String userName) {
 		Connection conn = null;
 		PreparedStatement prsPreparedStatement = null;
 		ResultSet rs = null;
+		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Mời bạn chọn đứa trẻ bạn muốn đăng ký: ");
+		//Chọn các trẻ thỏa điều kiện gồm các trẻ có 5 <= tuổi <= 15 và trạng thái hoạt động là active 
+		String sql = "SELECT tre.IDTre, tre.TenTre, DATEDIFF(YEAR, tre.NgaySinh, GETDATE()) as tuoi FROM TREEM as tre\r\n"
+				+ "JOIN PHUHUYNH \r\n"
+				+ "ON tre.IDPhuHuynh = PHUHUYNH.IDPhuHuynh\r\n"
+				+ "JOIN ACCOUNT\r\n"
+				+ "ON PHUHUYNH.Username = ACCOUNT.Username\r\n"
+				+ "WHERE ACCOUNT.Username = ? \r\n"
+				+ "AND DATEDIFF(YEAR, tre.NgaySinh, GETDATE()) >= 5 \r\n"
+				+ "AND DATEDIFF(YEAR, tre.NgaySinh, GETDATE()) <= 15 \r\n"
+				+ "And tre.Status = 'Active'";
 		
-		
-		
-		
-		
-//		String sql
-//		
-//		try {
-//			prsPreparedStatement = ConnectionUtil.getConnection();
-//			conn.
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
+		try {
+			conn = ConnectionUtil.getConnection();
+			prsPreparedStatement = conn.prepareStatement(sql);
+			prsPreparedStatement.setString(1, userName);
+			rs = prsPreparedStatement.executeQuery();
+			//Hiển thị các trẻ đủ điều kiện
+			System.out.println("================================");
+			System.out.println("|  Các Trẻ có thể đăng kí được |");
+			System.out.println("================================");
+			System.out.println("| STT |     Tên Trẻ     | Tuổi |");
+			System.out.println("================================");
+			int row = 0;
+			ArrayList<String> idTreList = new ArrayList<String>();
+			while(rs.next()) {
+				row++;
+				System.out.printf("|%5d|%17s|%6s|\n",row, rs.getString("TenTre"),rs.getString("tuoi"));
+				idTreList.add(rs.getString("TenTre"));
+			}
+			System.out.println("===============================================");
+			System.out.println("Mời chọn trẻ bạn muốn đăng kí (1->" + (idTreList.size()) +"): ");
+			
+			while(true) {
+				//Chọn trẻ muốn đăng ký
+				String choice = sc.nextLine(); 
+				try {
+					int choosse = Integer.parseInt(choice);
+					if(choosse > 0 && choosse <= idTreList.size()) {
+						choosse--;
+						System.out.println("Bạn chọn trẻ " + idTreList.get(choosse) + " để đăng ký");
+						break;
+					} else {
+						System.out.println("Bạn đã nhập sai, mời nhập lại!");
+					}
+					
+				} catch (NumberFormatException e) {
+					System.out.println("Bạn Đã nhập sai mời nhập lại");
+				}catch (Exception e) {
+					System.out.println("Đã có lỗi xảy ra, mời nhập lại");
+
+				}
+				
+			}
+			
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Insert giao vien that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Insert giao vien that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prsPreparedStatement, conn);
+		}
 	}
+	
+	
 }
