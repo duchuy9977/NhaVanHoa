@@ -90,16 +90,31 @@ public class LopNangKhieu {
 	}
 	
 	public void intutdata() {
-		Simple sim = new Simple();
 		validate vali = new validate();
-		this.idlop = vali.inputidlop("Mời bạn nhập ID lớp");
-		this.idmonhoc = sim.Checkexistidmonhoc();
-		this.tenlop = vali.inputstring("Mời bạn nhập tên lớp");
-		this.sobuoi = vali.inputsobuoi("Mời bạn nhập số buổi");
-		this.ngaykhaigiang = vali.inputdate("Mời bạn nhập ngày khai giảng ");
-		this.ngaybatdau = vali.inputdate("Mời bạn nhập ngày bắt đầu");
-		this.ngayketthuc = vali.inputdate("Mời bạn nhập ngày kết thúc");
+		Simple sim = new Simple();
+		do {
+			String idlop = vali.inputidlop("moi ban nhap id lop");
+			if (sim.checktontaiidlop(idlop)==true) {
+				System.out.println("id lop da ton tai moi ban nhap lai id lop");
+			}else {
+				this.idlop=idlop;
+				break;
+			}
+		}while (true);
+		do {
+			String idmonhoc = vali.inputidmonhoc("moi ban nhap id mon hoc");
+			if(sim.checktontaiidmonhoc(idmonhoc)== false){
+				System.out.println("id mon hoc khong ton tai moi ban nhap lai id mon hoc");
+			}else {
+				this.idmonhoc=idmonhoc;
+				break;
+			}
+		} while (true);
+		this.tenlop = vali.inputstring("moi ban nhap ten lop");
+		this.sobuoi = vali.inputsobuoi("moi ban nhap so buoi");
+		this.ngaykhaigiang = vali.inputdate("moi ban nhap ngay khai giang");
+		this.ngaybatdau = vali.inputdate("moi ban nhap ngay bat dau");
+		this.ngayketthuc = vali.inputdate("moi ban nhap ngay ket thuc");
 
 	}
-	
 }

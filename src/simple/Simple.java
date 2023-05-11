@@ -493,6 +493,82 @@ public class Simple {
 	}
 	return list;
 }
+	
+	public boolean checktontaiidlop(String IDLop) {
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			con=ConnectionUtil.getConnection();
+			String sql= "select count(*) as soluong from LOPNANGKHIEU where IDLop=?;";
+			pr=con.prepareStatement(sql);
+			pr.setString(1, IDLop);
+			rs=pr.executeQuery();
+			rs.next();
+			count = rs.getInt("soluong");
+			
+		} catch (Exception e) {
+			e.fillInStackTrace();
+		} finally {
+			try {
+				if (con != null) {
+					con.close();
+				}
+				if (pr != null) {
+					pr.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e2) {
+				e2.fillInStackTrace();
+			}
+		}
+		if(count>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean checktontaiidmonhoc(String MonHoc) {
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			con=ConnectionUtil.getConnection();
+			String sql= "select count(*) as soluong from MONHOC where IDMonHoc=?";
+			pr=con.prepareStatement(sql);
+			pr.setString(1, MonHoc);
+			rs=pr.executeQuery();
+			rs.next();
+			count = rs.getInt("soluong");
+			
+		} catch (Exception e) {
+			e.fillInStackTrace();
+		} finally {
+			try {
+				if (con != null) {
+					con.close();
+				}
+				if (pr != null) {
+					pr.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e2) {
+				e2.fillInStackTrace();
+			}
+		}
+		if(count>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	}
 	
 
