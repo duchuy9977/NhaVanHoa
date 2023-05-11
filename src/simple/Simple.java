@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 import app.LopNangKhieu;
 import connection.ConnectionUtil;
+import entities.MonHoc;
+import function.MonHocDao;
 import validate.validate;
 
 public class Simple {
@@ -435,16 +437,19 @@ public class Simple {
 	}
 	public void dangkihoc(){
 		Simple sim1 = new Simple();
-		ArrayList<String> lop = sim1.monhoct1003();
-		System.out.println(lop);
+		ArrayList<MonHoc> monHoc = MonHocDao.getMonHoc();
 		System.out.println("===========================================");
 		System.out.println("|    Mời bạn chọn môn học muốn đăng ký    |");  
 		System.out.println("===========================================");
-		for (String string : lop) {
-			
-		}
+		int countMonHoc = 0;
 		
-		sim1.ClickMonHoc("moi ban chon lop");
+		for (MonHoc item : monHoc) {
+			System.out.printf("%6s. %s", (countMonHoc + 1),item.getTenMon());
+			System.out.println();
+			countMonHoc++;
+		}
+		System.out.println("===========================================");
+		sim1.ClickMonHoc("Mời bạn chọn môn học muốn đăng ký");
 		
 }
 }
