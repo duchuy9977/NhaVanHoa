@@ -12,6 +12,7 @@ import java.util.Scanner;
 import connection.ConnectionUtil;
 import entities.LopNangKhieu;
 import entities.MonHoc;
+import function.DangKyLopHocDao;
 import function.MonHocDao;
 import validate.validate;
 
@@ -355,12 +356,12 @@ public class Simple {
 			System.out.println(message);
 			int choosse = -1;
 			while(true) {
-				String choice = sc.nextLine();
+				String choice = sc.nextLine(); //Chọn môn đăng ký
 				try {
 					choosse = Integer.parseInt(choice);
 					if(choosse > 0 && choosse <= countMonHoc) {
 						choosse--;
-						System.out.println("Bạn Đã chọn đăng kí môn " + monHoc.get(choosse).getTenMon());
+						System.out.println("Bạn Đã chọn đăng kí môn " + monHoc.get(choosse).getTenMon()); 
 						break;
 					} else {
 						System.out.println("Bạn đã nhập sai, mời nhập lại!");
@@ -375,6 +376,7 @@ public class Simple {
 			}
 			
 			con = ConnectionUtil.getConnection();
+			//Select ra các lớp thỏa điều kiện đăng ký
 			String sql = "SELECT lop.IDLop, lop.TenLop, lop.NgayBatDau, lop.SoLuongHocVienToiDa, COUNT(lop.IDLop) as SL FROM LOPNANGKHIEU as lop\r\n"
 					+ "JOIN MONHOC as mh\r\n"
 					+ "ON lop.IDMonHoc = mh.IDMonHoc \r\n"
@@ -412,12 +414,13 @@ public class Simple {
 				System.out.println("Mời nhập lớp bạn muốn đăng kí (1->" + (lopList.size()) +"): ");
 			}
 			while(true) {
-				String choice = sc.nextLine();
+				String choice = sc.nextLine(); //Chọn Lớp muốn đăng ký
 				try {
 					choosse = Integer.parseInt(choice);
 					if(choosse > 0 && choosse <= lopList.size()) {
 						choosse--;
 						System.out.println("Bạn Đã chọn đăng kí lớp " + lopList.get(choosse).getIdlop() + " - " + lopList.get(choosse).getTenlop());
+						
 						break;
 					} else {
 						System.out.println("Bạn đã nhập sai, mời nhập lại!");
@@ -429,9 +432,10 @@ public class Simple {
 					System.out.println("Đã có lỗi xảy ra, mời nhập lại");
 
 				}
+				
 			}
-
-			
+			//Đăng ký lớp theo ID
+			DangKyLopHocDao.insertDangKyLopHoc(lopList.get(choosse).getIdlop());
 
 
 		} catch (SQLException e) {
