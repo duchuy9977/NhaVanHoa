@@ -402,7 +402,7 @@ public class Simple {
 			}
 
 			while(rs.next()) {
-				inranamninh(rs);
+				inranamhinh(rs);
 				System.out.println("===============================================");
 				System.out.println("| ------> Các Lớp có thể đăng kí được <------ |");
 				System.out.println("===============================================");
