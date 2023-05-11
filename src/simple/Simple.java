@@ -33,7 +33,7 @@ public class Simple {
 			prsttm.setDate(7, lop.getNgayketthuc());
 			int numberRecords = prsttm.executeUpdate();
 			if (numberRecords == 0) {
-				System.out.println("insert that bai");
+				System.out.println("insert Thất Bại");
 			}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -116,10 +116,10 @@ public class Simple {
 			}
 		} catch (SQLException i) {
 			i.printStackTrace();
-			System.out.println("delete that bai");
+			System.out.println("delete thất bại");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("delete that bai");
+			System.out.println("delete thất bại");
 		} finally {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
@@ -133,12 +133,12 @@ public class Simple {
 			validate vali = new validate();
 			Simple sim = new Simple();
 			String idmonhoc = sim.Checkexistidmonhoc();
-			String tenlop = vali.inputstring("nhap vao ten lop");
-			int sobuoi = vali.inputsobuoi("nhap vao so buoi");
-			Date ngaykhaigiang = vali.inputdate("nhap vao ngay khai giang");
-			Date ngaybatdau = vali.inputdate("nhap vao ngay bat dau");
-			Date ngayketthuc = vali.inputdate("nhap vao ngay ket thuc");
-			String idlop = vali.inputidlop("nhap vao id lop");
+			String tenlop = vali.inputstring("Nhập vào tên lớp");
+			int sobuoi = vali.inputsobuoi("Nhập vào số buổi");
+			Date ngaykhaigiang = vali.inputdate("Nhập vào ngày khai giảng");
+			Date ngaybatdau = vali.inputdate("Nhập vào ngày bắt đầu");
+			Date ngayketthuc = vali.inputdate("Nhập vào ngày kết thúc");
+			String idlop = vali.inputidlop("Nhập vào id lớp");
 			PreparedStatement pr = con.prepareStatement(sql);
 			pr.setString(1, idmonhoc);
 			pr.setString(2, tenlop);
@@ -162,7 +162,7 @@ public class Simple {
 				e.printStackTrace();
 			}
 		}
-	return "update thanh cong";
+	return "update thành công";
 	}
 	
 	public List<entities.LopNangKhieu> selectsobuoi (){
@@ -173,15 +173,15 @@ public class Simple {
 		try {
 			con = ConnectionUtil.getConnection();
 			validate vali = new validate();
-			int sobuoi1 = vali.inputsobuoi("moi ban nhap so buoi hoc 1");
-			int sobuoi2 = vali.inputsobuoi("moi ban nhap so buoi hoc 2");
+			int sobuoi1 = vali.inputsobuoi("Mời bạn nhập vào số buổi học 1");
+			int sobuoi2 = vali.inputsobuoi("Mời bạn nhập vào số buổi học 2");
 			String sql = "select * from LOPNANGKHIEU where SoBuoi > ? and SoBuoi < ?";
 			pr = con.prepareStatement(sql);
 			pr.setInt(1, sobuoi1);
 			pr.setInt(2, sobuoi2);
 			rs=pr.executeQuery();
 			if(!rs.isBeforeFirst()) {
-				System.out.println("khong co giao vien nao thoa man yeu cau");
+				System.out.println("không có yêu cầu nào thỏa mãn yêu cầu");
 			}
 			while (rs.next()) {
 				entities.LopNangKhieu lop = new entities.LopNangKhieu();
@@ -196,10 +196,10 @@ public class Simple {
 		}
 		}catch (SQLException i) {
 			i.printStackTrace();
-			System.out.println("select giao vien that bai ");
+			System.out.println("select thất bại ");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("select giao vien that bai");
+			System.out.println("select thất bại");
 		} finally {
 			ConnectionUtil.closeConnection(null, pr, con);
 		}
@@ -216,7 +216,7 @@ public class Simple {
 			con = ConnectionUtil.getConnection();
 			do {
 				validate vali = new validate();
-				String TenMonHoc = vali.inputidmonhoc("moi ban nhap vao ten mon hoc");
+				String TenMonHoc = vali.inputidmonhoc("Mời wbanj nhập vào tên môn học");
 				String sql = "select * from MONHOC where TenMon = ?";
 				pr = con.prepareStatement(sql);
 				pr.setString(1, TenMonHoc);
@@ -224,7 +224,7 @@ public class Simple {
 				if(rs.next()) {
 					 IDMonHoc = rs.getString("IDMonHoc");
 					 return IDMonHoc;
-				} System.out.println("Ten Mon hoc chua ton tai");
+				} System.out.println("Ten môn học không tồn tại");
 			}
 			while(true);
 		} catch (SQLException e) {
@@ -237,7 +237,7 @@ public class Simple {
 		return IDMonHoc;
 	}
 		
-	public ArrayList<LopNangKhieu> inramanhinh(ResultSet rs) {
+	public ArrayList<LopNangKhieu> inramanhinh1(ResultSet rs) {
 		ArrayList<LopNangKhieu> list = new ArrayList<>();
 
 		try {
@@ -333,7 +333,7 @@ public class Simple {
 		return list;
 	}
 
-	public ArrayList<LopNangKhieu> inranamninh(ResultSet rs) {
+	public ArrayList<LopNangKhieu> inranamhinh(ResultSet rs) {
 		ArrayList<LopNangKhieu> list = new ArrayList<>();
 		try {
 			while (rs.next()) {
@@ -381,6 +381,7 @@ public class Simple {
 					System.out.println("Bạn Đã nhập sai mời nhập lại");
 				}catch (Exception e) {
 					System.out.println("Đã có lỗi xảy ra, mời nhập lại");
+
 				}
 			}
 			
@@ -397,9 +398,10 @@ public class Simple {
 			pr.setString(1, monHoc.get(choosse).getIdMonHoc());
 			rs = pr.executeQuery();
 			if(!rs.isBeforeFirst()) {
-				System.out.println("khong co mon hoc thoa man yeu cau");
+				System.out.println("không có môn học nào thỏa mãn yêu cầu");
 				return;
 			}
+
 			while(rs.next()) {
 				inranamninh(rs);
 				System.out.println("===============================================");
@@ -408,6 +410,7 @@ public class Simple {
 				System.out.println("|" + rs.getString("IDLop"));
 			} 
 			
+
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -477,6 +480,121 @@ public class Simple {
 		sim1.ClickMonHoc("Mời bạn chọn môn học muốn đăng ký(1->" +(countMonHoc - 1) + " : ", monHoc, countMonHoc);
 		
 }
+	//----------tim kiếm thông tin theo usename giáo viên
+	public List<entities.LopNangKhieu> timkiemthongtintheousename(){
+		List<entities.LopNangKhieu> list = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs =null;
+		try {
+			System.out.println("mời bạn nhập usename giáo viên cần tìm ");
+			String usename = sc.nextLine();
+			con=ConnectionUtil.getConnection();
+			String sql = "select lnk.*,gv.Username from LOPNANGKHIEU as lnk \r\n"
+					+ "inner join MONHOC as mh\r\n"
+					+ "on lnk.IDMonHoc=mh.IDMonHoc\r\n"
+					+ "inner join GIAOVIEN as gv\r\n"
+					+ "on mh.IDMonHoc=gv.IDMonHoc\r\n"
+					+ "where gv.Username=?";
+			pr=con.prepareStatement(sql);
+			pr.setString(1, usename);
+			rs=pr.executeQuery();
+			if(!rs.isBeforeFirst()) {
+				System.out.println("không có giáo viên theo yêu cầu của bạn");
+			}
+			inranamhinh(rs);
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	return list;
 }
+	
+	public boolean checktontaiidlop(String IDLop) {
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			con=ConnectionUtil.getConnection();
+			String sql= "select count(*) as soluong from LOPNANGKHIEU where IDLop=?;";
+			pr=con.prepareStatement(sql);
+			pr.setString(1, IDLop);
+			rs=pr.executeQuery();
+			rs.next();
+			count = rs.getInt("soluong");
+			
+		} catch (Exception e) {
+			e.fillInStackTrace();
+		} finally {
+			try {
+				if (con != null) {
+					con.close();
+				}
+				if (pr != null) {
+					pr.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e2) {
+				e2.fillInStackTrace();
+			}
+		}
+		if(count>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean checktontaiidmonhoc(String MonHoc) {
+		Connection con = null;
+		PreparedStatement pr = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			con=ConnectionUtil.getConnection();
+			String sql= "select count(*) as soluong from MONHOC where IDMonHoc=?";
+			pr=con.prepareStatement(sql);
+			pr.setString(1, MonHoc);
+			rs=pr.executeQuery();
+			rs.next();
+			count = rs.getInt("soluong");
+			
+		} catch (Exception e) {
+			e.fillInStackTrace();
+		} finally {
+			try {
+				if (con != null) {
+					con.close();
+				}
+				if (pr != null) {
+					pr.close();
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e2) {
+				e2.fillInStackTrace();
+			}
+		}
+		if(count>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	}
+	
+
 
 	

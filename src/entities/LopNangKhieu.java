@@ -90,10 +90,26 @@ public class LopNangKhieu {
 	}
 	
 	public void intutdata() {
-		Simple sim = new Simple();
 		validate vali = new validate();
-		this.idlop = vali.inputidlop("moi ban nhap id lop");
-		this.idmonhoc = sim.Checkexistidmonhoc();
+		Simple sim = new Simple();
+		do {
+			String idlop = vali.inputidlop("moi ban nhap id lop");
+			if (sim.checktontaiidlop(idlop)==true) {
+				System.out.println("id lop da ton tai moi ban nhap lai id lop");
+			}else {
+				this.idlop=idlop;
+				break;
+			}
+		}while (true);
+		do {
+			String idmonhoc = vali.inputidmonhoc("moi ban nhap id mon hoc");
+			if(sim.checktontaiidmonhoc(idmonhoc)== false){
+				System.out.println("id mon hoc khong ton tai moi ban nhap lai id mon hoc");
+			}else {
+				this.idmonhoc=idmonhoc;
+				break;
+			}
+		} while (true);
 		this.tenlop = vali.inputstring("moi ban nhap ten lop");
 		this.sobuoi = vali.inputsobuoi("moi ban nhap so buoi");
 		this.ngaykhaigiang = vali.inputdate("moi ban nhap ngay khai giang");
@@ -101,5 +117,4 @@ public class LopNangKhieu {
 		this.ngayketthuc = vali.inputdate("moi ban nhap ngay ket thuc");
 
 	}
-	
 }
