@@ -375,7 +375,7 @@ public class Simple {
 			}
 			con = ConnectionUtil.getConnection();
 			String sql = "select lnk.* from LOPNANGKHIEU as lnk,MONHOC as mh where lnk.IDMonHoc=mh.IDMonHoc and mh.TenMon=? \r\n"
-					+ "  and lnk.NgayKhaiGiang >= DATEADD(DAY, 14, GETDATE())\r\n"
+					+ "  and lnk.NgayKhaiGiang >= DATEADD(DAY, -14, GETDATE())\r\n"
 					+ "  AND lnk.NgayKetThuc > GETDATE()";
 			pr = con.prepareStatement(sql);
 			pr.setString(1, tenmonhoc);
@@ -437,20 +437,24 @@ public class Simple {
 	}
 	public void dangkihoc(){
 		Simple sim1 = new Simple();
-		ArrayList<MonHoc> monHoc = MonHocDao.getMonHoc();
+		
 		System.out.println("===========================================");
 		System.out.println("|    Mời bạn chọn môn học muốn đăng ký    |");  
 		System.out.println("===========================================");
+		ArrayList<MonHoc> monHoc = MonHocDao.getMonHoc();
 		int countMonHoc = 0;
-		
-		for (MonHoc item : monHoc) {
-			System.out.printf("%6s. %s", (countMonHoc + 1),item.getTenMon());
-			System.out.println();
-			countMonHoc++;
+		if(monHoc != null) {
+			for (MonHoc item : monHoc) {
+				System.out.printf("%8s. %s", (countMonHoc + 1),item.getTenMon());
+				System.out.println();
+				countMonHoc++;
+			}
 		}
 		System.out.println("===========================================");
 		sim1.ClickMonHoc("Mời bạn chọn môn học muốn đăng ký");
-		
+		while(true) {
+			
+		}
 }
 }
 

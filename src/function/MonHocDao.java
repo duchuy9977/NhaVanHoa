@@ -21,6 +21,10 @@ public class MonHocDao {
 			String sql = "select IDMonHoc, TenMon from MONHOC";
 			st = con.prepareStatement(sql);
 			rs = st.executeQuery();
+			if(!rs.isBeforeFirst()) {
+				System.out.println("   Hiện Chưa có môn học nào");
+				return null;
+			}
 			while (rs.next()) {
 				MonHoc monHoc = new MonHoc();
 				monHoc.setTenMon(rs.getString("TenMon"));
