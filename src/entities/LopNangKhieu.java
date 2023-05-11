@@ -92,13 +92,13 @@ public class LopNangKhieu {
 	public void intutdata() {
 		Simple sim = new Simple();
 		validate vali = new validate();
-		this.idlop = vali.inputidlop("moi ban nhap id lop");
+		this.idlop = vali.inputidlop("Mời bạn nhập ID lớp");
 		this.idmonhoc = sim.Checkexistidmonhoc();
-		this.tenlop = vali.inputstring("moi ban nhap ten lop");
-		this.sobuoi = vali.inputsobuoi("moi ban nhap so buoi");
-		this.ngaykhaigiang = vali.inputdate("moi ban nhap ngay khai giang");
-		this.ngaybatdau = vali.inputdate("moi ban nhap ngay bat dau");
-		this.ngayketthuc = vali.inputdate("moi ban nhap ngay ket thuc");
+		this.tenlop = vali.inputstring("Mời bạn nhập tên lớp");
+		this.sobuoi = vali.inputsobuoi("Mời bạn nhập số buổi");
+		this.ngaykhaigiang = vali.inputdate("Mời bạn nhập ngày khai giảng ");
+		this.ngaybatdau = vali.inputdate("Mời bạn nhập ngày bắt đầu");
+		this.ngayketthuc = vali.inputdate("Mời bạn nhập ngày kết thúc");
 
 	}
 	

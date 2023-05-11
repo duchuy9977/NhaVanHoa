@@ -33,7 +33,7 @@ public class Simple {
 			prsttm.setDate(7, lop.getNgayketthuc());
 			int numberRecords = prsttm.executeUpdate();
 			if (numberRecords == 0) {
-				System.out.println("insert that bai");
+				System.out.println("insert Thất Bại");
 			}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -116,10 +116,10 @@ public class Simple {
 			}
 		} catch (SQLException i) {
 			i.printStackTrace();
-			System.out.println("delete that bai");
+			System.out.println("delete thất bại");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("delete that bai");
+			System.out.println("delete thất bại");
 		} finally {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
@@ -133,12 +133,12 @@ public class Simple {
 			validate vali = new validate();
 			Simple sim = new Simple();
 			String idmonhoc = sim.Checkexistidmonhoc();
-			String tenlop = vali.inputstring("nhap vao ten lop");
-			int sobuoi = vali.inputsobuoi("nhap vao so buoi");
-			Date ngaykhaigiang = vali.inputdate("nhap vao ngay khai giang");
-			Date ngaybatdau = vali.inputdate("nhap vao ngay bat dau");
-			Date ngayketthuc = vali.inputdate("nhap vao ngay ket thuc");
-			String idlop = vali.inputidlop("nhap vao id lop");
+			String tenlop = vali.inputstring("Nhập vào tên lớp");
+			int sobuoi = vali.inputsobuoi("Nhập vào số buổi");
+			Date ngaykhaigiang = vali.inputdate("Nhập vào ngày khai giảng");
+			Date ngaybatdau = vali.inputdate("Nhập vào ngày bắt đầu");
+			Date ngayketthuc = vali.inputdate("Nhập vào ngày kết thúc");
+			String idlop = vali.inputidlop("Nhập vào id lớp");
 			PreparedStatement pr = con.prepareStatement(sql);
 			pr.setString(1, idmonhoc);
 			pr.setString(2, tenlop);
@@ -162,7 +162,7 @@ public class Simple {
 				e.printStackTrace();
 			}
 		}
-	return "update thanh cong";
+	return "update thành công";
 	}
 	
 	public List<entities.LopNangKhieu> selectsobuoi (){
@@ -173,15 +173,15 @@ public class Simple {
 		try {
 			con = ConnectionUtil.getConnection();
 			validate vali = new validate();
-			int sobuoi1 = vali.inputsobuoi("moi ban nhap so buoi hoc 1");
-			int sobuoi2 = vali.inputsobuoi("moi ban nhap so buoi hoc 2");
+			int sobuoi1 = vali.inputsobuoi("Mời bạn nhập vào số buổi học 1");
+			int sobuoi2 = vali.inputsobuoi("Mời bạn nhập vào số buổi học 2");
 			String sql = "select * from LOPNANGKHIEU where SoBuoi > ? and SoBuoi < ?";
 			pr = con.prepareStatement(sql);
 			pr.setInt(1, sobuoi1);
 			pr.setInt(2, sobuoi2);
 			rs=pr.executeQuery();
 			if(!rs.isBeforeFirst()) {
-				System.out.println("khong co giao vien nao thoa man yeu cau");
+				System.out.println("không có yêu cầu nào thỏa mãn yêu cầu");
 			}
 			while (rs.next()) {
 				entities.LopNangKhieu lop = new entities.LopNangKhieu();
@@ -196,10 +196,10 @@ public class Simple {
 		}
 		}catch (SQLException i) {
 			i.printStackTrace();
-			System.out.println("select giao vien that bai ");
+			System.out.println("select thất bại ");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("select giao vien that bai");
+			System.out.println("select thất bại");
 		} finally {
 			ConnectionUtil.closeConnection(null, pr, con);
 		}
@@ -216,7 +216,7 @@ public class Simple {
 			con = ConnectionUtil.getConnection();
 			do {
 				validate vali = new validate();
-				String TenMonHoc = vali.inputidmonhoc("moi ban nhap vao ten mon hoc");
+				String TenMonHoc = vali.inputidmonhoc("Mời wbanj nhập vào tên môn học");
 				String sql = "select * from MONHOC where TenMon = ?";
 				pr = con.prepareStatement(sql);
 				pr.setString(1, TenMonHoc);
@@ -224,7 +224,7 @@ public class Simple {
 				if(rs.next()) {
 					 IDMonHoc = rs.getString("IDMonHoc");
 					 return IDMonHoc;
-				} System.out.println("Ten Mon hoc chua ton tai");
+				} System.out.println("Ten môn học không tồn tại");
 			}
 			while(true);
 		} catch (SQLException e) {
@@ -370,7 +370,7 @@ public class Simple {
 				if(checkTenMH(tenmonhoc)==true) {
 					break;
 				}else {
-					System.out.println("moi ban nhap dung ky tu ten mon hoc tren man hinh");
+					System.out.println("Mời bạn nhập vào đúng kí tự môn học trên màn hình");
 				}
 			}
 			con = ConnectionUtil.getConnection();
@@ -381,7 +381,7 @@ public class Simple {
 			pr.setString(1, tenmonhoc);
 			rs = pr.executeQuery();
 			if(!rs.isBeforeFirst()) {
-				System.out.println("khong co mon hoc thoa man yeu cau");
+				System.out.println("không có môn học nào thỏa mãn yêu cầu");
 				return;
 			}
 			inranamhinh(rs);
