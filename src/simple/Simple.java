@@ -437,6 +437,13 @@ public class Simple {
 		Simple sim1 = new Simple();
 		ArrayList<String> lop = sim1.monhoct1003();
 		System.out.println(lop);
+		System.out.println("===========================================");
+		System.out.println("|    Mời bạn chọn môn học muốn đăng ký    |");  
+		System.out.println("===========================================");
+		for (String string : lop) {
+			
+		}
+		
 		sim1.ClickMonHoc("moi ban chon lop");
 		
 }
