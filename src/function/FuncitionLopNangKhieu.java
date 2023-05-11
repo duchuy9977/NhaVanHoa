@@ -16,19 +16,19 @@ public static void FuncitionLopNangKhieu(){
 		Simple sim = new Simple();
 		do {
 			try {
-				System.out.println("chuong trinh lop nang khieu");
+				System.out.println("Chương trình lớp Năng khiếu");
 				System.out.println("__________________________");
-				System.out.println("1. them thong tin ");
-				System.out.println("2. hien thi tat ca thong tin");
-				System.out.println("3. cap nhap thong tin");
-				System.out.println("4. xoa thong tin");
-				System.out.println("5. hien thi thong tin co so buoi hoc > ? va nho hon ?");
-				System.out.println("6. hien thi thong tin lop hoc va so luong hoc sinh theo hoc lop do");
-				System.out.println("7. hien thi thong tin lop hoc theo usename giao vien");
+				System.out.println("1. Thêm Thông tin");
+				System.out.println("2. Hiển thị tất cả thông tin");
+				System.out.println("3. Cập nhập thông tin");
+				System.out.println("4. Xóa thông tin");
+				System.out.println("5. Hiển thị thông tin có số buổi học > ? va số buổi học < ?");
+				System.out.println("6. Hiển thị thông tin lớp học và số lượng học sinh theo học lớp đó");
+				System.out.println("7. Hiển thị thông tin lóp học theo usename giáo viên");
 				System.out.println();
-				System.out.println("8. thoat khoi chuong trinh");
+				System.out.println("8. Thoát khỏi chương trình");
 				System.out.println();
-				System.out.println("nhap lua chon cua ban");
+				System.out.println("Nhập sự lựa chọn của bạn");
 				int choice =Integer.parseInt(sc.nextLine());
 				switch (choice) {
 				case 1:
