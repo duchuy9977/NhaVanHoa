@@ -13,6 +13,7 @@ import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
 import menuChucNangCon.MenuPhuHuynh;
+import menuChucNangCon.MenuQuanLyDangKyLop;
 import menuChucNangCon.MenuSelectGiaoVien;
 import menuChucNangCon.MenuUpdateGiaoVien;
 import validation.ValidationAccount;
@@ -125,6 +126,7 @@ public class MyApp {
 						break;
 					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Lớp học!");
+						MenuQuanLyDangKyLop.openMenu();
 						break;
 					case "6":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Ca dạy!");

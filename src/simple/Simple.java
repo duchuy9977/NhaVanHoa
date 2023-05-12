@@ -382,7 +382,7 @@ public class Simple {
 					+ "	ON lop.IDMonHoc = mh.IDMonHoc \r\n"
 					+ "	JOIN DANGKYLOPHOC as dk\r\n"
 					+ "	ON dk.IDLop = lop.IDLop\r\n"
-					+ "	WHERE mh.IDMonHoc = 'MH001' AND Status = 'Approved' AND DATEDIFF(DAY, lop.NgayBatDau, GETDATE())<=14\r\n"
+					+ "	WHERE mh.IDMonHoc = ? AND Status = 'Approved' AND DATEDIFF(DAY, lop.NgayBatDau, GETDATE())<=14\r\n"
 					+ "	GROUP BY lop.IDLop, lop.SoLuongHocVienToiDa, lop.TenLop, lop.NgayBatDau, lop.SoLuongHocVienToiDa\r\n"
 					+ "	HAVING COUNT(lop.IDLop) < lop.SoLuongHocVienToiDa";
 			pr = con.prepareStatement(sql);

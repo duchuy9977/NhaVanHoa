@@ -43,10 +43,12 @@ public class DangKyLopHocDao {
 			System.out.println("================================");
 			int row = 0;
 			ArrayList<String> idTreList = new ArrayList<String>();
+			ArrayList<String> tenTreList = new ArrayList<String>();
 			while(rs.next()) {
 				row++;
 				System.out.printf("|%5d|%17s|%6s|\n",row, rs.getString("TenTre"),rs.getString("tuoi"));
-				idTreList.add(rs.getString("TenTre"));
+				idTreList.add(rs.getString("IDTre"));
+				tenTreList.add(rs.getString("TenTre"));
 			}
 			System.out.println("===============================================");
 			System.out.println("Mời chọn trẻ bạn muốn đăng kí (1->" + (idTreList.size()) +"): ");
@@ -58,7 +60,7 @@ public class DangKyLopHocDao {
 					int choosse = Integer.parseInt(choice);
 					if(choosse > 0 && choosse <= idTreList.size()) {
 						choosse--;
-						System.out.println("Bạn chọn trẻ " + idTreList.get(choosse) + " để đăng ký");
+						System.out.println("Bạn chọn trẻ " + tenTreList.get(choosse) + " để đăng ký");
 						
 						insertDangKyLopHoc(idTreList.get(choosse),idLop);
 						
@@ -95,6 +97,8 @@ public class DangKyLopHocDao {
 		String sql = "INSERT INTO DANGKYLOPHOC VALUES(?, ?, 'Unseen',0,GETDATE()); ";
 		
 		try {
+			System.out.println(idTre);
+			System.out.println(idLop);
 			conn = ConnectionUtil.getConnection();
 			prsPreparedStatement = conn.prepareStatement(sql);
 			prsPreparedStatement.setString(1, idTre);
