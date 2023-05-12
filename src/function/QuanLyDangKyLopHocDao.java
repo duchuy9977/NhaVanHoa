@@ -12,6 +12,7 @@ import entities.LopNangKhieu;
 
 public class QuanLyDangKyLopHocDao {
 	static Scanner sc = new Scanner(System.in);
+
 	public static int selectByStatus(String status) {
 		Connection conn = null;
 		PreparedStatement prsPreparedStatement = null;
@@ -76,16 +77,13 @@ public class QuanLyDangKyLopHocDao {
 		return 0;
 	}
 
-	public static ArrayList<String> chonDonDangKy() {
+	public static void chonDonDangKy() {
 		Connection conn = null;
 		PreparedStatement prsPreparedStatement = null;
 		ResultSet rs = null;
 		ArrayList<String> listIDDangKy = null;
 
-		String sql = "SELECT *\r\n"
-				+ "FROM DANGKYLOPHOC \r\n"
-				+ "WHERE \r\n"
-				+ "	Status != 'Approved' AND \r\n"
+		String sql = "SELECT *\r\n" + "FROM DANGKYLOPHOC \r\n" + "WHERE \r\n" + "	Status != 'Approved' AND \r\n"
 				+ "	Status != 'Declined'";
 
 		try {
@@ -95,7 +93,7 @@ public class QuanLyDangKyLopHocDao {
 
 			if (!rs.isBeforeFirst()) {
 				System.out.println("Hiện không có đơn nào cần duyệt");
-				return null;
+				return;
 			}
 
 			System.out.println("=========================================================");
@@ -110,26 +108,26 @@ public class QuanLyDangKyLopHocDao {
 				LopNangKhieu lopHoc = new LopNangKhieu();
 				row++;
 				String result = rs.getString("Status");
-				if(result.equals("Unseen")){
+				if (result.equals("Unseen")) {
 					result = "MỚI!!!    ";
-				}
-				else if(result.equals("Pending")){
+				} else if (result.equals("Pending")) {
 					result = "Đang Đợi Duyệt";
 				} else {
 					result = "Khác";
 				}
-				System.out.printf("|%3d|%10s|%5s|%6s|%12s|%14s|\n", row, rs.getString("IDDangKy"),rs.getString("IDTre"),rs.getString("IDLop"),rs.getDate("NgayDangKy") + "",result);
+				System.out.printf("|%3d|%10s|%5s|%6s|%12s|%14s|\n", row, rs.getString("IDDangKy"),
+						rs.getString("IDTre"), rs.getString("IDLop"), rs.getDate("NgayDangKy") + "", result);
 				listIDDangKy.add(rs.getString("IDDangKy"));
 			}
 			System.out.println("=========================================================");
-			System.out.println("Mời chọn đơn đăng ký bạn muốn sử lý (1->" + listIDDangKy.size()  + "): ");
-			
+			System.out.println("Mời chọn đơn đăng ký bạn muốn sử lý (1->" + listIDDangKy.size() + "): ");
+
 			int choosse = -1;
 			while (true) {
 				String choice = sc.nextLine(); // Chọn môn đăng ký
 				try {
 					choosse = Integer.parseInt(choice);
-					if (choosse > 0 && choosse <= listIDDangKy.size() ) {
+					if (choosse > 0 && choosse <= listIDDangKy.size()) {
 						choosse--;
 						QuanLyDangKyLopHocDao.xuLyDonDangKy(listIDDangKy.get(choosse));
 						break;
@@ -144,7 +142,6 @@ public class QuanLyDangKyLopHocDao {
 
 				}
 			}
-			
 
 		} catch (SQLException i) {
 			i.printStackTrace();
@@ -155,17 +152,15 @@ public class QuanLyDangKyLopHocDao {
 		} finally {
 			ConnectionUtil.closeConnection(null, prsPreparedStatement, conn);
 		}
-		return null;
+		return;
 	}
 
 	private static void xuLyDonDangKy(String idDonDangKy) {
 		// TODO Auto-generated method stub
-		
+
 		Connection conn = null;
 		PreparedStatement prsPreparedStatement = null;
 		ResultSet rs = null;
-		ArrayList<String> listIDDangKy = null;
-
 		String sql = "SELECT \r\n"
 				+ "	tre.TenTre,\r\n"
 				+ "	tre.GioiTinh, \r\n"
@@ -176,10 +171,11 @@ public class QuanLyDangKyLopHocDao {
 				+ "	ph.Email, \r\n"
 				+ "	ph.SDT1, \r\n"
 				+ "	lop.TenLop, \r\n"
-				+ "	lop.IDLop, \r\n"
+				+ "	lop.IDLop,\r\n"
 				+ "	lop.SoBuoi, \r\n"
 				+ "	lop.NgayBatDau, \r\n"
-				+ "	lop.NgayKetThuc\r\n"
+				+ "	lop.NgayKetThuc,\r\n"
+				+ "	DATEDIFF(YEAR, tre.NgaySinh, GETDATE()) as tuoi\r\n"
 				+ "FROM DANGKYLOPHOC as dk\r\n"
 				+ "	JOIN TREEM as tre ON dk.IDTre = tre.IDTre\r\n"
 				+ "	JOIN PHUHUYNH as ph ON ph.IDPhuHuynh = tre.IDPhuHuynh\r\n"
@@ -199,27 +195,28 @@ public class QuanLyDangKyLopHocDao {
 			}
 
 			System.out.println("Bạn Đã chọn đơn đăng kí số " + idDonDangKy);
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				System.out.println("===========================================================================");
 				System.out.println("|");
 				System.out.println("|                 ĐƠN ĐĂNG KÍ HỌC MÔN NĂNG KHIẾU TỰ CHỌN");
 				System.out.println("|");
 				System.out.println("|     Kính gửi trung tâm năng khiếu tp Đà Nẵng ");
 				System.out.println("|     Tôi Tên là: " + rs.getString("Name"));
-				System.out.println("|     Thường trú tại: "+ rs.getString("DiaChi"));
+				System.out.println("|     Thường trú tại: " + rs.getString("DiaChi"));
 				System.out.println("|     Số điện thoại: " + rs.getString("SDT1"));
-				System.out.println("|     Email: "+ rs.getString("Email"));
+				System.out.println("|     Email: " + rs.getString("Email"));
 				System.out.println("|     ");
 				System.out.println("|     Nay tôi viết đơn này đăng kí cho cháu " + rs.getString("TenTre"));
-				System.out.println("|     Giới tính: "+ rs.getString("GioiTinh"));
-				System.out.println("|     Sinh ngày: "+ (rs.getDate("NgaySinh") + ""));
-				System.out.println("|     Tuổi: ");
-				System.out.println("|     Hiện đang học tại trường " + rs.getString("TruongDangHoc") );
+				System.out.println("|     Giới tính: " + rs.getString("GioiTinh"));
+				System.out.println("|     Sinh ngày: " + (rs.getDate("NgaySinh") + ""));
+				System.out.println("|     Tuổi: " + rs.getInt("tuoi"));
+				System.out.println("|     Hiện đang học tại trường " + rs.getString("TruongDangHoc"));
 				System.out.println("|");
-				System.out.println("|     Nay tôi đăng kí cho cháu học lớp " + rs.getString("IDLop") +  " - " + rs.getString("TenLop") );
-				System.out.println("|     Ngày Bắt Đầu: "+ rs.getString("NgayBatDau"));
-				System.out.println("|     Ngày kết thúc: "+ rs.getString("NgayKetThuc"));
+				System.out.println("|     Nay tôi đăng kí cho cháu học lớp " + rs.getString("IDLop") + " - "
+						+ rs.getString("TenLop"));
+				System.out.println("|     Ngày Bắt Đầu: " + rs.getString("NgayBatDau"));
+				System.out.println("|     Ngày kết thúc: " + rs.getString("NgayKetThuc"));
 				System.out.println("|     ");
 				System.out.println("|     Mong quý thầy cô xem xét qua và chấp thuận đơn đăng ký này! ");
 				System.out.println("|      ");
@@ -229,23 +226,34 @@ public class QuanLyDangKyLopHocDao {
 				System.out.println("===========================================================================");
 			}
 			
+			int idDon = 0;
+			try {
+				idDon = Integer.parseInt(idDonDangKy);
+			} catch (NumberFormatException e) {
+				System.out.println("Chuyển Kiểu dữ liệu sai");
+			} catch (Exception e) {
+				System.out.println("Lỗi");
+				return;
+			}
+			
 			while (true) {
 				String choice = sc.nextLine(); // Chọn môn đăng ký
 				switch (choice) {
 				case "y":
 				case "Y":
-					QuanLyDangKyLopHocDao.updateStatusDonDangKy("Approved", idDonDangKy);
+					QuanLyDangKyLopHocDao.updateStatusDonDangKy("Approved", idDon);
 					break;
 				case "n":
 				case "N":
-					QuanLyDangKyLopHocDao.updateStatusDonDangKy("Declined", idDonDangKy);
+					QuanLyDangKyLopHocDao.updateStatusDonDangKy("Declined", idDon);
 					break;
 				default:
-					QuanLyDangKyLopHocDao.updateStatusDonDangKy("Pending", idDonDangKy);
+					QuanLyDangKyLopHocDao.updateStatusDonDangKy("Pending", idDon);
 					break;
 				}
+				break;
 			}
-			
+
 
 		} catch (SQLException i) {
 			i.printStackTrace();
@@ -256,17 +264,40 @@ public class QuanLyDangKyLopHocDao {
 		} finally {
 			ConnectionUtil.closeConnection(null, prsPreparedStatement, conn);
 		}
+		return;
 	}
 
-	private static void updateStatusDonDangKy(String status, String idDangKy) {
-		if(status.equals("Approved")) {
-			System.out.println("Bạn đã chấp thuận đơn đăng ký ");
-		} else if(status.equals("Declined")) {
-			System.out.println("Bạn đã từ chối đơn đăng ký ");
-		} else {
-			System.out.println("Bạn đã bỏ qua đơn này, chờ lần khác xét duyệt!");
+	private static void updateStatusDonDangKy(String status, int idDonDangKy) {
+		Connection conn = null;
+		PreparedStatement prsPreparedStatement = null;
+
+		String sql = "Update DANGKYLOPHOC SET Status = ? WHERE IDDangKy = ?";
+
+		try {
+			conn = ConnectionUtil.getConnection();
+			prsPreparedStatement = conn.prepareStatement(sql);
+			prsPreparedStatement.setString(1, status);
+			prsPreparedStatement.setInt(2, idDonDangKy);
+			int row = prsPreparedStatement.executeUpdate();
+
+			if (row > 0) {
+				if (status.equals("Approved")) {
+					System.out.println("Bạn đã chấp thuận đơn đăng ký ");
+				} else if (status.equals("Declined")) {
+					System.out.println("Bạn đã từ chối đơn đăng ký ");
+				} else {
+					System.out.println("Bạn đã bỏ qua đơn này, chờ lần khác xét duyệt!");
+				}
+			}
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Có Lỗi trong lúc tương tác dữ liệu");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Update đơn đăng ký thất bại");
+		} finally {
+			ConnectionUtil.closeConnection(null, prsPreparedStatement, conn);
 		}
-		
-		
+		return;
 	}
 }

@@ -26,6 +26,7 @@ import simple.Simple;
 import treEm.TreEmDao;
 //import function.Manage;
 import treEm.TreEmManager;
+import function.DangKyLopHocDao;
 import function.FuncitionLopNangKhieu;
 
 public class MyApp {
@@ -228,6 +229,7 @@ public class MyApp {
 						break;
 					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
+						DangKyLopHocDao.checkDonDangKy(user);
 						break;
 					case "0":
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");

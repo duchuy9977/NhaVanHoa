@@ -120,4 +120,89 @@ public class DangKyLopHocDao {
 		}
 		
 	}
+
+	public static void checkDonDangKy(String user) {
+		Connection conn = null;
+		PreparedStatement prsPreparedStatement = null;
+		ResultSet rs = null;
+		String sql = "SELECT \r\n"
+				+ "	tre.TenTre,\r\n"
+				+ "	tre.GioiTinh, \r\n"
+				+ "	tre.NgaySinh, \r\n"
+				+ "	tre.TruongDangHoc, \r\n"
+				+ "	acc.Name, \r\n"
+				+ "	ph.DiaChi,\r\n"
+				+ "	ph.Email, \r\n"
+				+ "	ph.SDT1, \r\n"
+				+ "	lop.TenLop, \r\n"
+				+ "	lop.IDLop,\r\n"
+				+ "	lop.SoBuoi, \r\n"
+				+ "	lop.NgayBatDau, \r\n"
+				+ "	lop.NgayKetThuc,\r\n"
+				+ "	DATEDIFF(YEAR, tre.NgaySinh, GETDATE()) as tuoi,\r\n"
+				+ "	dk.Status\r\n"
+				+ "FROM DANGKYLOPHOC as dk\r\n"
+				+ "	JOIN TREEM as tre ON dk.IDTre = tre.IDTre\r\n"
+				+ "	JOIN PHUHUYNH as ph ON ph.IDPhuHuynh = tre.IDPhuHuynh\r\n"
+				+ "	JOIN ACCOUNT as acc ON acc.Username = ph.Username\r\n"
+				+ "	JOIN LOPNANGKHIEU as lop ON lop.IDLop = dk.IDLop\r\n"
+				+ "	JOIN MONHOC as mh ON lop.IDMonHoc = mh.IDMonHoc\r\n"
+				+ "WHERE dk.Status != 'Approved' AND dk.Status != 'Declined' AND acc.Username = ?";
+
+		try {
+			conn = ConnectionUtil.getConnection();
+			prsPreparedStatement = conn.prepareStatement(sql);
+			prsPreparedStatement.setString(1, user);
+			rs = prsPreparedStatement.executeQuery();
+
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Hiện không có đơn nào để xem");
+			}
+
+			while (rs.next()) {
+				System.out.println("===========================================================================");
+				System.out.println("|");
+				System.out.println("|");
+				System.out.println("|                 ĐƠN ĐĂNG KÍ HỌC MÔN NĂNG KHIẾU TỰ CHỌN");
+				System.out.println("|");
+				System.out.println("|     Kính gửi trung tâm năng khiếu tp Đà Nẵng ");
+				System.out.println("|     Tôi Tên là: " + rs.getString("Name"));
+				System.out.println("|     Thường trú tại: " + rs.getString("DiaChi"));
+				System.out.println("|     Số điện thoại: " + rs.getString("SDT1"));
+				System.out.println("|     Email: " + rs.getString("Email"));
+				System.out.println("|     ");
+				System.out.println("|     Nay tôi viết đơn này đăng kí cho cháu " + rs.getString("TenTre"));
+				System.out.println("|     Giới tính: " + rs.getString("GioiTinh"));
+				System.out.println("|     Sinh ngày: " + (rs.getDate("NgaySinh") + ""));
+				System.out.println("|     Tuổi: " + rs.getInt("tuoi"));
+				System.out.println("|     Hiện đang học tại trường " + rs.getString("TruongDangHoc"));
+				System.out.println("|");
+				System.out.println("|     Nay tôi đăng kí cho cháu học lớp " + rs.getString("IDLop") + " - "
+						+ rs.getString("TenLop"));
+				System.out.println("|     Ngày Bắt Đầu: " + rs.getString("NgayBatDau"));
+				System.out.println("|     Ngày kết thúc: " + rs.getString("NgayKetThuc"));
+				System.out.println("|     ");
+				System.out.println("|     Mong quý thầy cô xem xét qua và chấp thuận đơn đăng ký này! ");
+				System.out.println("|      ");
+				System.out.println("|     Chấp Thuận (Y)        Từ Chối(N)         Để sau(bất kì kí tự nào) ");
+				System.out.println("|      ");
+				System.out.println("|     Mời bạn nhập lựa chọn: ");
+				System.out.println("===========================================================================");
+			}
+			
+			
+
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Có Lỗi trong lúc tương tác dữ liệu");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Chọn Trẻ thất bại");
+		} finally {
+			ConnectionUtil.closeConnection(null, prsPreparedStatement, conn);
+		}
+		return;
+		
+	}
 }
