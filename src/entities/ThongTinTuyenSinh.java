@@ -1,6 +1,7 @@
 package entities;
 
-import validation.ValidationThongTinTuyenSinh;
+import function.ThongTinTuyenSinhDao;
+import validate.ValidateLuong;
 
 public class ThongTinTuyenSinh {
 	private int idThongTin;
@@ -81,15 +82,111 @@ public class ThongTinTuyenSinh {
 				+ noiDung + ", satatus=" + satatus + "]";
 	}
 	
-	public void inputData() {
-		ValidationThongTinTuyenSinh vali =  new ValidationThongTinTuyenSinh();	
-		this.idLop= vali.inputIDLop("Nhập ID lớp");
-		this.tieuDe = vali.inputString("Nhập tiêu đề của lớp");
-		this.noiDung = vali.inputString("Nhập nội dung lớp học");
-		this.satatus = vali.inputStatus("Nhập trạng thái lớp học");
+	public ThongTinTuyenSinh inputData() {
+		ValidateLuong vali =  new ValidateLuong();
+		ThongTinTuyenSinh ttts= new ThongTinTuyenSinh();
+		String idlop;
+		while (true) {
+			idlop = vali.inputIDLop("Nhập ID lớp");
+			if (ThongTinTuyenSinhDao.checkIDLop(idlop)==false) {
+				ttts.setIdLop(idlop);
+				break;
+			}
+			else {
+				System.out.println("Lớp đã tồn tại");
+			}
 
+		}
+		ttts.setTieuDe(vali.inputString("Nhập tiêu đề của lớp"));
+		ttts.setNoiDung(vali.inputString("Nhập Nội dung của lớp"));
+		ttts.setSatatus(vali.inputStatus("Nhập Trạng thái lớp"));
+		
+		return ttts;
 	}
 	
+	public ThongTinTuyenSinh updateDataAll() {
+		ValidateLuong vali = new ValidateLuong();
+		ThongTinTuyenSinh ttts =new ThongTinTuyenSinh();
+		String idLop;
+		while (true) {
+			idLop=vali.inputIDLop("Nhập ID Lớp Cần update data");
+			
+			if (ThongTinTuyenSinhDao.checkIDLop(idLop)==true) {
+				
+				ttts.setTieuDe(vali.inputString("Nhập tiêu đề bạn muốn thay đổi"));
+				ttts.setNoiDung(vali.inputString("Nhập Nội dung bạn muốn thay đổi"));
+				ttts.setSatatus(vali.inputStatus("Nhập trạng thái"));
+				ttts.setIdLop(idLop);
+				break;
+			}
+			else {
+				System.out.println("mã môn học Không tồn tại");
+			}
+			
+		}	
+		return ttts;
+	}
+	
+	public ThongTinTuyenSinh updateDataTieuDe() {
+		ValidateLuong vali = new ValidateLuong();
+		ThongTinTuyenSinh ttts =new ThongTinTuyenSinh();
+		String idLop;
+		while (true) {
+			idLop=vali.inputIDLop("Nhập ID Lớp Cần update phần tiêu đề");
+			
+			if (ThongTinTuyenSinhDao.checkIDLop(idLop)==true) {		
+				ttts.setTieuDe(vali.inputString("Nhập nội dung tiêu đề bạn muốn thay đổi"));
+				ttts.setIdLop(idLop);
+				break;
+			}
+			else {
+				System.out.println("mã môn học Không tồn tại");
+			}
+			
+		}	
+		return ttts;
+	}
+	
+	public ThongTinTuyenSinh updateDataNoiDung() {
+		ValidateLuong vali = new ValidateLuong();
+		ThongTinTuyenSinh ttts =new ThongTinTuyenSinh();
+		String idLop;
+		while (true) {
+			idLop=vali.inputIDLop("Nhập ID Lớp Cần update phần nội dung");
+			
+			if (ThongTinTuyenSinhDao.checkIDLop(idLop)==true) {		
+				ttts.setNoiDung(vali.inputString("Nhập nội dung update"));
+				ttts.setIdLop(idLop);
+				break;
+			}
+			else {
+				System.out.println("mã môn học Không tồn tại");
+			}
+			
+		}	
+		return ttts;
+	}
+	
+	public ThongTinTuyenSinh updateDataStatus() {
+		ValidateLuong vali = new ValidateLuong();
+		ThongTinTuyenSinh ttts =new ThongTinTuyenSinh();
+		String idLop;
+		while (true) {
+			idLop=vali.inputIDLop("Nhập ID Lớp Cần update phần tiêu đề");
+			
+			if (ThongTinTuyenSinhDao.checkIDLop(idLop)==true) {		
+				ttts.setSatatus(vali.inputStatus("Nhập trạng thái"));
+				ttts.setIdLop(idLop);
+				break;
+			}
+			else {
+				System.out.println("mã môn học Không tồn tại");
+			}
+			
+		}	
+		return ttts;
+	}
+
 	
 	
 }
