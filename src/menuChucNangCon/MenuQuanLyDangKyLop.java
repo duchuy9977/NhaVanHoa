@@ -27,7 +27,7 @@ public class MenuQuanLyDangKyLop {
 			switch (choice) {
 			case "1":
 				System.out.println("Bạn đã chọn chức năng Duyệt đơn đăng ký!");
-//				QuanLyDangKyLopHocDao.chonDonDangKy();
+				QuanLyDangKyLopHocDao.chonDonDangKy();
 				break;
 
 

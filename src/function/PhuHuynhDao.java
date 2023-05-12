@@ -6,6 +6,7 @@ package function;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 import javax.print.DocFlavor.INPUT_STREAM;
 
@@ -113,6 +114,120 @@ import connection.ConnectionUtil;
 				ConnectionUtil.closeConnection(rs, ps, con);
 			}
 		}
+		//Liệt kê thông tin học phí của các phụ huynh chưa đóng học phí
+		public void displayHocPhiCanDong() {
+			Connection con = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				con = ConnectionUtil.getConnection();
+				String sql = "select PHUHUYNH.IDPhuHuynh, ACCOUNT.Name, PHUHUYNH.SDT1, TREEM.IDTre,TREEM.TenTre, HOCPHI.Status, HOCPHI.HocPhiSauChietKhau\r\n"
+						+ "From PHUHUYNH join ACCOUNT on PHUHUYNH.Username = ACCOUNT.Username\r\n"
+						+ "join TREEM on PHUHUYNH.IDPhuHuynh = TREEM.IDPhuHuynh\r\n"
+						+ "join DANGKYLOPHOC on TREEM.IDTre = DANGKYLOPHOC.IDTre\r\n"
+						+ "join HOCPHI on DANGKYLOPHOC.IDDangKy = HOCPHI.IDDangKy\r\n" + "where HOCPHI.Status = 'ChuaDong'";
+				ps = con.prepareStatement(sql);
+				rs = ps.executeQuery();
+				if (!rs.isBeforeFirst()) {
+					System.out.println("Không có thông tin");
+					return;
+				} else {
+					while (rs.next()) {
+						System.out.println(rs.getString("IDPhuHuynh") + " " + rs.getString("Name") + " "
+								+ rs.getString("SDT1") + " " + rs.getString("IDTre") + " " + rs.getString("TenTre") + " "
+								+ rs.getString("Status") + " " + rs.getInt("HocPhiSauChietKhau"));
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				ConnectionUtil.closeConnection(rs, ps, con);
+			}
+		}
+		
+		
+	// Top 3 phụ huynh có số lượng đăng kí lớp cho trẻ học nhiều nhất
+		public void displayTop3() {
+			Connection con = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			Scanner sc = new Scanner(System.in);
+			try {
+				
+				con = ConnectionUtil.getConnection();
+				String sql = "SELECT TOP(3) PHUHUYNH.IDPhuHuynh,ACCOUNT.Name,COUNT(DANGKYLOPHOC.IDLop) AS SoLuongDangKy\r\n"
+						+ "FROM PHUHUYNH join ACCOUNT on PHUHUYNH.Username = ACCOUNT.Username \r\n"
+						+ "join TREEM on PHUHUYNH.IDPhuHuynh = TREEM.IDPhuHuynh\r\n"
+						+ "JOIN DANGKYLOPHOC ON TREEM.IDTre = DANGKYLOPHOC.IDTre\r\n"
+						+ "where DATEPART(quarter,DANGKYLOPHOC.NgayDangKy) = ?  AND YEAR(DANGKYLOPHOC.NgayDangKy) = 2023\r\n"
+						+ "GROUP BY PHUHUYNH.IDPhuHuynh, DANGKYLOPHOC.IDLop,ACCOUNT.Name\r\n"
+						+ "ORDER BY SoLuongDangKy DESC";
+				System.out.print("Nhập vào quý cần tìm: ");
+				int quy = Integer.parseInt(sc.nextLine());
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, quy);
+				rs = ps.executeQuery();
+				if (!rs.isBeforeFirst()) {
+					System.out.println("Không có thông tin");
+					return;
+				} else {
+					while (rs.next()) {
+						System.out.println(
+								rs.getString("IDPhuHuynh") + " " + rs.getString("Name") + " " + rs.getInt("SoLuongDangKy"));
+
+					}
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				ConnectionUtil.closeConnection(rs, ps, con);
+			}
+		}
+		
+		
+		// Hiển thị Phụ Huynh có từ 2 con trở lên học chung trường
+		public void displayPH() {
+			Connection con = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				con = ConnectionUtil.getConnection();
+				String sql ="select  PHUHUYNH.IDPhuHuynh, ACCOUNT.Name, PHUHUYNH.SDT1, PHUHUYNH.DiaChi\r\n"
+						+ "from ACCOUNT join PHUHUYNH on ACCOUNT.Username = PHUHUYNH.Username\r\n"
+						+ "where PHUHUYNH.IDPhuHuynh IN (\r\n"
+						+ "select TREEM.IDPhuHuynh\r\n"
+						+ "from TREEM\r\n"
+						+ "where TREEM.IDPhuHuynh = PHUHUYNH.IDPhuHuynh\r\n"
+						+ "group by TREEM.IDPhuHuynh\r\n"
+						+ "having count (TREEM.IDTre) >=2\r\n"
+						+ ")";
+						ps = con.prepareStatement(sql);
+						rs = ps.executeQuery();
+						if (!rs.isBeforeFirst()) {
+							System.out.println("Không có thông tin");
+							return;
+						} else {
+							while (rs.next()) {
+								System.out.println(rs.getString("IDPhuHuynh") + " " + rs.getString("Name") + " "
+										+ rs.getString("SDT1")  + " " + rs.getString("DiaChi"));
+							}
+	}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				ConnectionUtil.closeConnection(rs, ps, con);
+			}
+	}
+	}
+
 
 	
-	}
+	
