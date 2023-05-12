@@ -27,10 +27,9 @@ public class validation {
 			if (s.length() >= 1) {
 				return s;
 			}
-			System.out.println("Không được nhập nhỏ hơn 1 kí tự");
+			System.out.println("Không được nhập nhỏ hơn 1 .kí tự");
 		} while (true);
 	}
-
 
 	public String inputGioiTinh(String message) {
 		String GioiTinh = null;
@@ -68,15 +67,15 @@ public class validation {
 		try {
 			validation validate = new validation();
 			con = ConnectionUtil.getConnection();
-			ps = con.prepareStatement("SELECT * FROM PHUHUYNH WHERE Username = ? " );
+			ps = con.prepareStatement("SELECT * FROM PHUHUYNH WHERE Username = ? ");
 			ps.setString(1, username);
 			rs = ps.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				idPhuHuynh = rs.getString("IDPhuHuynh");
-				
+
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -100,6 +99,7 @@ public class validation {
 			}
 		} while (true);
 	}
+
 	public String inputStatus(String message) {
 		do {
 			System.out.println(message);
@@ -111,6 +111,25 @@ public class validation {
 			} else {
 				System.out.println("Vui lòng nhập Status là Active hoặc Ban ");
 			}
-		}while (true);
+		} while (true);
 	}
+
+	public int inputSoThang(String message) {
+		do {
+			try {
+				System.out.println(message);
+				int x = input.nextInt();
+				if (x >= 1 && x <= 12) {
+					return x;
+				} else {
+					System.out.println("Tháng không đúng. Vui lòng nhập lại");
+				}
+			} catch (Exception e) {
+				System.out.println("Định dạng không đúng. Vui lòng kiểm tra lại");
+				e.printStackTrace();
+			}
+
+		} while (true);
+	}
+
 }

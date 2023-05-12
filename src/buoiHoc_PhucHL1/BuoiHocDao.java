@@ -1,4 +1,4 @@
-package function;
+package buoiHoc_PhucHL1;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,17 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import connection.ConnectionUtil;
-import entities.BuoiHoc_PhucHL1_LienKetFunction;
-import treEm.validation;
 
-
-public class Function_PhucHL1 {
-
+public class BuoiHocDao {
 	public void Function() {
 	}
 	//function thêm mới buổi học. 
-
-	public void insertBuoiHoc(BuoiHoc_PhucHL1_LienKetFunction nvh) {
+	public void insertBuoiHoc(ValidationBuoiHoc nvh) {
 		Connection conn = null;
 		PreparedStatement prstmt = null;
 		int numberRecords = 0;
@@ -31,7 +26,7 @@ public class Function_PhucHL1 {
 			prstmt.setString(4, nvh.getThu());
 			prstmt.setString(5, nvh.getTgianHoc());
 			prstmt.setString(6, nvh.getPhongHoc());
-			prstmt.setString(7, nvh.getIdBuoiHoc());
+			prstmt.setString(7, nvh.getNgayHoc());
 			prstmt.setInt(8, nvh.getStatus());
 			numberRecords = prstmt.executeUpdate();
 			if (numberRecords == 0) {
@@ -51,17 +46,18 @@ public class Function_PhucHL1 {
 		}
 		System.out.println("Thêm mới buổi học thành công");
 	}
+
 	// Update
-	public void updateBuoiHoc(String IdGiaoVien) {
+	public void updateBuoiHoc(String IdBuoiHoc) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			validation validate = new validation();
-			String idBuoiHoc = validate.inputString("Xin hãy nhập buổi học");
+			ValidationBuoiHoc validate = new ValidationBuoiHoc();
+			String IDBuoiHoc = validate.inputString("Xin hãy nhập buổi học");
 			con = ConnectionUtil.getConnection();
-			ps = con.prepareStatement("SELECT * FROM THU where BuoiHoc = ?");
-			ps.setString(1, idBuoiHoc);
+			ps = con.prepareStatement("SELECT * FROM THU where Thu = ?");
+			ps.setString(1, IDBuoiHoc);
 			rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) {
 				System.out.println("Không có buổi học trong bảng. Mời nhập lại");
@@ -70,13 +66,14 @@ public class Function_PhucHL1 {
 			ps.close();
 			rs.close();
 			String Thu = validate.inputString("Nhập vào Thứ ngày mới:");
-			PreparedStatement ps1 = con.prepareStatement("UPDATE THU set Thu = ? where Thu = ?");
+			PreparedStatement ps1 = con.prepareStatement("UPDATE THU set IdBuoiHoc = ? where Thu = ?");
 			ps1.setString(1, Thu);
-			ps1.setString(2, idBuoiHoc);
+			ps1.setString(2, IDBuoiHoc);
 			int x = ps1.executeUpdate();
 			if (x != 0) {
 				System.out.println("Đã update thành công");
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -92,7 +89,7 @@ public class Function_PhucHL1 {
 		PreparedStatement prstmt = null;
 		ResultSet rs = null;
 		try {
-			BuoiHoc_PhucHL1_LienKetFunction validation = new BuoiHoc_PhucHL1_LienKetFunction();
+			ValidationBuoiHoc validation = new ValidationBuoiHoc();
 			String idBuoiHoc = validation.inputIdBuoiHoc("hay nhap ma so id buoi hoc mà bạn muốn xoá");
 			conn = ConnectionUtil.getConnection();
 			String sql = "select * from BUOIHOC where IDBuoiHoc = ?";
@@ -133,8 +130,8 @@ public class Function_PhucHL1 {
 //			System.out.println("delete thanh cong");
 //		}
 
-	String sql1 = "  delete from THU where IDBuoiHoc IN (Select IDBuoiHoc from THU WHERE IDBuoiHoc = ?)\r\n"
-			+ "  delete from BUOIHOC where IDBuoiHoc IN (Select IDBuoiHoc from BUOIHOC WHERE IDBuoiHoc = ? )\r\n"
+	String sql1 = "  delete from THU where IDBuoiHoc IN (Select IDBuoiHoc from BUOIHOC  WHERE IDBuoiHoc = ?)\r\n"
+			+ "  delete from BUOIHOC where IDBuoiHoc IN (Select IDBuoiHoc from BUOIHOC  WHERE IDBuoiHoc = ? )\r\n"
 			+ "  delete from BUOIHOC where IDBuoiHoc = ?";
 	PreparedStatement prstmt1 = conn.prepareStatement(sql1);
 	prstmt1.setString(1, idBuoiHoc);
@@ -196,5 +193,9 @@ public String getNgayHoc() {
 public int getStatus() {
 	// TODO Auto-generated method stub
 	return 0;
+	}
+public static void ValidationBuoiHoc() {
+	// TODO Auto-generated method stub
+	
 	}
 }
