@@ -59,6 +59,9 @@ public class DangKyLopHocDao {
 					if(choosse > 0 && choosse <= idTreList.size()) {
 						choosse--;
 						System.out.println("Bạn chọn trẻ " + idTreList.get(choosse) + " để đăng ký");
+						
+						insertDangKyLopHoc(idTreList.get(choosse),idLop);
+						
 						break;
 					} else {
 						System.out.println("Bạn đã nhập sai, mời nhập lại!");
@@ -75,13 +78,43 @@ public class DangKyLopHocDao {
 			
 		} catch (SQLException i) {
 			i.printStackTrace();
-			System.out.println("Insert giao vien that bai");
+			System.out.println("Có Lỗi trong lúc tương tác dữ liệu");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Insert giao vien that bai");
+			System.out.println("Chọn Trẻ thất bại");
 		} finally {
 			ConnectionUtil.closeConnection(null, prsPreparedStatement, conn);
 		}
+	}
+
+	private static void insertDangKyLopHoc(String idTre, String idLop) {
+		Connection conn = null;
+		PreparedStatement prsPreparedStatement = null;
+		
+	
+		String sql = "INSERT INTO DANGKYLOPHOC VALUES(?, ?, 'Unseen',0,GETDATE()); ";
+		
+		try {
+			conn = ConnectionUtil.getConnection();
+			prsPreparedStatement = conn.prepareStatement(sql);
+			prsPreparedStatement.setString(1, idTre);
+			prsPreparedStatement.setString(2, idLop);
+			int row = prsPreparedStatement.executeUpdate();
+			
+			if(row > 0) {
+				System.out.println("Đã Đăng ký thành công cho trẻ!");
+			}
+			
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Có Lỗi trong lúc tương tác dữ liệu");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Đăng ký thất bại");
+		} finally {
+			ConnectionUtil.closeConnection(null, prsPreparedStatement, conn);
+		}
+		
 	}
 	
 	
