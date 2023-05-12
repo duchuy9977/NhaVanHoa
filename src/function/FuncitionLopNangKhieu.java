@@ -17,7 +17,7 @@ public static void FuncitionLopNangKhieu(){
 		do {
 			try {
 				System.out.println("Chương trình lớp Năng khiếu");
-				System.out.println("__________________________");
+				System.out.println("___________________________________________________________________________-");
 				System.out.println("1. Thêm Thông tin");
 				System.out.println("2. Hiển thị tất cả thông tin");
 				System.out.println("3. Cập nhập thông tin");
