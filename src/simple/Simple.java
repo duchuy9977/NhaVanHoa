@@ -22,8 +22,8 @@ public class Simple {
 
 	public String insertdata(entities.LopNangKhieu lop) {
 		Connection con = ConnectionUtil.getConnection();
-		String sql = "insert into LOPNANGKHIEU(IDLop,IDMonHoc,TenLop,SoBuoi,NgayBatDau,NgayKetThuc)values (\r\n"
-				+ "?,?,?,?,?,?)";
+		String sql = "insert into LOPNANGKHIEU(IDLop,IDMonHoc,TenLop,SoBuoi,NgayBatDau,NgayKetThuc,SoLuongHocVienToiDa)values (\r\n"
+				+ "?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement prsttm = con.prepareStatement(sql);
 			prsttm.setString(1, lop.getIdlop());
