@@ -13,7 +13,10 @@ public class LopNangKhieu {
 	private Date ngaybatdau;
 	private Date ngayketthuc;
 	private int sohocsinhtheohoc;
+<<<<<<< HEAD
+=======
 	private int SoLuongHocVienToiDa;
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 	public LopNangKhieu() {
 		super();
 	}
@@ -33,6 +36,12 @@ public class LopNangKhieu {
 	}
 	public void setSoLuongHocVienToiDa(int soLuongHocVienToiDa) {
 		SoLuongHocVienToiDa = soLuongHocVienToiDa;
+	}
+	public int getSohocsinhtheohoc() {
+		return sohocsinhtheohoc;
+	}
+	public void setSohocsinhtheohoc(int sohocsinhtheohoc) {
+		this.sohocsinhtheohoc = sohocsinhtheohoc;
 	}
 	public int getSohocsinhtheohoc() {
 		return sohocsinhtheohoc;
@@ -89,8 +98,28 @@ public class LopNangKhieu {
 				+ ", SoLuongHocVienToiDa=" + SoLuongHocVienToiDa + ", sohocsinhtheohoc=" + sohocsinhtheohoc +"]";
 	}
 	
+<<<<<<< HEAD
+	public String toString1() {
+		return "LopNangKhieu [idlop=" + idlop + ", idmonhoc=" + idmonhoc + ", tenlop=" + tenlop + ", sobuoi=" + sobuoi
+				+ ", ngaykhaigiang=" + ngaykhaigiang + ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc
+				+ ", sohocsinhtheohoc=" + sohocsinhtheohoc +"]";
+	}
+	
+	public void intutdata() {
+		Simple sim = new Simple();
+=======
 	public void inputdata() {
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 		validate vali = new validate();
+<<<<<<< HEAD
+		this.idlop = vali.inputidlop("moi ban nhap id lop");
+		this.idmonhoc = sim.Checkexistidmonhoc();
+		this.tenlop = vali.inputstring("moi ban nhap ten lop");
+		this.sobuoi = vali.inputsobuoi("moi ban nhap so buoi");
+		this.ngaykhaigiang = vali.inputdate("moi ban nhap ngay khai giang");
+		this.ngaybatdau = vali.inputdate("moi ban nhap ngay bat dau");
+		this.ngayketthuc = vali.inputdate("moi ban nhap ngay ket thuc");
+=======
 		Simple sim = new Simple();
 		do {
 			String idlop = vali.inputidlop("Mời bạn nhập Id Lóp");
@@ -117,6 +146,8 @@ public class LopNangKhieu {
 		this.ngaybatdau = vali.inputdate("Mời bạn nhập ngày bắt đàu");
 		this.ngayketthuc = vali.inputdate("Mời bạn nhập ngày kết thúc");
 		this.SoLuongHocVienToiDa=vali.inputsobuoi("Mời bạn nhập số học sinh theo học tối đa");
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 
 	}
+	
 }

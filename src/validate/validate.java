@@ -24,10 +24,14 @@ public class validate {
 		System.out.println(message);
 		do {
 			String idmonhoc = sc.nextLine();	
+<<<<<<< HEAD
+				return idmonhoc ; 
+=======
 			Pattern x = Pattern.compile("^MH[0-9]{3}$");
 			if (x.matcher(idmonhoc).find()) {
 				return idmonhoc;
 			}System.out.println("ID Môn Học phải 5 kí tự và bắt đầu bằng kí tự MH");
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 		} while (true);
 	}
 	
@@ -67,6 +71,18 @@ public class validate {
 			}
 		} while (true);
 	}
+<<<<<<< HEAD
+	public String abc() {
+		while (true) {
+			System.out.println("moi ban nhap cot can update");
+			String x=sc.nextLine();
+			if(x.equals("TenLop") || x.equals("IDMonHoc")|| x.equals("SoBuoi") || x.equals("NgayKhaiGiang") || x.equals("NgayKetThuc") ||x.equals("NgayBatDau")) {
+				return x ;
+			}System.out.println("moi ban nhap lai");
+		}
+	}
+=======
 
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 
 }
