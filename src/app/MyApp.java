@@ -11,11 +11,15 @@ import entities.Account;
 import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
+import menuChucNangCon.MenuConSeachLuong;
+import menuChucNangCon.MenuConTTTS;
+import menuChucNangCon.MenuMonHoc;
 import menuChucNangCon.MenuPhuHuynh;
 
 import menuChucNangCon.MenuQuanLyDangKyLop;
 import menuChucNangCon.MenuSelectGiaoVien;
 import menuChucNangCon.MenuUpdateGiaoVien;
+import menuChucNangCon.MenuconupdateTTTS;
 import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
 import simple.Simple;
@@ -116,6 +120,8 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng cập nhật thông tin các nhân!");
 						break;
 					case "2":
+						MenuMonHoc menu1 = new MenuMonHoc();
+						menu1.switchsMonHoc();
 						System.out.println("Bạn đã chọn chức năng Quản lý Môn học!");
 						break;
 					case "3":
@@ -123,6 +129,9 @@ public class MyApp {
 						FuncitionLopNangKhieu.FuncitionLopNangKhieu();
 						break;
 					case "4":
+						System.out.println("Bạn đã chọn chức năng Đăng Thông tin tuyển sinh!");
+						MenuConTTTS menu2 = new MenuConTTTS();
+						menu2.switchsThongTinTuyenSinh();
 						System.out.println("Bạn đã chọn chức năng Đăng Thông tin tuyển sinh!");
 						break;
 					case "5":
@@ -204,6 +213,8 @@ public class MyApp {
 
 						break;
 					case "3":
+						MenuConSeachLuong menuchau = new MenuConSeachLuong();
+						menuchau.timkiemTTTS();
 						System.out.println("Bạn đã chọn chức năng Xem thông tin Tuyển Sinh!");
 						break;
 					case "4":
