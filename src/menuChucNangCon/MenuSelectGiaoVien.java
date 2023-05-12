@@ -18,7 +18,8 @@ public class MenuSelectGiaoVien {
 				System.out.println("2. Liệt kê thông tin giáo viên theo từng môn học");
 				System.out.println("3. Tìm và hiển thị các giáo viên cùng địa chỉ.");
 				System.out.println("4. Liệt kê các giáo viên đã có lớp dạy");
-				System.out.println("5. thoát khỏi chương trình");
+				System.out.println("5. Thống kê lương của các giáo viên nhận được trong tháng X");
+				System.out.println("6. thoát khỏi chương trình");
 
 				int choice = Integer.parseInt(scanner.nextLine());
 
@@ -39,28 +40,15 @@ public class MenuSelectGiaoVien {
 
 				case 4:
 					System.out.println("Bạn đã chọn chức năng Liệt kê các giáo viên đã có lớp dạy");
-					GiaoVien b = new GiaoVien();
-					b.inputInfoUpdateDiaChi();
-					functionGV.updateLuongMoiBuoiDay(b);
+					functionGV.listGVDaCoLopDay();
 					break;
 				case 5:
-					System.out.println("Bạn đã chọn chức năng cập nhật email của Giao Vien!");
-					flag = false;
+					System.out.println("Bạn đã chọn chức năng Thống kê lương của các giáo viên nhận được trong tháng");
+					functionGV.monthlySalaryStatistics();
 					break;
 
 				case 6:
-					System.out.println("Bạn đã chọn chức năng cập nhật SĐT của Giao Vien!");
-					GiaoVien d = new GiaoVien();
-					d.inputInfoUpdateSDT();
-					functionGV.updateLuongMoiBuoiDay(d);
-					break;
-				case 7:
-					System.out.println("Bạn đã chọn chức năng cập nhật số năm kinh nghiệm của Giao Vien!");
-					GiaoVien e = new GiaoVien();
-					e.inputInfoUpdateSoNamKinhNghiem();
-					functionGV.updateLuongMoiBuoiDay(e);
-					break;
-				case 8:
+					System.out.println("Bạn đã chọn thoát khỏi chương trình!");
 					flag = false;
 					break;
 

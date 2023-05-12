@@ -433,7 +433,9 @@ public class FunctionGiaoVien {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
 	}
-	//function Hiển thị top 3 giáo viên tham gia dạy học nhiều nhất trong tháng x/2020 (X nhập vào từ bàn phím)
+
+	// function Hiển thị top 3 giáo viên tham gia dạy học nhiều nhất trong tháng
+	// x/2020 (X nhập vào từ bàn phím)
 	public void sortTop3GVDayNhieuNhat() {
 		Connection conn = null;
 		PreparedStatement prstmt = null;
@@ -445,8 +447,7 @@ public class FunctionGiaoVien {
 			String sql = "Select top 3 ACCOUNT.Name, LUONG.SoBuoiTrongThang \r\n"
 					+ "from LUONG Join GIAOVIEN on LUONG.IDGiaoVien = GIAOVIEN.IDGiaoVien\r\n"
 					+ "Join ACCOUNT on GIAOVIEN.Username = ACCOUNT.Username\r\n"
-					+ "where LUONG.Thang = ? and LUONG.Nam = 2020\r\n"
-					+ "Order by LUONG.SoBuoiTrongThang DESC";
+					+ "where LUONG.Thang = ? and LUONG.Nam = 2020\r\n" + "Order by LUONG.SoBuoiTrongThang DESC";
 			prstmt = conn.prepareStatement(sql);
 			prstmt.setInt(1, x);
 			rs = prstmt.executeQuery();
@@ -455,7 +456,7 @@ public class FunctionGiaoVien {
 			if (!rs.isBeforeFirst()) {
 				System.out.println("không có giáo viên nào có buổi dạy trong tháng " + x);
 				return;
-			}else {
+			} else {
 				while (rs.next()) {
 					System.out.println(rs.getString("Name") + " " + rs.getInt("SoBuoiTrongThang"));
 				}
@@ -471,79 +472,157 @@ public class FunctionGiaoVien {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
 	}
-	
-	//function Liệt kê thông tin giáo viên theo từng môn học
-		public void searchInfoGVByIdMonHoc() {
-			Connection conn = null;
-			PreparedStatement prstmt = null;
-			ResultSet rs = null;
-			try {
-				ValidationGiaoVien validation = new ValidationGiaoVien();
-				String x = validation.inputString("Vui lòng nhập mon hoc");
-				conn = ConnectionUtil.getConnection();
-				String sql = "Select MONHOC.TenMon, ACCOUNT.Name, GIAOVIEN.DiaChi, GIAOVIEN.Email, GIAOVIEN.SDT\r\n"
-						+ "from MONHOC join GIAOVIEN on MONHOC.IDMonHoc = GIAOVIEN.IDMonHoc\r\n"
-						+ "Join ACCOUNT on GIAOVIEN.Username = ACCOUNT.Username\r\n"
-						+ "where MONHOC.TenMon = ?";
-				prstmt = conn.prepareStatement(sql);
-				prstmt.setString(1, x);
-				rs = prstmt.executeQuery();
-				// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
-				// con trỏ k đc đẩy lên đâu dòng.
-				if (!rs.isBeforeFirst()) {
-					System.out.println("không có giáo viên nào day mon hoc" + x);
-					return;
-				}else {
-					while (rs.next()) {
-						System.out.println(rs.getString("TenMon") + " " + rs.getString("Name") + " " + rs.getString("DiaChi") + " " + rs.getString("Email") + " " +rs.getString("SDT"));
-					}
-				}
 
-			} catch (SQLException i) {
-				i.printStackTrace();
-				System.out.println("search that bai");
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("search that bai");
-			} finally {
-				ConnectionUtil.closeConnection(null, prstmt, conn);
+	// function Liệt kê thông tin giáo viên theo từng môn học
+	public void searchInfoGVByIdMonHoc() {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		ResultSet rs = null;
+		try {
+			ValidationGiaoVien validation = new ValidationGiaoVien();
+			String x = validation.inputString("Vui lòng nhập mon hoc");
+			conn = ConnectionUtil.getConnection();
+			String sql = "Select MONHOC.TenMon, ACCOUNT.Name, GIAOVIEN.DiaChi, GIAOVIEN.Email, GIAOVIEN.SDT\r\n"
+					+ "from MONHOC join GIAOVIEN on MONHOC.IDMonHoc = GIAOVIEN.IDMonHoc\r\n"
+					+ "Join ACCOUNT on GIAOVIEN.Username = ACCOUNT.Username\r\n" + "where MONHOC.TenMon = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setString(1, x);
+			rs = prstmt.executeQuery();
+			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
+			// con trỏ k đc đẩy lên đâu dòng.
+			if (!rs.isBeforeFirst()) {
+				System.out.println("không có giáo viên nào day mon hoc" + x);
+				return;
+			} else {
+				while (rs.next()) {
+					System.out.println(rs.getString("TenMon") + " " + rs.getString("Name") + " "
+							+ rs.getString("DiaChi") + " " + rs.getString("Email") + " " + rs.getString("SDT"));
+				}
 			}
-		}
-		
-		//function tìm giáo viên theo địa chỉ
-				public void searchInfoGVByDiaChi() {
-					Connection conn = null;
-					PreparedStatement prstmt = null;
-					ResultSet rs = null;
-					try {
-						ValidationGiaoVien validation = new ValidationGiaoVien();
-						String x = validation.inputString("Vui lòng nhập dia chi");
-						conn = ConnectionUtil.getConnection();
-						String sql = "select ACCOUNT.Name, GIAOVIEN.DiaChi\r\n"
-								+ "From ACCOUNT join GIAOVIEN on GIAOVIEN.Username = ACCOUNT.Username\r\n"
-								+ "where GIAOVIEN.DiaChi like ?";
-						prstmt = conn.prepareStatement(sql);
-						prstmt.setString(1, "%"+x+"%");
-						rs = prstmt.executeQuery();
-						// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
-						// con trỏ k đc đẩy lên đâu dòng.
-						if (!rs.isBeforeFirst()) {
-							System.out.println("không có giáo viên nào có địa chỉ thoả " + x);
-							return;
-						}else {
-							while (rs.next()) {
-								System.out.println(rs.getString("Name") + " " + rs.getString("DiaChi"));
-							}
-						}
 
-					} catch (SQLException i) {
-						i.printStackTrace();
-						System.out.println("search that bai");
-					} catch (Exception e) {
-						e.printStackTrace();
-						System.out.println("search that bai");
-					} finally {
-						ConnectionUtil.closeConnection(null, prstmt, conn);
-					}
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("search that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("search that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
+
+	// function tìm giáo viên theo địa chỉ
+	public void searchInfoGVByDiaChi() {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		ResultSet rs = null;
+		try {
+			ValidationGiaoVien validation = new ValidationGiaoVien();
+			String x = validation.inputString("Vui lòng nhập dia chi");
+			conn = ConnectionUtil.getConnection();
+			String sql = "select ACCOUNT.Name, GIAOVIEN.DiaChi\r\n"
+					+ "From ACCOUNT join GIAOVIEN on GIAOVIEN.Username = ACCOUNT.Username\r\n"
+					+ "where GIAOVIEN.DiaChi like ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setString(1, "%" + x + "%");
+			rs = prstmt.executeQuery();
+			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
+			// con trỏ k đc đẩy lên đâu dòng.
+			if (!rs.isBeforeFirst()) {
+				System.out.println("không có giáo viên nào có địa chỉ thoả " + x);
+				return;
+			} else {
+				while (rs.next()) {
+					System.out.println(rs.getString("Name") + " " + rs.getString("DiaChi"));
 				}
+			}
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("search that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("search that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
+
+	// function Thống kê lương của các giáo viên nhận được trong tháng X, x nhập từ
+	// bàn phím
+	public void monthlySalaryStatistics() {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		ResultSet rs = null;
+		try {
+			ValidationGiaoVien validation = new ValidationGiaoVien();
+			int x = validation.inputInt("Vui nhập tháng cần thông kê lương");
+			conn = ConnectionUtil.getConnection();
+			String sql = "select GIAOVIEN.IDGiaoVien, ACCOUNT.Name, LUONG.Thang, (LUONG.SoBuoiTrongThang *  GIAOVIEN.LuongMoiBuoiDay) as luongThang\r\n"
+					+ "From LUONG join GIAOVIEN on LUONG.IDGiaoVien = GIAOVIEN.IDGiaoVien\r\n"
+					+ "Join ACCOUNT on GIAOVIEN.Username = ACCOUNT.Username\r\n" + "where LUONG.Thang = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setInt(1, x);
+			rs = prstmt.executeQuery();
+			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
+			// con trỏ k đc đẩy lên đâu dòng.
+			if (!rs.isBeforeFirst()) {
+				System.out.println("không dữ liệu nào thoả điều kiện nhập vào");
+				return;
+			} else {
+				while (rs.next()) {
+					System.out.println(rs.getString("IDGiaoVien") + " " + rs.getString("Name") + " "
+							+ rs.getString("Thang") + " " + rs.getString("luongThang"));
+				}
+			}
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("thống kê that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("thống kê that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
+
+	// function Liệt kê các giáo viên đã có lớp dạy.
+	public void listGVDaCoLopDay() {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		ResultSet rs = null;
+		try {
+			ValidationGiaoVien validation = new ValidationGiaoVien();
+//				int x = validation.inputInt("Vui nhập tháng cần thông kê lương");
+			conn = ConnectionUtil.getConnection();
+			String sql = "Select GIAOVIEN.IDGiaoVien, ACCOUNT.Name, LOPNANGKHIEU.TenLop, BUOIHOC.Status\r\n"
+					+ "From ACCOUNT join GIAOVIEN on ACCOUNT.Username = GIAOVIEN.Username\r\n"
+					+ "Join BUOIHOC on GIAOVIEN.IDGiaoVien = BUOIHOC.IDGiaoVien\r\n"
+					+ "Join LOPNANGKHIEU on BUOIHOC.IDLop = LOPNANGKHIEU.IDLop\r\n" + "where BUOIHOC.Status = 'active'";
+			prstmt = conn.prepareStatement(sql);
+//				prstmt.setInt(1, x);
+			rs = prstmt.executeQuery();
+			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
+			// con trỏ k đc đẩy lên đâu dòng.
+			if (!rs.isBeforeFirst()) {
+				System.out.println("không tìm thấy dữ liệu");
+				return;
+			} else {
+				while (rs.next()) {
+					System.out.println(rs.getString("IDGiaoVien") + " " + rs.getString("Name") + " "
+							+ rs.getString("TenLop") + " " + rs.getString("Status"));
+				}
+			}
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("liệt kê that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("liệt kê that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
+		}
+	}
 }

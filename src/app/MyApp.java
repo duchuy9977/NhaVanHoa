@@ -13,11 +13,13 @@ import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
 import menuChucNangCon.MenuPhuHuynh;
+import menuChucNangCon.MenuQuanLyDangKyLop;
 import menuChucNangCon.MenuSelectGiaoVien;
 import menuChucNangCon.MenuUpdateGiaoVien;
 import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
 import simple.Simple;
+import treEm.TreEmDao;
 //import function.Manage;
 import treEm.TreEmManager;
 import function.FuncitionLopNangKhieu;
@@ -124,6 +126,7 @@ public class MyApp {
 						break;
 					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Lớp học!");
+						MenuQuanLyDangKyLop.openMenu();
 						break;
 					case "6":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Ca dạy!");
@@ -203,8 +206,11 @@ public class MyApp {
 						break;
 					case "4":
 						System.out.println("Bạn đã chọn chức năng Đăng kí lớp học!");
-						Simple sim1 = new Simple();
-						sim1.dangkihoc();
+						//Đầu tiên check xem phụ huynh đó đã có user chưa, nếu có trẻ thì mới chạy vào trong if
+						if(TreEmDao.checkTablePhuHuynhCoTre(user)) {
+							Simple sim1 = new Simple();
+							sim1.dangkihoc(user);
+						}						
 						break;
 					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
