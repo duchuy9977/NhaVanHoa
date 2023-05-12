@@ -403,6 +403,8 @@ public class TreEmDao {
 		}
 		return true;
 	}
+<<<<<<< HEAD
+=======
 	
 	//Code chủ tịch
 	public static boolean checkTablePhuHuynhCoTre(String userName) {
@@ -432,4 +434,5 @@ public class TreEmDao {
 		}
 		return true;
 	}
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 }

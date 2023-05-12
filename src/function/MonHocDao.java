@@ -21,10 +21,13 @@ public class MonHocDao {
 			String sql = "select IDMonHoc, TenMon from MONHOC";
 			st = con.prepareStatement(sql);
 			rs = st.executeQuery();
+<<<<<<< HEAD
+=======
 			if(!rs.isBeforeFirst()) {
 				System.out.println("   Hiện Chưa có môn học nào");
 				return null;
 			}
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 			while (rs.next()) {
 				MonHoc monHoc = new MonHoc();
 				monHoc.setTenMon(rs.getString("TenMon"));

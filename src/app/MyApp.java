@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import connection.ConnectionUtil;
@@ -13,6 +12,12 @@ import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
 import menuChucNangCon.MenuPhuHuynh;
+<<<<<<< HEAD
+import menuChucNangCon.MenuUpdateGiaoVien;
+import validation.ValidationAccount;
+import validation.ValidationGiaoVien;
+import simple.Simple;
+=======
 import menuChucNangCon.MenuQuanLyDangKyLop;
 import menuChucNangCon.MenuSelectGiaoVien;
 import menuChucNangCon.MenuUpdateGiaoVien;
@@ -20,6 +25,7 @@ import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
 import simple.Simple;
 import treEm.TreEmDao;
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 //import function.Manage;
 import treEm.TreEmManager;
 import function.FuncitionLopNangKhieu;
@@ -73,7 +79,10 @@ public class MyApp {
 		FunctionGiaoVien functionGV = new FunctionGiaoVien();
 		FunctionAccount functionAcc = new FunctionAccount();
 		MenuUpdateGiaoVien menuUpdateGV = new MenuUpdateGiaoVien();
+<<<<<<< HEAD
+=======
 		MenuSelectGiaoVien menuSelectGV = new MenuSelectGiaoVien();
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 		while (true) {
 
 			do {
@@ -99,11 +108,19 @@ public class MyApp {
 					System.out.println("   5. Xem tình trạng đơn đăng kí Lớp học");
 					System.out.println("   6. Thêm buổi học");
 					System.out.println("   7. Thêm mới giáo viên");
+<<<<<<< HEAD
+					System.out.println("   8. Tạo mới Account");
+					
+					System.out.println("   9. xoá thông tin giáo viên.");
+					System.out.println("  10. Update thông tin giáo viên.");
+					System.out.println("  11. Quản Lý Phụ Huynh");
+=======
 					System.out.println("   8. Tạo mới Account");
 					System.out.println("   9. xoá thông tin giáo viên.");
 					System.out.println("  10. Update thông tin giáo viên.");
 					System.out.println("  11. Quản Lý Phụ Huynh");
 					System.out.println("  12. select thông tin giáo viên theo điều kiện");
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 					System.out.println("   0. Đăng Xuất..");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
@@ -160,10 +177,13 @@ public class MyApp {
 					case "11":
 						MenuPhuHuynh.quanLyPhuHuynh();
 						break;
+<<<<<<< HEAD
+=======
 					case "12":
 						System.out.println("Bạn đã chọn chức năng select thông tin giáo viên theo điều kiện!");
 						menuSelectGV.menuSelect();
 						break;
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 
 					case "0":
 
@@ -206,11 +226,16 @@ public class MyApp {
 						break;
 					case "4":
 						System.out.println("Bạn đã chọn chức năng Đăng kí lớp học!");
+<<<<<<< HEAD
+						Simple sim1 = new Simple();
+						sim1.dangkihoc();
+=======
 						//Đầu tiên check xem phụ huynh đó đã có user chưa, nếu có trẻ thì mới chạy vào trong if
 						if(TreEmDao.checkTablePhuHuynhCoTre(user)) {
 							Simple sim1 = new Simple();
 							sim1.dangkihoc(user);
 						}						
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 						break;
 					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
