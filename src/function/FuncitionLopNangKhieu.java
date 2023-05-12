@@ -36,7 +36,6 @@ public static void FuncitionLopNangKhieu(){
 				case 1:
 					LopNangKhieu lop = new LopNangKhieu();
 					lop.inputdata();
-					
 					sim.insertdata(lop);
 					System.out.println(lop);
 					break;
@@ -61,7 +60,8 @@ public static void FuncitionLopNangKhieu(){
 				case 6 :
 					List<LopNangKhieu> list2 = sim.selec2();
 					for (LopNangKhieu lopNangKhieu : list2) {
-						System.out.println(lopNangKhieu.toString1());}
+						System.out.println(lopNangKhieu.toString1());
+						}
 					break;
 				case 7:
 					sim.timkiemthongtintheousename();
