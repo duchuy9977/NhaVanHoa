@@ -98,11 +98,11 @@ public class QuanLyDangKyLopHocDao {
 				return null;
 			}
 
-			System.out.println("===================================================");
-			System.out.println("|   ------> Các Lớp có thể đăng kí được <------   |");
-			System.out.println("===================================================");
+			System.out.println("=========================================================");
+			System.out.println("|      ------> Các Lớp có thể đăng kí được <------      |");
+			System.out.println("=========================================================");
 			System.out.println("|STT| IDDangKy |IDTre|ID Lớp|Ngày Đăng Ký|  Tình Trạng  |");
-			System.out.println("===================================================");
+			System.out.println("=========================================================");
 
 			int row = 0;
 			listIDDangKy = new ArrayList<String>();
@@ -121,7 +121,7 @@ public class QuanLyDangKyLopHocDao {
 				System.out.printf("|%3d|%10s|%5s|%6s|%12s|%14s|\n", row, rs.getString("IDDangKy"),rs.getString("IDTre"),rs.getString("IDLop"),rs.getDate("NgayDangKy") + "",result);
 				listIDDangKy.add(rs.getString("IDDangKy"));
 			}
-			System.out.println("===============================================");
+			System.out.println("=========================================================");
 			System.out.println("Mời chọn đơn đăng ký bạn muốn sử lý (1->" + listIDDangKy.size()  + "): ");
 			
 			int choosse = -1;
@@ -131,8 +131,7 @@ public class QuanLyDangKyLopHocDao {
 					choosse = Integer.parseInt(choice);
 					if (choosse > 0 && choosse <= listIDDangKy.size() ) {
 						choosse--;
-						System.out.println("Bạn Đã chọn đơn đăng kí số " + listIDDangKy.get(choosse));
-						QuanLyDangKyLopHocDao.xuLyDonDangKy();
+						QuanLyDangKyLopHocDao.xuLyDonDangKy(listIDDangKy.get(choosse));
 						break;
 					} else {
 						System.out.println("Bạn đã nhập sai, mời nhập lại!");
@@ -159,8 +158,8 @@ public class QuanLyDangKyLopHocDao {
 		return null;
 	}
 
-	private static void xuLyDonDangKy() {
+	private static void xuLyDonDangKy(String idDonDangKy) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Bạn Đã chọn đơn đăng kí số " + idDonDangKy);
 	}
 }
