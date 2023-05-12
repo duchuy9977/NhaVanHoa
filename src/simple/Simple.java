@@ -9,9 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import connection.ConnectionUtil;
-
 import entities.LopNangKhieu;
 import entities.MonHoc;
 import function.DangKyLopHocDao;
@@ -20,7 +18,8 @@ import validate.validate;
 
 public class Simple {
 	private static Scanner sc = new Scanner(System.in);
-	
+
+
 	public String insertdata(entities.LopNangKhieu lop) {
 		Connection con = ConnectionUtil.getConnection();
 		String sql = "insert into LOPNANGKHIEU(IDLop,IDMonHoc,TenLop,SoBuoi,NgayBatDau,NgayKetThuc,SoLuongHocVienToiDa)values (\r\n"
@@ -134,7 +133,6 @@ public class Simple {
 			validate vali = new validate();
 			Simple sim = new Simple();
 			String idmonhoc = sim.Checkexistidmonhoc();
-
 			String tenlop = vali.inputstring("Nhập vào tên lớp");
 			int sobuoi = vali.inputsobuoi("Nhập vào số buổi");
 			Date ngaybatdau = vali.inputdate("Nhập vào ngày bắt đầu");
@@ -309,6 +307,36 @@ public class Simple {
 		return list2;
 	}
 
+	public ArrayList<String> monhoct1003() {
+		ArrayList<String> list = new ArrayList<String>();
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		String lop1 = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			String sql = "select TenMon from MONHOC";
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				lop1 = rs.getString("TenMon");
+				list.add(lop1);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
 	public ArrayList<entities.LopNangKhieu> inranamhinh(ResultSet rs) {
 		ArrayList<entities.LopNangKhieu> list = new ArrayList<>();
 		try {
@@ -440,152 +468,6 @@ public class Simple {
 		}
 	}
 
-	public void dangkihoc(String userName) {
-		Simple sim1 = new Simple();
-
-		System.out.println("==========================================="); // Hiển thị các môn học có thể đăng kí
-		System.out.println("|    Mời bạn chọn môn học muốn đăng ký    |");
-		System.out.println("===========================================");
-		ArrayList<MonHoc> monHoc = MonHocDao.getMonHoc();
-		int countMonHoc = 0;
-		if (monHoc != null) {
-			for (MonHoc item : monHoc) {
-				System.out.printf("%8s. %s", (countMonHoc + 1), item.getTenMon());
-				System.out.println();
-				countMonHoc++;
-			}
-		}
-		System.out.println("===========================================");
-		sim1.ClickMonHoc("Mời bạn chọn môn học muốn đăng ký(1->" + (countMonHoc - 1) + ") : ", monHoc, countMonHoc,userName);//Chọn môn học
-		
-	}
-	
-	
-	public ArrayList<LopNangKhieu> inramanhinh(ResultSet rs) {
-		ArrayList<LopNangKhieu> list = new ArrayList<>();
-
-
-		try {
-
-			while (rs.next()) {
-				String IDLop = rs.getString("IDLop");
-				String IDMonHoc = rs.getString("IDMonHoc");
-				String TenLop = rs.getString("Tenlop");
-				int SoBuoi = rs.getInt("SoBuoi");
-				Date NgayBatDau = rs.getDate("NgayBatDau");
-				Date NgayKetThuc = rs.getDate("NgayKetThuc");
-				int SoLuongTreTheoHoc = rs.getInt("SoLuongTreTheoHoc");
-				LopNangKhieu x = new LopNangKhieu(IDLop, IDMonHoc, TenLop, SoBuoi, NgayBatDau, NgayKetThuc, SoLuongTreTheoHoc);
-				x.setSohocsinhtheohoc(SoLuongTreTheoHoc);
-				System.out.println(x.toString1());
-				list.add(x);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-	
-	
-	
-	public ArrayList<String> monhoct1003() {
-		ArrayList<String> list = new ArrayList<String>();
-		Connection con = null;
-		Statement st = null;
-		ResultSet rs = null;
-		String lop1 = null;
-		try {
-			con = ConnectionUtil.getConnection();
-			String sql = "select TenMon from MONHOC";
-			st = con.createStatement();
-			rs = st.executeQuery(sql);
-			while (rs.next()) {
-				lop1 = rs.getString("TenMon");
-				list.add(lop1);
-
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return list;
-	}
-
-	public ArrayList<LopNangKhieu> inranamninh(ResultSet rs) {
-		ArrayList<LopNangKhieu> list = new ArrayList<>();
-		try {
-			while (rs.next()) {
-				String IDLop = rs.getString("IDLop");
-				String IDMonHoc = rs.getString("IDMonHoc");
-				String Tenlop = rs.getString("TenLop");
-				int SoBuoi = rs.getInt("SoBuoi");
-				Date NgayBatDau = rs.getDate("NgayBatDau");
-				Date NgayKetThuc = rs.getDate("NgayKetThuc");
-				int SoLuongTreTheoHoc = rs.getInt("SoLuongTreTheoHoc");
-				LopNangKhieu lop = new LopNangKhieu(IDLop, IDMonHoc, Tenlop, SoBuoi, NgayBatDau, NgayKetThuc, SoLuongTreTheoHoc);
-				System.out.println(lop.toString());
-				list.add(lop);
-			}
-		} catch (SQLException e) {
-			// TODO: handle exception
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-		return list;
-	}
-
-	public void ClickMonHoc(String message) {
-		Connection con = null;
-		PreparedStatement pr = null;
-		ResultSet rs = null;
-		try {
-			System.out.println(message);
-			String tenmonhoc;
-			while (true) {
-				tenmonhoc = sc.nextLine();
-				if(checkTenMH(tenmonhoc)==true) {
-					break;
-				}else {
-					System.out.println("moi ban nhap dung ky tu ten mon hoc tren man hinh");
-				}
-			}
-			con = ConnectionUtil.getConnection();
-			String sql = "select lnk.* from LOPNANGKHIEU as lnk,MONHOC as mh where lnk.IDMonHoc=mh.IDMonHoc and mh.TenMon=? \r\n"
-					+ "  and lnk.NgayKhaiGiang >= DATEADD(DAY, 14, GETDATE())\r\n"
-					+ "  AND lnk.NgayKetThuc > GETDATE()";
-			pr = con.prepareStatement(sql);
-			pr.setString(1, tenmonhoc);
-			rs = pr.executeQuery();
-			if(!rs.isBeforeFirst()) {
-				System.out.println("khong co mon hoc thoa man yeu cau");
-				return;
-			}
-			inranamninh(rs);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	public static boolean checkTenMH(String maDeThi) {
 		Connection conn = ConnectionUtil.getConnection();
 		PreparedStatement pstm = null;
@@ -622,23 +504,27 @@ public class Simple {
 			return false;
 		}
 	}
-	public void dangkihoc(){
+
+	public void dangkihoc(String userName) {
 		Simple sim1 = new Simple();
+
+		System.out.println("==========================================="); // Hiển thị các môn học có thể đăng kí
+		System.out.println("|    Mời bạn chọn môn học muốn đăng ký    |");
+		System.out.println("===========================================");
 		ArrayList<MonHoc> monHoc = MonHocDao.getMonHoc();
-		System.out.println("===========================================");
-		System.out.println("|    Mời bạn chọn môn học muốn đăng ký    |");  
-		System.out.println("===========================================");
 		int countMonHoc = 0;
-		
-		for (MonHoc item : monHoc) {
-			System.out.printf("%6s. %s", (countMonHoc + 1),item.getTenMon());
-			System.out.println();
-			countMonHoc++;
+		if (monHoc != null) {
+			for (MonHoc item : monHoc) {
+				System.out.printf("%8s. %s", (countMonHoc + 1), item.getTenMon());
+				System.out.println();
+				countMonHoc++;
+			}
 		}
 		System.out.println("===========================================");
-		sim1.ClickMonHoc("Mời bạn chọn môn học muốn đăng ký");
+		sim1.ClickMonHoc("Mời bạn chọn môn học muốn đăng ký(1->" + (countMonHoc - 1) + ") : ", monHoc, countMonHoc,userName);//Chọn môn học
 		
-}
+	}
+
 	// ----------tim kiếm thông tin theo usename giáo viên
 	public List<entities.LopNangKhieu> timkiemthongtintheousename() {
 		List<entities.LopNangKhieu> list = new ArrayList<>();
@@ -840,8 +726,8 @@ public class Simple {
 			rs=st.executeQuery(sql);
 			while(rs.next()) {
 				System.out.print("tên lớp = "+rs.getString("TenLop"));
-				System.out.print("     tháng = "+rs.getString("Thang"));
-				System.out.println("     học phí theo tháng = "+rs.getString("hocphitheothang"));
+				System.out.print("     tháng="+rs.getString("Thang"));
+				System.out.println("     học phí theo tháng="+rs.getString("hocphitheothang"));
 			}
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
