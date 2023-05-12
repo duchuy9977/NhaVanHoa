@@ -77,6 +77,19 @@ public class ValidationGiaoVien {
 			}
 		} while (true);
 	}
+	
+	public int inputInt(String message) {
+		do {
+			try {
+				System.out.println(message);
+				int x = Integer.parseInt(input.nextLine());
+				return x;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("hay nhap lai bang chu so");
+			}
+		} while (true);
+	}
 
 	public String inputDiaChi(String message) {
 		do {
@@ -89,6 +102,19 @@ public class ValidationGiaoVien {
 			System.out.println("ban nhap sai, hay nhap lai thon tin dia chi it nhat 2 ky tu!");
 		} while (true);
 	}
+	
+	public String inputString(String message) {
+		do {
+			System.out.println(message);
+			String str = input.nextLine();
+			if (str.length() >= 2) {
+
+				return str;
+			}
+			System.out.println("ban nhap sai, hay nhap lai chuỗi ký tự it nhat 2 ky tu!");
+		} while (true);
+	}
+
 
 	public String inputSDT(String message) {
 		do {

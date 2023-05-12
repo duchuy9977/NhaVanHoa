@@ -113,6 +113,33 @@ public class TreEmDao {
 			ConnectionUtil.closeConnection(rs, ps, con);
 		}
 	}
+	
+	//Hàm này của chủ tích :v
+	public void seachByIdPhuhuynh(String idPhuHuynh) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement("SELECT * FROM TREEM WHERE IDPhuHuynh = ?");
+			ps.setString(1, idPhuHuynh);
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Không có tên trẻ trong bảng");
+				return;
+			}
+			System.out.println("=========================================");
+			System.out.println("");
+			System.out.println("=========================================");
+			System.out.println("=========================================");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
+	}
 
 	public ArrayList<TreEm> displayRS(ResultSet rs) {
 		ArrayList<TreEm> list = new ArrayList<>();
@@ -140,6 +167,8 @@ public class TreEmDao {
 		}
 		return list;
 	}
+	
+	
 
 	public int inputSTT(String username) {
 		Connection con = null;
@@ -374,4 +403,36 @@ public class TreEmDao {
 		}
 		return true;
 	}
+<<<<<<< HEAD
+=======
+	
+	//Code chủ tịch
+	public static boolean checkTablePhuHuynhCoTre(String userName) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement("SELECT ACCOUNT.Username FROM TREEM\r\n"
+					+ "JOIN PHUHUYNH \r\n"
+					+ "ON TREEM.IDPhuHuynh = PHUHUYNH.IDPhuHuynh\r\n"
+					+ "JOIN ACCOUNT\r\n"
+					+ "ON PHUHUYNH.Username = ACCOUNT.Username\r\n"
+					+ "WHERE ACCOUNT.Username = ?");
+			ps.setString(1, userName);
+			rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Hiện chưa có thông tin trẻ em nào. Xin hãy nhập thông tin trẻ em trước.");
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.closeConnection(rs, ps, con);
+		}
+		return true;
+	}
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 }

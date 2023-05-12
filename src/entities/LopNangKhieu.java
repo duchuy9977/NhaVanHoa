@@ -10,23 +10,38 @@ public class LopNangKhieu {
 	private String idmonhoc;
 	private String tenlop;
 	private int sobuoi;
-	private Date ngaykhaigiang;
 	private Date ngaybatdau;
 	private Date ngayketthuc;
 	private int sohocsinhtheohoc;
+<<<<<<< HEAD
+=======
+	private int SoLuongHocVienToiDa;
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 	public LopNangKhieu() {
 		super();
 	}
-	public LopNangKhieu(String idlop, String idmonhoc, String tenlop, int sobuoi, Date ngaykhaigiang, Date ngaybatdau,
-			Date ngayketthuc) {
+	public LopNangKhieu(String idlop, String idmonhoc, String tenlop, int sobuoi, Date ngaybatdau,
+			Date ngayketthuc,int SoLuongHocVienToiDa) {
 		super();
 		this.idlop = idlop;
 		this.idmonhoc = idmonhoc;
 		this.tenlop = tenlop;
 		this.sobuoi = sobuoi;
-		this.ngaykhaigiang = ngaykhaigiang;
 		this.ngaybatdau = ngaybatdau;
 		this.ngayketthuc = ngayketthuc;
+		this.SoLuongHocVienToiDa=SoLuongHocVienToiDa;
+	}
+	public int getSoLuongHocVienToiDa() {
+		return SoLuongHocVienToiDa;
+	}
+	public void setSoLuongHocVienToiDa(int soLuongHocVienToiDa) {
+		SoLuongHocVienToiDa = soLuongHocVienToiDa;
+	}
+	public int getSohocsinhtheohoc() {
+		return sohocsinhtheohoc;
+	}
+	public void setSohocsinhtheohoc(int sohocsinhtheohoc) {
+		this.sohocsinhtheohoc = sohocsinhtheohoc;
 	}
 	public int getSohocsinhtheohoc() {
 		return sohocsinhtheohoc;
@@ -58,12 +73,6 @@ public class LopNangKhieu {
 	public void setSobuoi(int sobuoi) {
 		this.sobuoi = sobuoi;
 	}
-	public Date getNgaykhaigiang() {
-		return ngaykhaigiang;
-	}
-	public void setNgaykhaigiang(Date ngaykhaigiang) {
-		this.ngaykhaigiang = ngaykhaigiang;
-	}
 	public Date getNgaybatdau() {
 		return ngaybatdau;
 	}
@@ -76,13 +85,20 @@ public class LopNangKhieu {
 	public void setNgayketthuc(Date ngayketthuc) {
 		this.ngayketthuc = ngayketthuc;
 	}
+
 	@Override
 	public String toString() {
 		return "LopNangKhieu [idlop=" + idlop + ", idmonhoc=" + idmonhoc + ", tenlop=" + tenlop + ", sobuoi=" + sobuoi
-				+ ", ngaykhaigiang=" + ngaykhaigiang + ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc
-				+ "]";
+				+ ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc + ", SoLuongHocVienToiDa="
+				+ SoLuongHocVienToiDa + "]";
+	}
+	public String toString1() {
+		return "LopNangKhieu [idlop=" + idlop + ", idmonhoc=" + idmonhoc + ", tenlop=" + tenlop + ", sobuoi=" + sobuoi
+				+ ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc
+				+ ", SoLuongHocVienToiDa=" + SoLuongHocVienToiDa + ", sohocsinhtheohoc=" + sohocsinhtheohoc +"]";
 	}
 	
+<<<<<<< HEAD
 	public String toString1() {
 		return "LopNangKhieu [idlop=" + idlop + ", idmonhoc=" + idmonhoc + ", tenlop=" + tenlop + ", sobuoi=" + sobuoi
 				+ ", ngaykhaigiang=" + ngaykhaigiang + ", ngaybatdau=" + ngaybatdau + ", ngayketthuc=" + ngayketthuc
@@ -91,7 +107,11 @@ public class LopNangKhieu {
 	
 	public void intutdata() {
 		Simple sim = new Simple();
+=======
+	public void inputdata() {
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 		validate vali = new validate();
+<<<<<<< HEAD
 		this.idlop = vali.inputidlop("moi ban nhap id lop");
 		this.idmonhoc = sim.Checkexistidmonhoc();
 		this.tenlop = vali.inputstring("moi ban nhap ten lop");
@@ -99,6 +119,34 @@ public class LopNangKhieu {
 		this.ngaykhaigiang = vali.inputdate("moi ban nhap ngay khai giang");
 		this.ngaybatdau = vali.inputdate("moi ban nhap ngay bat dau");
 		this.ngayketthuc = vali.inputdate("moi ban nhap ngay ket thuc");
+=======
+		Simple sim = new Simple();
+		do {
+			String idlop = vali.inputidlop("Mời bạn nhập Id Lóp");
+			if (sim.checktontaiidlop(idlop)==true) {
+				System.out.println("Id Lớp đã tồn tại mời bạn nhập lại Id lớp");
+			}else {
+				this.idlop=idlop;
+				break;
+			}
+		}while (true);
+		
+		do {
+			String idmonhoc = vali.inputidmonhoc("Mời bạn nhập ID môn học");
+			if(sim.checktontaiidmonhoc(idmonhoc)== false){
+				System.out.println("ID môn học không tồn tại mời bạn nhập lại ID môn học");
+			}else {
+				this.idmonhoc=idmonhoc;
+				break;
+			}
+		} while (true);
+		
+		this.tenlop = vali.inputstring("Mời bạn nhập tên lớp");
+		this.sobuoi = vali.inputsobuoi("Mời bạn nhập số buổi");
+		this.ngaybatdau = vali.inputdate("Mời bạn nhập ngày bắt đàu");
+		this.ngayketthuc = vali.inputdate("Mời bạn nhập ngày kết thúc");
+		this.SoLuongHocVienToiDa=vali.inputsobuoi("Mời bạn nhập số học sinh theo học tối đa");
+>>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 
 	}
 	
