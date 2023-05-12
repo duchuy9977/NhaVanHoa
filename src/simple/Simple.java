@@ -710,6 +710,38 @@ public class Simple {
 		}
 		return list1;
 }
+	
+	public void hocphitheothang() {
+		Connection con =null;
+		Statement st = null;
+		ResultSet rs =null;
+		try {
+			con=ConnectionUtil.getConnection();
+			String sql = "Select NK.TenLop,HP.Thang,SUM(HP.HocPhiSauChietKhau) as hocphitheothang from HOCPHI HP join DANGKYLOPHOC DK\r\n"
+					+ "on HP.IDDangKy = DK.IDDangKy\r\n"
+					+ "right join LOPNANGKHIEU NK\r\n"
+					+ "on DK.IDLop = NK.IDLop\r\n"
+					+ "group by HP.Thang,NK.TenLop";
+			st=con.createStatement();
+			rs=st.executeQuery(sql);
+			while(rs.next()) {
+				System.out.print("tên lớp = "+rs.getString("TenLop"));
+				System.out.print("     tháng = "+rs.getString("Thang"));
+				System.out.println("     học phí theo tháng = "+rs.getString("hocphitheothang"));
+			}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
 }
 	
 
