@@ -15,7 +15,7 @@ public class MenuQuanLyDangKyLop {
 			dangChoDuyet = QuanLyDangKyLopHocDao.selectByPendingOrUnseenStatus();
 			System.out.println("===============================================");
 			System.out.println("        Quản Lý Đơn Đăng ký học");
-			System.out.println("   1. Duyệt đơn đăng ký (Có " + donMoi + " đơn đki mới, tổng " +  dangChoDuyet + " đơn chưa chuyệt)");
+			System.out.println("   1. Duyệt đơn đăng ký (Có " + donMoi + " đơn đăng ký mới, tổng " +  dangChoDuyet + " đơn chưa chuyệt)");
 			System.out.println("   2.  ");
 			System.out.println();
 			System.out.println("   0. Thoát khỏi menu");
@@ -26,7 +26,8 @@ public class MenuQuanLyDangKyLop {
 
 			switch (choice) {
 			case "1":
-				System.out.println("Bạn đã chọn chức năng cập nhật thông tin các nhân!");
+				System.out.println("Bạn đã chọn chức năng Duyệt đơn đăng ký!");
+//				QuanLyDangKyLopHocDao.chonDonDangKy();
 				break;
 
 
