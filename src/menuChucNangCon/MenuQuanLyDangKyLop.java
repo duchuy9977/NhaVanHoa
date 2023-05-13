@@ -35,7 +35,7 @@ public class MenuQuanLyDangKyLop {
 				QuanLyDangKyLopHocDao.thongKeSoLuongHocSinhTheoNam();
 				break;
 			case "3":
-				System.out.println("Bạn đã chọn chức năng Liệt kê học viên còn thiếu của mỗi lớp họcm");
+				System.out.println("Bạn đã chọn chức năng Liệt kê học viên còn thiếu của mỗi lớp học");
 				QuanLyDangKyLopHocDao.thongKeSoLuongHocSinhConThieuTheoLop();
 				break;
 			case "0":
