@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import buoiHoc_PhucHL1.BuoiHocManager;
 import connection.ConnectionUtil;
 import entities.Account;
 import entities.GiaoVien;
@@ -95,7 +96,7 @@ public class MyApp {
 					System.out.println("   3. Quản lý lớp học");
 					System.out.println("   4. Đăng Thông tin tuyển sinh");
 					System.out.println("   5. Xem tình trạng đơn đăng kí Lớp học");
-					System.out.println("   6. Thêm buổi học");
+					System.out.println("   6. Quản lý buổi học");
 					System.out.println("   7. Thêm mới giáo viên");
 					System.out.println("   8. Tạo mới Account");
 					System.out.println("   9. xoá thông tin giáo viên.");
@@ -126,7 +127,8 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Lớp học!");
 						break;
 					case "6":
-						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Ca dạy!");
+						System.out.println("Bạn đã chọn chức năng Quản lý buổi học");
+					
 						break;
 					case "7":
 						System.out.println("Bạn đã chọn chức năng Xem thêm mới giáo viên!");
@@ -226,8 +228,8 @@ public class MyApp {
 					System.out.println("Mời nhập chức năng bạn muốn sử dụng");
 					System.out.println("   1. Xem thông tin giáo viên");
 					System.out.println("   2. Cập nhật id môn học cho giáo viên");
-					System.out.println("   3. Xem ca dạy");
-					System.out.println("   4. Đăng kí Ca dạy");
+					System.out.println("   3. Xem buổi dạy");
+					System.out.println("   4. Đăng kí buổi dạy");
 					System.out.println("   5. Xem tình trạng đơn đăng kí");
 					System.out.println("   0. Đăng Xuất");
 					System.out.println("===============================================");

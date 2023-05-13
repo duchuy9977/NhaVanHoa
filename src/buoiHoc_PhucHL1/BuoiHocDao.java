@@ -48,7 +48,7 @@ public class BuoiHocDao {
 	}
 
 	// Update
-	public void updateBuoiHoc(String IdBuoiHoc) {
+	public void updateBuoiHoc() {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -99,13 +99,13 @@ public class BuoiHocDao {
 			// hàm này chỉ ra con trỏ ở đầu dòng nếu có kết quả trả về, nếu k có kết quả,
 			// con trỏ k đc đẩy lên đâu dòng.
 			if (!rs.isBeforeFirst()) {
-				System.out.println("Ma so tk khong ton tai!");
+				System.out.println("Ma Id khong ton tai!");
 				return;
 			}
+			prstmt.close();
+			rs.close();
 //			displayResultSet(rs);
-		prstmt.close();
-		rs.close();
-
+	
 //		String sql2 = "delete from THU where IDBuoiHoc = ?";
 //		PreparedStatement prstmt2 = conn.prepareStatement(sql2);
 //		prstmt2.setString(1, idBuoiHoc);
@@ -198,4 +198,14 @@ public static void ValidationBuoiHoc() {
 	// TODO Auto-generated method stub
 	
 	}
+public void inserIntoDB(BuoiHoc tr) {
+	// TODO Auto-generated method stub
+	
+
+}
+public static void insertBH(BuoiHoc a) {
+	// TODO Auto-generated method stub
+	
+	}
+	
 }

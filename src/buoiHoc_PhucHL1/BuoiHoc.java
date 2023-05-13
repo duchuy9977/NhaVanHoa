@@ -92,4 +92,8 @@ public class BuoiHoc {
 		this.NgayHoc = vali.inputdate("moi ban nhap ngay hoc");
 		this.Status = vali.inputStatus("moi ban nhap trang thai hoat dong");
 		}
+	public void inputInfo() {
+		// TODO Auto-generated method stub
+		
+		}
 	}
