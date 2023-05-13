@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import connection.ConnectionUtil;
@@ -102,7 +103,7 @@ public class MyApp {
 					System.out.println("   2. Quản lý Môn học");
 					System.out.println("   3. Quản lý lớp học");
 					System.out.println("   4. Đăng Thông tin tuyển sinh");
-					System.out.println("   5. Xem tình trạng đơn đăng kí Lớp học");
+					System.out.println("   5. Quản lý đăng kí Lớp học");
 					System.out.println("   6. Thêm buổi học");
 					System.out.println("   7. Thêm mới giáo viên");
 					System.out.println("   8. Tạo mới Account");
@@ -136,7 +137,7 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng Đăng Thông tin tuyển sinh!");
 						break;
 					case "5":
-						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Lớp học!");
+						System.out.println("Bạn đã chọn chức năng Quản lý đơn đăng kí Lớp học!");
 						MenuQuanLyDangKyLop.openMenu();
 						break;
 					case "6":
@@ -198,6 +199,7 @@ public class MyApp {
 					System.out.println("   3. Xem thông tin Tuyển Sinh");
 					System.out.println("   4. Đăng kí lớp học");
 					System.out.println("   5. Xem tình trạng đơn đăng kí");
+					System.out.println("   6. Rút đơn đăng ký");
 					System.out.println("   0. Đăng Xuất");
 					System.out.println("===============================================");
 					System.out.println("  Mời bạn chọn tính năng: ");
@@ -230,6 +232,10 @@ public class MyApp {
 					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
 						DangKyLopHocDao.checkDonDangKy(user);
+						break;
+					case "6":
+						System.out.println("Bạn đã chọn chức năng Rút đơn đăng ký!");
+						DangKyLopHocDao.rutDonDangKy(DangKyLopHocDao.checkDonDangKy(user));
 						break;
 					case "0":
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");

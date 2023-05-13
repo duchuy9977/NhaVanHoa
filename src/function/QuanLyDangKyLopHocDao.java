@@ -300,4 +300,103 @@ public class QuanLyDangKyLopHocDao {
 		}
 		return;
 	}
+
+	public static void thongKeSoLuongHocSinhTheoNam() {
+		System.out.println("Mời nhập năm mà bạn muốn thống kê");
+		int nam = -1;
+		while(true) {
+			try {
+				Scanner sc = new Scanner(System.in);
+				nam = Integer.parseInt(sc.nextLine());
+				break;
+			} catch (NumberFormatException e) {
+				System.out.println("Bạn đã nhập sai kiểu dữ liệu, mời nhập lại!!!");
+				e.getMessage();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Đã có lỗi xảy ra trong lúc nhập năm cần thống kê, mời nhập lại!!!");
+			}
+		}
+		
+		Connection conn = null;
+		PreparedStatement prsPreparedStatement = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT COUNT(DISTINCT(IDTre))as SL, MONTH(NgayDangKy) as thang  FROM DANGKYLOPHOC as dk\r\n"
+				+ "WHERE YEAR(NgayDangKy) = ? AND dk.Status != 'Withdrawn'\r\n"
+				+ "GROUP BY MONTH(NgayDangKy)";
+
+		try {
+			conn = ConnectionUtil.getConnection();
+			prsPreparedStatement = conn.prepareStatement(sql);
+			prsPreparedStatement.setInt(1, nam);
+			rs = prsPreparedStatement.executeQuery();
+
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Không có bản ghi nào ở năm " + nam);
+				return;
+			}
+
+			System.out.println("==============================");
+			System.out.println("| Số lượng học sinh đăng ký  |");
+			System.out.printf("|theo từng tháng của năm %4d|\n", nam);
+			System.out.println("==============================");
+			System.out.println("| Tháng | Số Lượng học sinh  |");
+			System.out.println("==============================");
+			while (rs.next()) {
+				System.out.printf("|%7d|%20d|\n",rs.getInt("thang"),rs.getInt("SL"));
+			}
+			System.out.println("==============================");
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Có Lỗi trong lúc tương tác dữ liệu");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Chọn Trẻ thất bại");
+		} finally {
+			ConnectionUtil.closeConnection(null, prsPreparedStatement, conn);
+		}
+		return;
+	}
+	
+	public static void thongKeSoLuongHocSinhConThieuTheoLop() {
+		Connection conn = null;
+		PreparedStatement prsPreparedStatement = null;
+		ResultSet rs = null;
+
+		String sql = "SELECT lop.IDLop,lop.TenLop, COUNT(IDDangKy) as SLHT, lop.SoLuongHocVienToiDa, (lop.SoLuongHocVienToiDa - COUNT(IDDangKy)) as SL FROM DANGKYLOPHOC as dk\r\n"
+				+ "JOIN LOPNANGKHIEU as lop ON lop.IDLop = dk.IDLop\r\n"
+				+ "WHERE Status = 'Approved'  \r\n"
+				+ "GROUP BY lop.IDLop, lop.SoLuongHocVienToiDa , lop.TenLop";
+
+		try {
+			conn = ConnectionUtil.getConnection();
+			prsPreparedStatement = conn.prepareStatement(sql);
+			rs = prsPreparedStatement.executeQuery();
+
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Không có bản ghi nào để hiển thị!");
+				return;
+			}
+
+			System.out.println("===============================================================");
+			System.out.println("|    -----> Số lượng học viên còn thiếu của mỗi lớp <-----    |");
+			System.out.println("===============================================================");
+			System.out.println("| ID Lớp |      Tên Lớp       | Hiện tại | Tối Đa | Còn Thiếu |");
+			System.out.println("===============================================================");
+			while (rs.next()) {
+				System.out.printf("|%8s|%20s|%10d|%8d|%11d|\n",rs.getString("IDLop"),rs.getString("TenLop"),rs.getInt("SLHT"),rs.getInt("SoLuongHocVienToiDa"),rs.getInt("SL"));
+			}
+			System.out.println("===============================================================");
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Có Lỗi trong lúc tương tác dữ liệu");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Hiển thị thất bại");
+		} finally {
+			ConnectionUtil.closeConnection(null, prsPreparedStatement, conn);
+		}
+		return;
+	}
 }
