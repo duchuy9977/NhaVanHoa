@@ -88,7 +88,7 @@ public class ThongTinTuyenSinh {
 		String idlop;
 		while (true) {
 			idlop = vali.inputIDLop("Nhập ID lớp");
-			if (ThongTinTuyenSinhDao.checkIDLop(idlop)==false) {
+			if (ThongTinTuyenSinhDao.checkIDLop(idlop)==true && ThongTinTuyenSinhDao.checkIDLopTTTS(idlop)==false) {
 				ttts.setIdLop(idlop);
 				break;
 			}

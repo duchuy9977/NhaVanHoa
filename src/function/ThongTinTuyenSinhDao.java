@@ -49,7 +49,7 @@ public class ThongTinTuyenSinhDao {
 		}
 
 		//check ID lớp có tồn tại chưa trong bảng thông tin tuyển sinh
-		public static boolean checkIDLop(String idLop) {
+		public static boolean checkIDLopTTTS(String idLop) {
 			Connection conn = ConnectionUtil.getConnection();
 			PreparedStatement pstm = null;
 			ResultSet res = null;
@@ -85,6 +85,46 @@ public class ThongTinTuyenSinhDao {
 				return false;
 			}
 		}
+		
+		//checkidlop trong bảng lớp
+
+		public static boolean checkIDLop(String idLop) {
+			Connection conn = ConnectionUtil.getConnection();
+			PreparedStatement pstm = null;
+			ResultSet res = null;
+			int row = 0;
+			try {
+				String sql = " SELECT COUNT(*) as soluong from LOPNANGKHIEU WHERE IDLop = ?";
+				pstm = conn.prepareStatement(sql);
+				pstm.setString(1, idLop);
+				res = pstm.executeQuery();
+				res.next();
+				row = res.getInt("soluong");
+
+			} catch (Exception e) {
+				e.fillInStackTrace();
+			} finally {
+				try {
+					if (conn != null) {
+						conn.close();
+					}
+					if (pstm != null) {
+						pstm.close();
+					}
+					if (res != null) {
+						res.close();
+					}
+				} catch (Exception e2) {
+					e2.fillInStackTrace();
+				}
+			}
+			if (row > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 
 		//xóa thông tin tuyển sinh
 		public static void deteleThongTinTuyenSinh(ThongTinTuyenSinh ttts) {
