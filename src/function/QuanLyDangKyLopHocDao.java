@@ -51,7 +51,7 @@ public class QuanLyDangKyLopHocDao {
 		ResultSet rs = null;
 
 		String sql = "SELECT COUNT(IDDangKy) as SL \r\n" + "FROM DANGKYLOPHOC \r\n" + "WHERE \r\n"
-				+ "	Status != 'Approved' AND \r\n" + "	Status != 'Declined'";
+				+ "	Status != 'Approved' AND \r\n" + "	Status != 'Declined' AND Status != 'Withdrawn'";
 
 		try {
 			conn = ConnectionUtil.getConnection();
@@ -84,7 +84,7 @@ public class QuanLyDangKyLopHocDao {
 		ArrayList<String> listIDDangKy = null;
 
 		String sql = "SELECT *\r\n" + "FROM DANGKYLOPHOC \r\n" + "WHERE \r\n" + "	Status != 'Approved' AND \r\n"
-				+ "	Status != 'Declined'";
+				+ "	Status != 'Declined' AND Status != 'Withdrawn'";
 
 		try {
 			conn = ConnectionUtil.getConnection();
@@ -182,7 +182,7 @@ public class QuanLyDangKyLopHocDao {
 				+ "	JOIN ACCOUNT as acc ON acc.Username = ph.Username\r\n"
 				+ "	JOIN LOPNANGKHIEU as lop ON lop.IDLop = dk.IDLop\r\n"
 				+ "	JOIN MONHOC as mh ON lop.IDMonHoc = mh.IDMonHoc\r\n"
-				+ "WHERE dk.Status != 'Approved' AND dk.Status != 'Declined' AND dk.IDDangKy = ?";
+				+ "WHERE dk.Status != 'Approved' AND dk.Status != 'Declined' AND dk.Status != 'Withdrawn' AND dk.IDDangKy = ?";
 
 		try {
 			conn = ConnectionUtil.getConnection();
