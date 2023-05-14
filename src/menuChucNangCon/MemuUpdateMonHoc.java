@@ -23,18 +23,22 @@ public class MemuUpdateMonHoc {
 
 			switch (choice) {
 			case 1:
+				System.out.println("Bạn đã chọn Update toàn bộ dữ liệu.");
 				MonHoc monhoc= new MonHoc();
 				MonHocDao.updateMonHoc(monhoc.updateDataAll());
 				break;
 			case 2:
+				System.out.println("Bạn đã chọn Update Tên của môn học.");
 				MonHoc monhoc1= new MonHoc();
 				MonHocDao.updateTenMonHoc(monhoc1.updateDataTenMH());
 				break;
 			case 3:
+				System.out.println("Bạn đã chọn Update Tiền dạy theo giờ của môn học.");
 				MonHoc monhoc2= new MonHoc();
 				MonHocDao.updateTienDayMoiGioMonHoc(monhoc2.updateDataSoTienMoiBuoiHoc());
 				break;
 			case 4:
+				System.out.println("Bạn đã chọn Update Mô tả của môn học.");
 				MonHoc monhoc3= new MonHoc();
 				MonHocDao.updateMoTaMonHoc(monhoc3.updateDataMota());
 				break;

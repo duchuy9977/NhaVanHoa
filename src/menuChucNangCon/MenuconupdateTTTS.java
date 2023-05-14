@@ -27,19 +27,19 @@ public class MenuconupdateTTTS {
 			
 			switch (choice) {
 			case 1:
-				
+				System.out.println("Bạn đã chọn Update toàn bộ dữ liệu thông qua ID lớp.");
 				ThongTinTuyenSinhDao.updateThongTinTuyenSinhall(ttts1.updateDataAll());
 				break;
 			case 2:
-			
+				System.out.println("Bạn đã chọn Update Tiêu đề.");
 				ThongTinTuyenSinhDao.updateTieuDeThongTinTuyenSinh(ttts1.updateDataTieuDe());
 				break;
 			case 3:
-			
+				System.out.println("Bạn đã chọn Update Nội dung.");
 				ThongTinTuyenSinhDao.updateNoiDungThongTinTuyenSinh(ttts1.updateDataNoiDung());
 				break;
 			case 4:
-				
+				System.out.println("Bạn đã chọn Update Trạng thái.");
 				ThongTinTuyenSinhDao.updateStatusThongTinTuyenSinh(ttts1.updateDataStatus());
 				break;
 			case 5:

@@ -24,13 +24,16 @@ public class MenuMonHoc {
 
 			switch (choice) {
 			case 1:
+				System.out.println("Bạn đã chọn thêm Môn Học.");
 				MonHoc monhoc1 = new MonHoc(); 
 				MonHocDao.insertMonHoc(monhoc1.inputData());
 				break;
 			case 2:
+				System.out.println("Bạn đã chọn xóa Môn Học.");
 				MonHocDao.deteleMoHoc(null);
 				break;
 			case 3:
+				System.out.println("Bạn đã chọn Update thông tin cho Môn học.");
 				MemuUpdateMonHoc menu = new MemuUpdateMonHoc();
 				menu.switchsupdateMonHoc();
 				break;

@@ -15,7 +15,7 @@ public class MenuConTTTS {
 				System.out.println("Mời bạn chọn chức năng:");
 				System.out.println("1. Thêm Thông tín tuyển sinh Vào Cơ Sở Dữ Liệu");
 				System.out.println("2. Xóa Thông tín tuyển sinh khỏi Cơ Sở Dữ Liệu");
-				System.out.println("3. Sửa Dữ Liệu Của Thông tin tuyển sinh");
+				System.out.println("3. Update Dữ Liệu Của Thông tin tuyển sinh");
 				System.out.println("4. Đăng Xuất");
 				System.out.println("===============================================");
 				System.out.println("  Mời bạn chọn tính năng: ");
@@ -24,13 +24,16 @@ public class MenuConTTTS {
 				//		}
 				switch (choice) {
 				case 1:
+					System.out.println("Bạn đã chọn chức năng thêm Thông tin tuyển Sinh");
 					ThongTinTuyenSinh ttts = new ThongTinTuyenSinh(); 
 					ThongTinTuyenSinhDao.insertThongTinTuyenSinh(ttts.inputData());
 					break;
 				case 2:
+					System.out.println("Bạn đã chọn chức năng xóa Thông tin tuyển sinh");
 					ThongTinTuyenSinhDao.deteleThongTinTuyenSinh(null);
 					break;
 				case 3:
+					System.out.println("Bạn đã chọn chức năng Update Thông tin tuyển sinh");
 					MenuconupdateTTTS menu = new MenuconupdateTTTS();
 					menu.switchsupdateThongTinTuyenSinh();
 					break;
