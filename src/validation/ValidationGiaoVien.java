@@ -18,10 +18,10 @@ public class ValidationGiaoVien {
 			String idGiaoVien = input.nextLine();
 			Pattern pattern = Pattern.compile("^GV[0-9]{3,3}$");
 			if (pattern.matcher(idGiaoVien).find()) {
-					return idGiaoVien;
-				}
-				System.out.println("ban nhap sai ma ID Giao Vien, hay nhap lai theo format (GV***)");
-			
+				return idGiaoVien;
+			}
+			System.out.println("ban nhap sai ma ID Giao Vien, hay nhap lai theo format (GV***)");
+
 		} while (true);
 	}
 
@@ -29,12 +29,12 @@ public class ValidationGiaoVien {
 		do {
 			System.out.println(message);
 			String idMonHoc = input.nextLine();
-				Pattern pattern = Pattern.compile("^MH[0-9]{3,3}$");
-				if (pattern.matcher(idMonHoc).find()) {
-					return idMonHoc;
-				}
-				System.out.println("ban nhap sai ma ID Mon HOc, hay nhap lai theo format (MH***)");
-			
+			Pattern pattern = Pattern.compile("^MH[0-9]{3,3}$");
+			if (pattern.matcher(idMonHoc).find()) {
+				return idMonHoc;
+			}
+			System.out.println("ban nhap sai ma ID Mon HOc, hay nhap lai theo format (MH***)");
+
 		} while (true);
 	}
 
@@ -56,12 +56,12 @@ public class ValidationGiaoVien {
 			System.out.println(message);
 			String userName = input.nextLine();
 
-				Pattern pattern = Pattern.compile("^[a-zA-Z_0-9]*$");
-				if (pattern.matcher(userName).find()) {
-					return userName;
-				}
-				System.out.println("ban nhap sai định dang của username, username k chứa ký tự đặc biệt, hay nhap lai");
-			
+			Pattern pattern = Pattern.compile("^[a-zA-Z_0-9]*$");
+			if (pattern.matcher(userName).find()) {
+				return userName;
+			}
+			System.out.println("ban nhap sai định dang của username, username k chứa ký tự đặc biệt, hay nhap lai");
+
 		} while (true);
 	}
 
@@ -77,13 +77,17 @@ public class ValidationGiaoVien {
 			}
 		} while (true);
 	}
-	
+
 	public int inputInt(String message) {
 		do {
 			try {
 				System.out.println(message);
 				int x = Integer.parseInt(input.nextLine());
-				return x;
+				if (x > 0 && x < 13) {
+					return x;
+				} else {
+					System.out.println("tháng nhập vào chỉ nhận giá trị từ 1 đến 12");
+				}
 			} catch (Exception e) {
 				// TODO: handle exception
 				System.out.println("hay nhap lai bang chu so");
@@ -102,7 +106,7 @@ public class ValidationGiaoVien {
 			System.out.println("ban nhap sai, hay nhap lai thon tin dia chi it nhat 2 ky tu!");
 		} while (true);
 	}
-	
+
 	public String inputString(String message) {
 		do {
 			System.out.println(message);
@@ -114,7 +118,6 @@ public class ValidationGiaoVien {
 			System.out.println("ban nhap sai, hay nhap lai chuỗi ký tự it nhat 2 ky tu!");
 		} while (true);
 	}
-
 
 	public String inputSDT(String message) {
 		do {
