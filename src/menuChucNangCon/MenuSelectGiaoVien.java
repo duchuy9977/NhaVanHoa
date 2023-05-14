@@ -57,7 +57,11 @@ public class MenuSelectGiaoVien {
 					break;
 				}
 
-			} catch (Exception e) {
+			} catch (NumberFormatException e) {
+				// TODO: handle exception
+				System.out.println("bạn nhập chưa đúng, vui lòng nhập lại");
+			}
+			catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}

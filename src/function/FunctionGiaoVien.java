@@ -204,7 +204,6 @@ public class FunctionGiaoVien {
 		try {
 			conn = ConnectionUtil.getConnection();
 
-
 			String sql = "Select * from GIAOVIEN where IDGiaoVien = ?";
 			prstmt = conn.prepareStatement(sql);
 			prstmt.setString(1, idGiaoVien);
@@ -218,7 +217,6 @@ public class FunctionGiaoVien {
 //				displayResultSet(rs);
 			System.out.println("IDGiaoVien đã có trong database!");
 			return false;
-
 
 		} catch (SQLException i) {
 			i.printStackTrace();
@@ -378,48 +376,35 @@ public class FunctionGiaoVien {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
 	}
-	
+
 	// Function update SĐT trong bang giao vien
-		public void updateSDT(GiaoVien gv) {
-			Connection conn = null;
-			PreparedStatement prstmt = null;
-			int numberRecords = 0;
-			try {
-				conn = ConnectionUtil.getConnection();
-				String sql = "Update GIAOVIEN set SDT = ? where IDGiaoVien = ?";
-				prstmt = conn.prepareStatement(sql);
-				prstmt.setString(1, gv.getSdt());
-				prstmt.setString(2, gv.getIdGiaoVien());
-				numberRecords = prstmt.executeUpdate();
-				if (numberRecords == 0) {
-					System.out.println("Update SĐT cho giao vien that bai");
-				} else {
-					System.out.println("Update SĐT cho giao vien thành công");
-				}
-
-			} catch (SQLException i) {
-				i.printStackTrace();
+	public void updateSDT(GiaoVien gv) {
+		Connection conn = null;
+		PreparedStatement prstmt = null;
+		int numberRecords = 0;
+		try {
+			conn = ConnectionUtil.getConnection();
+			String sql = "Update GIAOVIEN set SDT = ? where IDGiaoVien = ?";
+			prstmt = conn.prepareStatement(sql);
+			prstmt.setString(1, gv.getSdt());
+			prstmt.setString(2, gv.getIdGiaoVien());
+			numberRecords = prstmt.executeUpdate();
+			if (numberRecords == 0) {
 				System.out.println("Update SĐT cho giao vien that bai");
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Update SĐT cho giao vien that bai");
-			} finally {
-				ConnectionUtil.closeConnection(null, prstmt, conn);
+			} else {
+				System.out.println("Update SĐT cho giao vien thành công");
 			}
+
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Update SĐT cho giao vien that bai");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Update SĐT cho giao vien that bai");
+		} finally {
+			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
-		
-
-		
-		
-
-
-
-
-	
-
-	
-
-	
+	}
 
 	// Function update số năm kinh nghiêm trong bang giao vien
 	public void updateSoNamKinhNghiem(GiaoVien gv) {
@@ -458,7 +443,7 @@ public class FunctionGiaoVien {
 		ResultSet rs = null;
 		try {
 			ValidationGiaoVien validation = new ValidationGiaoVien();
-			int x = validation.inputInt("Vui lòng nhập tháng trong năm 2020 cần sort");
+			int x = validation.inputThang("Vui lòng nhập tháng trong năm 2020 cần sort");
 			conn = ConnectionUtil.getConnection();
 			String sql = "Select top 3 ACCOUNT.Name, LUONG.SoBuoiTrongThang \r\n"
 					+ "from LUONG Join GIAOVIEN on LUONG.IDGiaoVien = GIAOVIEN.IDGiaoVien\r\n"
@@ -496,7 +481,7 @@ public class FunctionGiaoVien {
 		ResultSet rs = null;
 		try {
 			ValidationGiaoVien validation = new ValidationGiaoVien();
-			String x = validation.inputString("Vui lòng nhập mon hoc");
+			String x = validation.inputString("Vui lòng nhập tên môn học");
 			conn = ConnectionUtil.getConnection();
 			String sql = "Select MONHOC.TenMon, ACCOUNT.Name, GIAOVIEN.DiaChi, GIAOVIEN.Email, GIAOVIEN.SDT\r\n"
 					+ "from MONHOC join GIAOVIEN on MONHOC.IDMonHoc = GIAOVIEN.IDMonHoc\r\n"
@@ -572,11 +557,12 @@ public class FunctionGiaoVien {
 		ResultSet rs = null;
 		try {
 			ValidationGiaoVien validation = new ValidationGiaoVien();
-			int x = validation.inputInt("Vui nhập tháng cần thông kê lương");
+			int x = validation.inputThang("Vui nhập tháng cần thông kê lương trong năm 2020");
 			conn = ConnectionUtil.getConnection();
 			String sql = "select GIAOVIEN.IDGiaoVien, ACCOUNT.Name, LUONG.Thang, (LUONG.SoBuoiTrongThang *  GIAOVIEN.LuongMoiBuoiDay) as luongThang\r\n"
 					+ "From LUONG join GIAOVIEN on LUONG.IDGiaoVien = GIAOVIEN.IDGiaoVien\r\n"
-					+ "Join ACCOUNT on GIAOVIEN.Username = ACCOUNT.Username\r\n" + "where LUONG.Thang = ?";
+					+ "Join ACCOUNT on GIAOVIEN.Username = ACCOUNT.Username\r\n"
+					+ "where LUONG.Thang = ? and LUONG.Nam = 2020";
 			prstmt = conn.prepareStatement(sql);
 			prstmt.setInt(1, x);
 			rs = prstmt.executeQuery();
@@ -610,7 +596,7 @@ public class FunctionGiaoVien {
 		ResultSet rs = null;
 		try {
 			ValidationGiaoVien validation = new ValidationGiaoVien();
-//				int x = validation.inputInt("Vui nhập tháng cần thông kê lương");
+//				int x = validation.inputThang("Vui nhập tháng cần thông kê lương");
 			conn = ConnectionUtil.getConnection();
 			String sql = "Select GIAOVIEN.IDGiaoVien, ACCOUNT.Name, LOPNANGKHIEU.TenLop, BUOIHOC.Status\r\n"
 					+ "From ACCOUNT join GIAOVIEN on ACCOUNT.Username = GIAOVIEN.Username\r\n"

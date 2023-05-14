@@ -78,7 +78,7 @@ public class ValidationGiaoVien {
 		} while (true);
 	}
 
-	public int inputInt(String message) {
+	public int inputThang(String message) {
 		do {
 			try {
 				System.out.println(message);

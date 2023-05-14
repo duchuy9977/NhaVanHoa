@@ -83,6 +83,9 @@ public class MenuUpdateGiaoVien {
 					break;
 				}
 
+			} catch (NumberFormatException e) {
+				// TODO: handle exception
+				System.out.println("bạn nhập chưa đúng, vui lòng nhập lại");
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -91,5 +94,5 @@ public class MenuUpdateGiaoVien {
 		System.out.println("Chuong trinh ket thuc");
 		System.out.println("================================== END ===============================================\n");
 	}
-	
+
 }
