@@ -207,5 +207,9 @@ public static void insertBH(BuoiHoc a) {
 	// TODO Auto-generated method stub
 	
 	}
+public void insertBuoiHoc() {
+	// TODO Auto-generated method stub
+	
+}
 	
 }

@@ -204,6 +204,7 @@ public class FunctionGiaoVien {
 		try {
 			conn = ConnectionUtil.getConnection();
 
+
 			String sql = "Select * from GIAOVIEN where IDGiaoVien = ?";
 			prstmt = conn.prepareStatement(sql);
 			prstmt.setString(1, idGiaoVien);
@@ -217,6 +218,7 @@ public class FunctionGiaoVien {
 //				displayResultSet(rs);
 			System.out.println("IDGiaoVien đã có trong database!");
 			return false;
+
 
 		} catch (SQLException i) {
 			i.printStackTrace();
@@ -247,6 +249,7 @@ public class FunctionGiaoVien {
 				System.out.println("Update mã id môn học that bai1");
 			} else {
 				System.out.println("Update mã id môn học thành công");
+
 			}
 
 		} catch (SQLException i) {
@@ -375,35 +378,48 @@ public class FunctionGiaoVien {
 			ConnectionUtil.closeConnection(null, prstmt, conn);
 		}
 	}
-
+	
 	// Function update SĐT trong bang giao vien
-	public void updateSDT(GiaoVien gv) {
-		Connection conn = null;
-		PreparedStatement prstmt = null;
-		int numberRecords = 0;
-		try {
-			conn = ConnectionUtil.getConnection();
-			String sql = "Update GIAOVIEN set SDT = ? where IDGiaoVien = ?";
-			prstmt = conn.prepareStatement(sql);
-			prstmt.setString(1, gv.getSdt());
-			prstmt.setString(2, gv.getIdGiaoVien());
-			numberRecords = prstmt.executeUpdate();
-			if (numberRecords == 0) {
-				System.out.println("Update SĐT cho giao vien that bai");
-			} else {
-				System.out.println("Update SĐT cho giao vien thành công");
-			}
+		public void updateSDT(GiaoVien gv) {
+			Connection conn = null;
+			PreparedStatement prstmt = null;
+			int numberRecords = 0;
+			try {
+				conn = ConnectionUtil.getConnection();
+				String sql = "Update GIAOVIEN set SDT = ? where IDGiaoVien = ?";
+				prstmt = conn.prepareStatement(sql);
+				prstmt.setString(1, gv.getSdt());
+				prstmt.setString(2, gv.getIdGiaoVien());
+				numberRecords = prstmt.executeUpdate();
+				if (numberRecords == 0) {
+					System.out.println("Update SĐT cho giao vien that bai");
+				} else {
+					System.out.println("Update SĐT cho giao vien thành công");
+				}
 
-		} catch (SQLException i) {
-			i.printStackTrace();
-			System.out.println("Update SĐT cho giao vien that bai");
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Update SĐT cho giao vien that bai");
-		} finally {
-			ConnectionUtil.closeConnection(null, prstmt, conn);
+			} catch (SQLException i) {
+				i.printStackTrace();
+				System.out.println("Update SĐT cho giao vien that bai");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Update SĐT cho giao vien that bai");
+			} finally {
+				ConnectionUtil.closeConnection(null, prstmt, conn);
+			}
 		}
-	}
+		
+
+		
+		
+
+
+
+
+	
+
+	
+
+	
 
 	// Function update số năm kinh nghiêm trong bang giao vien
 	public void updateSoNamKinhNghiem(GiaoVien gv) {

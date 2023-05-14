@@ -4,23 +4,30 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import buoiHoc_PhucHL1.BuoiHocManager;
+
 import connection.ConnectionUtil;
 import entities.Account;
 import entities.GiaoVien;
 import function.FunctionAccount;
 import function.FunctionGiaoVien;
+import menuChucNangCon.MenuConSeachLuong;
+import menuChucNangCon.MenuConTTTS;
+import menuChucNangCon.MenuMonHoc;
 import menuChucNangCon.MenuPhuHuynh;
+
+import menuChucNangCon.MenuQuanLyDangKyLop;
 import menuChucNangCon.MenuSelectGiaoVien;
 import menuChucNangCon.MenuUpdateGiaoVien;
+import menuChucNangCon.MenuconupdateTTTS;
 import validation.ValidationAccount;
 import validation.ValidationGiaoVien;
 import simple.Simple;
+import treEm.TreEmDao;
 //import function.Manage;
 import treEm.TreEmManager;
+import function.DangKyLopHocDao;
 import function.FuncitionLopNangKhieu;
 
 public class MyApp {
@@ -72,6 +79,7 @@ public class MyApp {
 		FunctionGiaoVien functionGV = new FunctionGiaoVien();
 		FunctionAccount functionAcc = new FunctionAccount();
 		MenuUpdateGiaoVien menuUpdateGV = new MenuUpdateGiaoVien();
+
 		MenuSelectGiaoVien menuSelectGV = new MenuSelectGiaoVien();
 		while (true) {
 
@@ -96,8 +104,13 @@ public class MyApp {
 					System.out.println("   3. Quản lý lớp học");
 					System.out.println("   4. Đăng Thông tin tuyển sinh");
 					System.out.println("   5. Xem tình trạng đơn đăng kí Lớp học");
+
 					System.out.println("   6. Quản lý buổi học");
 					System.out.println("   7. Thêm mới giáo viên");
+
+					System.out.println("   6. Thêm buổi học");
+					System.out.println("   7. Thêm mới giáo viên");
+
 					System.out.println("   8. Tạo mới Account");
 					System.out.println("   9. xoá thông tin giáo viên.");
 					System.out.println("  10. Update thông tin giáo viên.");
@@ -114,6 +127,8 @@ public class MyApp {
 						System.out.println("Bạn đã chọn chức năng cập nhật thông tin các nhân!");
 						break;
 					case "2":
+						MenuMonHoc menu1 = new MenuMonHoc();
+						menu1.switchsMonHoc();
 						System.out.println("Bạn đã chọn chức năng Quản lý Môn học!");
 						break;
 					case "3":
@@ -122,9 +137,13 @@ public class MyApp {
 						break;
 					case "4":
 						System.out.println("Bạn đã chọn chức năng Đăng Thông tin tuyển sinh!");
+						MenuConTTTS menu2 = new MenuConTTTS();
+						menu2.switchsThongTinTuyenSinh();
+						System.out.println("Bạn đã chọn chức năng Đăng Thông tin tuyển sinh!");
 						break;
 					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí Lớp học!");
+						MenuQuanLyDangKyLop.openMenu();
 						break;
 					case "6":
 						System.out.println("Bạn đã chọn chức năng Quản lý buổi học");
@@ -159,6 +178,7 @@ public class MyApp {
 					case "11":
 						MenuPhuHuynh.quanLyPhuHuynh();
 						break;
+
 					case "12":
 						System.out.println("Bạn đã chọn chức năng select thông tin giáo viên theo điều kiện!");
 						menuSelectGV.menuSelect();
@@ -201,16 +221,22 @@ public class MyApp {
 
 						break;
 					case "3":
+						MenuConSeachLuong menuchau = new MenuConSeachLuong();
+						menuchau.timkiemTTTS();
 						System.out.println("Bạn đã chọn chức năng Xem thông tin Tuyển Sinh!");
 						break;
 					case "4":
 						System.out.println("Bạn đã chọn chức năng Đăng kí lớp học!");
-						
-						Simple sim1 = new Simple();
-						sim1.dangkihoc();
+
+						//Đầu tiên check xem phụ huynh đó đã có user chưa, nếu có trẻ thì mới chạy vào trong if
+						if(TreEmDao.checkTablePhuHuynhCoTre(user)) {
+							Simple sim1 = new Simple();
+							sim1.dangkihoc(user);
+						}						
 						break;
 					case "5":
 						System.out.println("Bạn đã chọn chức năng Xem tình trạng đơn đăng kí!");
+						DangKyLopHocDao.checkDonDangKy(user);
 						break;
 					case "0":
 						System.out.println("Bạn đã chọn Đăng xuất khỏi chương trình!!!");

@@ -24,6 +24,7 @@ public class validate {
 		System.out.println(message);
 		do {
 			String idmonhoc = sc.nextLine();	
+
 			Pattern x = Pattern.compile("^MH[0-9]{3}$");
 			if (x.matcher(idmonhoc).find()) {
 				return idmonhoc;
@@ -66,6 +67,16 @@ public class validate {
 				// TODO: handle exception
 			}
 		} while (true);
+	}
+
+	public String abc() {
+		while (true) {
+			System.out.println("moi ban nhap cot can update");
+			String x=sc.nextLine();
+			if(x.equals("TenLop") || x.equals("IDMonHoc")|| x.equals("SoBuoi") || x.equals("NgayKhaiGiang") || x.equals("NgayKetThuc") ||x.equals("NgayBatDau")) {
+				return x ;
+			}System.out.println("moi ban nhap lai");
+		}
 	}
 
 

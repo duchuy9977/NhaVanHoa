@@ -403,15 +403,22 @@ public class TreEmDao {
 		}
 		return true;
 	}
+
 	
 	//Code chủ tịch
-	public boolean checkTablePhuHuynhCoTre(String idPhuHuynh) {
+	public static boolean checkTablePhuHuynhCoTre(String userName) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			con = ConnectionUtil.getConnection();
-			ps = con.prepareStatement("select * from TREEM WHERE IDPhuHuynh = ?");
+			ps = con.prepareStatement("SELECT ACCOUNT.Username FROM TREEM\r\n"
+					+ "JOIN PHUHUYNH \r\n"
+					+ "ON TREEM.IDPhuHuynh = PHUHUYNH.IDPhuHuynh\r\n"
+					+ "JOIN ACCOUNT\r\n"
+					+ "ON PHUHUYNH.Username = ACCOUNT.Username\r\n"
+					+ "WHERE ACCOUNT.Username = ?");
+			ps.setString(1, userName);
 			rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) {
 				System.out.println("Hiện chưa có thông tin trẻ em nào. Xin hãy nhập thông tin trẻ em trước.");

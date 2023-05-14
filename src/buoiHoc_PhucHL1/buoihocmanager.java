@@ -24,27 +24,27 @@ public class buoihocmanager {
 
 				switch (choice) {
 				case 1:
-					System.out.println("Thêm thông tin buổi học");
-					BuoiHocDao.();
+					System.out.println("Thêm thông tin Id Buổi học");
+					BuoiHocDao.updateBuoiHoc();
 					break;
 				case 2:
-					System.out.println("Bạn đã chọn chức năng Liệt kê thông tin giáo viên theo từng môn học!");
+					System.out.println("Cập nhật thêm Buổi học");
 					BuoiHocDao.updateBuoiHoc();
 					break;
 
 				case 3:
-					System.out.println("Bạn đã chọn chức năng Tìm và hiển thị các giáo viên cùng địa chỉ");
-					functionGV.searchInfoGVByDiaChi();
+					System.out.println("Hiển thị khung giờ giáo viên đăng ký nhiều nhất trong buổi học");
+					BuoiHocDao.insertBuoiHoc();
 					break;
 
 				case 4:
-					System.out.println("Bạn đã chọn chức năng Liệt kê các giáo viên đã có lớp dạy");
-					functionGV.listGVDaCoLopDay();
+					System.out.println("Thời gian đăng ký buổi học và trạng thái");
+					BuoiHocDao.insertBuoiHoc();
 					break;
-				case 5:
-					System.out.println("Bạn đã chọn chức năng Thống kê lương của các giáo viên nhận được trong tháng");
-					functionGV.monthlySalaryStatistics();
-					break;
+//				case 5:
+//					System.out.println("Bạn đã chọn chức năng Thống kê lương của các giáo viên nhận được trong tháng");
+//					functionBH.monthlySalaryStatistics();
+//					break;
 
 				case 6:
 					System.out.println("Bạn đã chọn thoát khỏi chương trình!");
