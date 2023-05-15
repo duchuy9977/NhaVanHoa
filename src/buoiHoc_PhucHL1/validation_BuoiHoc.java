@@ -76,8 +76,7 @@ public static Scanner input = new Scanner(System.in);
 			return TGianHoc();
 			}
 			System.out.println("Nhập TgianHoc có dạng xxhxx - xxhxx");	
-	} while (true);
-	
+	} while (true);	
 }
 	public String inputPhongHoc(String message) {
 		do {
