@@ -161,22 +161,11 @@ public class QuanLyDangKyLopHocDao {
 		Connection conn = null;
 		PreparedStatement prsPreparedStatement = null;
 		ResultSet rs = null;
-		String sql = "SELECT \r\n"
-				+ "	tre.TenTre,\r\n"
-				+ "	tre.GioiTinh, \r\n"
-				+ "	tre.NgaySinh, \r\n"
-				+ "	tre.TruongDangHoc, \r\n"
-				+ "	acc.Name, \r\n"
-				+ "	ph.DiaChi,\r\n"
-				+ "	ph.Email, \r\n"
-				+ "	ph.SDT1, \r\n"
-				+ "	lop.TenLop, \r\n"
-				+ "	lop.IDLop,\r\n"
-				+ "	lop.SoBuoi, \r\n"
-				+ "	lop.NgayBatDau, \r\n"
-				+ "	lop.NgayKetThuc,\r\n"
-				+ "	DATEDIFF(YEAR, tre.NgaySinh, GETDATE()) as tuoi\r\n"
-				+ "FROM DANGKYLOPHOC as dk\r\n"
+		String sql = "SELECT \r\n" + "	tre.TenTre,\r\n" + "	tre.GioiTinh, \r\n" + "	tre.NgaySinh, \r\n"
+				+ "	tre.TruongDangHoc, \r\n" + "	acc.Name, \r\n" + "	ph.DiaChi,\r\n" + "	ph.Email, \r\n"
+				+ "	ph.SDT1, \r\n" + "	lop.TenLop, \r\n" + "	lop.IDLop,\r\n" + "	lop.SoBuoi, \r\n"
+				+ "	lop.NgayBatDau, \r\n" + "	lop.NgayKetThuc,\r\n"
+				+ "	DATEDIFF(YEAR, tre.NgaySinh, GETDATE()) as tuoi\r\n" + "FROM DANGKYLOPHOC as dk\r\n"
 				+ "	JOIN TREEM as tre ON dk.IDTre = tre.IDTre\r\n"
 				+ "	JOIN PHUHUYNH as ph ON ph.IDPhuHuynh = tre.IDPhuHuynh\r\n"
 				+ "	JOIN ACCOUNT as acc ON acc.Username = ph.Username\r\n"
@@ -225,7 +214,7 @@ public class QuanLyDangKyLopHocDao {
 				System.out.println("|     Mời bạn nhập lựa chọn: ");
 				System.out.println("===========================================================================");
 			}
-			
+
 			int idDon = 0;
 			try {
 				idDon = Integer.parseInt(idDonDangKy);
@@ -235,7 +224,7 @@ public class QuanLyDangKyLopHocDao {
 				System.out.println("Lỗi");
 				return;
 			}
-			
+
 			while (true) {
 				String choice = sc.nextLine(); // Chọn môn đăng ký
 				switch (choice) {
@@ -253,7 +242,6 @@ public class QuanLyDangKyLopHocDao {
 				}
 				break;
 			}
-
 
 		} catch (SQLException i) {
 			i.printStackTrace();
@@ -304,7 +292,7 @@ public class QuanLyDangKyLopHocDao {
 	public static void thongKeSoLuongHocSinhTheoNam() {
 		System.out.println("Mời nhập năm mà bạn muốn thống kê");
 		int nam = -1;
-		while(true) {
+		while (true) {
 			try {
 				Scanner sc = new Scanner(System.in);
 				nam = Integer.parseInt(sc.nextLine());
@@ -317,14 +305,13 @@ public class QuanLyDangKyLopHocDao {
 				System.out.println("Đã có lỗi xảy ra trong lúc nhập năm cần thống kê, mời nhập lại!!!");
 			}
 		}
-		
+
 		Connection conn = null;
 		PreparedStatement prsPreparedStatement = null;
 		ResultSet rs = null;
 
 		String sql = "SELECT COUNT(DISTINCT(IDTre))as SL, MONTH(NgayDangKy) as thang  FROM DANGKYLOPHOC as dk\r\n"
-				+ "WHERE YEAR(NgayDangKy) = ? AND dk.Status != 'Withdrawn'\r\n"
-				+ "GROUP BY MONTH(NgayDangKy)";
+				+ "WHERE YEAR(NgayDangKy) = ? AND dk.Status != 'Withdrawn'\r\n" + "GROUP BY MONTH(NgayDangKy)";
 
 		try {
 			conn = ConnectionUtil.getConnection();
@@ -344,7 +331,7 @@ public class QuanLyDangKyLopHocDao {
 			System.out.println("| Tháng | Số Lượng học sinh  |");
 			System.out.println("==============================");
 			while (rs.next()) {
-				System.out.printf("|%7d|%20d|\n",rs.getInt("thang"),rs.getInt("SL"));
+				System.out.printf("|%7d|%20d|\n", rs.getInt("thang"), rs.getInt("SL"));
 			}
 			System.out.println("==============================");
 		} catch (SQLException i) {
@@ -358,15 +345,14 @@ public class QuanLyDangKyLopHocDao {
 		}
 		return;
 	}
-	
+
 	public static void thongKeSoLuongHocSinhConThieuTheoLop() {
 		Connection conn = null;
 		PreparedStatement prsPreparedStatement = null;
 		ResultSet rs = null;
 
 		String sql = "SELECT lop.IDLop,lop.TenLop, COUNT(IDDangKy) as SLHT, lop.SoLuongHocVienToiDa, (lop.SoLuongHocVienToiDa - COUNT(IDDangKy)) as SL FROM DANGKYLOPHOC as dk\r\n"
-				+ "JOIN LOPNANGKHIEU as lop ON lop.IDLop = dk.IDLop\r\n"
-				+ "WHERE Status = 'Approved'  \r\n"
+				+ "JOIN LOPNANGKHIEU as lop ON lop.IDLop = dk.IDLop\r\n" + "WHERE Status = 'Approved'  \r\n"
 				+ "GROUP BY lop.IDLop, lop.SoLuongHocVienToiDa , lop.TenLop";
 
 		try {
@@ -385,9 +371,75 @@ public class QuanLyDangKyLopHocDao {
 			System.out.println("| ID Lớp |      Tên Lớp       | Hiện tại | Tối Đa | Còn Thiếu |");
 			System.out.println("===============================================================");
 			while (rs.next()) {
-				System.out.printf("|%8s|%20s|%10d|%8d|%11d|\n",rs.getString("IDLop"),rs.getString("TenLop"),rs.getInt("SLHT"),rs.getInt("SoLuongHocVienToiDa"),rs.getInt("SL"));
+				System.out.printf("|%8s|%20s|%10d|%8d|%11d|\n", rs.getString("IDLop"), rs.getString("TenLop"),
+						rs.getInt("SLHT"), rs.getInt("SoLuongHocVienToiDa"), rs.getInt("SL"));
 			}
 			System.out.println("===============================================================");
+		} catch (SQLException i) {
+			i.printStackTrace();
+			System.out.println("Có Lỗi trong lúc tương tác dữ liệu");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Hiển thị thất bại");
+		} finally {
+			ConnectionUtil.closeConnection(null, prsPreparedStatement, conn);
+		}
+		return;
+	}
+
+	public static void timDon() {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement prsPreparedStatement = null;
+		ResultSet rs = null;
+		String sql = "SELECT \r\n" + "	dk.IDDangKy,\r\n" + "	tre.IDTre,\r\n" + "	tre.TenTre,\r\n"
+				+ "	tre.GioiTinh, \r\n" + "	tre.NgaySinh, \r\n" + "	tre.TruongDangHoc, \r\n" + "	acc.Name, \r\n"
+				+ "	ph.DiaChi,\r\n" + "	ph.Email, \r\n" + "	ph.SDT1, \r\n" + "	lop.TenLop, \r\n" + "	lop.IDLop,\r\n"
+				+ "	lop.SoBuoi, \r\n" + "	lop.NgayBatDau, \r\n" + "	lop.NgayKetThuc,\r\n" + "	mh.TenMon,\r\n"
+				+ "	DATEDIFF(YEAR, tre.NgaySinh, GETDATE()) as tuoi,\r\n" + "	dk.Status\r\n"
+				+ "FROM DANGKYLOPHOC as dk\r\n" + "	JOIN TREEM as tre ON dk.IDTre = tre.IDTre\r\n"
+				+ "	JOIN PHUHUYNH as ph ON ph.IDPhuHuynh = tre.IDPhuHuynh\r\n"
+				+ "	JOIN ACCOUNT as acc ON acc.Username = ph.Username\r\n"
+				+ "	JOIN LOPNANGKHIEU as lop ON lop.IDLop = dk.IDLop\r\n"
+				+ "	JOIN MONHOC as mh ON lop.IDMonHoc = mh.IDMonHoc\r\n"
+				+ "WHERE dk.Status != 'Approved' AND dk.Status != 'Declined' AND (tre.TenTre LIKE ?)";
+
+		try {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Mời bạn nhập giá trị cần tìm: ");
+			String search = sc.nextLine();
+
+			conn = ConnectionUtil.getConnection();
+			prsPreparedStatement = conn.prepareStatement(sql);
+			prsPreparedStatement.setString(1, "%" + search + "%");
+			rs = prsPreparedStatement.executeQuery();
+
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Hiện không có đơn giống với dữ liệu nhập vào");
+				return;
+			}
+
+			
+			while (rs.next()) {
+				System.out.println("Các Đơn " + rs.getString("TenTre"));
+			}
+
+//			while (true) {
+//				String choice = sc.nextLine(); // Chọn môn đăng ký
+//				switch (choice) {
+//				case "y":
+//				case "Y":
+//					QuanLyDangKyLopHocDao.updateStatusDonDangKy("Approved", idDon);
+//					break;
+//				case "n":
+//				case "N":
+//					QuanLyDangKyLopHocDao.updateStatusDonDangKy("Declined", idDon);
+//					break;
+//				default:
+//					QuanLyDangKyLopHocDao.updateStatusDonDangKy("Pending", idDon);
+//					break;
+//				}
+//				break;
 		} catch (SQLException i) {
 			i.printStackTrace();
 			System.out.println("Có Lỗi trong lúc tương tác dữ liệu");
