@@ -104,15 +104,12 @@ public class MyApp {
 					System.out.println("   2. Quản lý Môn học");
 					System.out.println("   3. Quản lý lớp học");
 					System.out.println("   4. Đăng Thông tin tuyển sinh");
-<<<<<<< HEAD
-					System.out.println("   5. Quản lý đăng kí Lớp học");
-=======
+
 					System.out.println("   5. Xem tình trạng đơn đăng kí Lớp học");
 
 					System.out.println("   6. Quản lý buổi học");
 					System.out.println("   7. Thêm mới giáo viên");
 
->>>>>>> branch 'master' of https://github.com/duchuy9977/NhaVanHoa
 					System.out.println("   6. Thêm buổi học");
 					System.out.println("   7. Thêm mới giáo viên");
 
